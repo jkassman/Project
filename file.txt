@@ -27,4 +27,5 @@ void funcB()
   1 + 2;
   //continue forwards
   //man this is a complicated function
+ //harg a blarg a blarg
 }
