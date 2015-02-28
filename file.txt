@@ -6,7 +6,18 @@ int main()
 
 void funcA()
 {
- //This is the superior function
+/*
+
+look here's a novel and stuff
+because texts
+and words
+the end.
+maze.
+*/
+ //This is the insuperior function
+	//I can't believe how much worse it is
+	//it doesn't even have math
+	//what a plebian
 }
 
 void funcB()
