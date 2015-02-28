@@ -11,5 +11,9 @@ void funcA()
 
 void funcB()
 {
- //Hey what the hell is function A doing?
+ //Hey what the hecfire and brimstone is function A doing?
+	//I'm adding more text here for no good reason
+  1 + 2;
+  //continue forwards
+  //man this is a complicated function
 }
