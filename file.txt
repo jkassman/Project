@@ -14,7 +14,7 @@ and words
 the end.
 maze.
 */
- //This is the insuperior function
+ //This is the superior function!!!!111!1!!
 	//I can't believe how much worse it is
 	//it doesn't even have math
 	//what a plebian
