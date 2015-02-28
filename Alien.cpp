@@ -1,12 +1,16 @@
 #include "Alien.h"
 #include <string>
 #include <sstream>
+#include <iostream>
 
 //Displays a message and gets input. Only cares about the first character entered.
 int Alien::getTraitInput()
 {
     char checkChar;
     char second;
+
+    cout << "Do you want to use Lasers, Shields, Diplomacy, Trickery, " <<endl;
+    cout << "Speed, Navigation, Bravery, or Caution? "; 
     while (1)
     {
     	checkChar = toupper(firstCharEntered(&second));
@@ -36,6 +40,7 @@ int Alien::getTraitInput()
 	    case 'C':
 		return 8;
 	}
+	cout << "Invalid input. Please try again" << endl;
     }
 }
 
