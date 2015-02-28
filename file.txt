@@ -1,0 +1,15 @@
+int main()
+{
+ funcA();
+ funcB();
+}
+
+void funcA()
+{
+ //trolololol
+}
+
+void funcB()
+{
+ //Hey what the hell is function A doing?
+}
