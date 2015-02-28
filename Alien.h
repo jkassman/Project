@@ -6,7 +6,7 @@
 class Alien {
     public:
 	Alien();
-	int getInput();
+	int getTraitInput();
 	bool challenge(int alienTrait, int playerTrait);
 	bool decideGood(int input, int encounter);
 	virtual void startEncounter(&Player) =0;
