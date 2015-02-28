@@ -27,11 +27,4 @@ void funcB()
   1 + 2;
   //continue forwards
   //man this is a complicated function
- //harg a blarg a blarg
-}
-
-void dragunity()
-{
-	cout<<"This is the best deck."<<endl;
-	cout<<"Lol we forgot to #include iostream"<<endl;
 }
