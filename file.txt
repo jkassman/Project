@@ -6,7 +6,7 @@ int main()
 
 void funcA()
 {
- //trololololololololololol
+ //This is the superior function
 }
 
 void funcB()
