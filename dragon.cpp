@@ -18,6 +18,10 @@ Dragon::Dragon()
 	trait.push_back(6+rand()%5-2);	// Navigation
 	trait.push_back(8+rand()%5-2);	// Bravery
 	trait.push_back(4+rand()%5-2);	// Caution
+
+	encounter[0] = 1; //Threaten
+	encounter[1] = 5; //Race
+	hostility = 3; //Just to initialize it, I forgot what we decided on hostility randomness.
 }
 
 int Dragon::startencounter()
