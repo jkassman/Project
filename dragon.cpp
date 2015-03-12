@@ -1,8 +1,10 @@
 #include<iostream>
-#include "dragon.h"
 #include <time.h>
 #include <cstdlib>
 #include<vector>
+#include "Dragon.h"
+#include "Alien.h"
+
 using namespace std;
 
 Dragon::Dragon()
@@ -24,11 +26,6 @@ Dragon::Dragon()
 	hostility = 3; //Just to initialize it, I forgot what we decided on hostility randomness.
 }
 
-int Dragon::startencounter()
-{
-
-}
-
 void Dragon::displaystats()
 {
 	cout<<"Laser: \t\t"<<trait[1]<<endl;
@@ -39,4 +36,9 @@ void Dragon::displaystats()
 	cout<<"Navigation: \t"<<trait[6]<<endl;
 	cout<<"Bravery: \t"<<trait[7]<<endl;
 	cout<<"Caution: \t"<<trait[8]<<endl;
+}
+
+//displays text for each encounter the dragon can be in, specific to the dragon.
+void Dragon::displayEncounter(int encoutner) {
+	//nothing yet
 }

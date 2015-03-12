@@ -4,8 +4,8 @@
 class Player {
  public:
   Player();
+  void upgradeAtt();
   void updateStats(int input, bool win);
-  void updateAtt();
   int getTrait(int select);
  private:
   int trait[8];

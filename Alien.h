@@ -6,9 +6,11 @@
 class Alien {
     public:
 	Alien();
-	virtual void displayEncounterText(int encounter) =0;
+	virtual void displayEncounter(int encounter) =0;
 	void updateStats(int input, bool win);
-	bool hostilityRole();	
+	bool hostilityRole();
+	int getEncounter(int select);
+	int getTrait(int select);
 
     protected:
 	int trait[9];

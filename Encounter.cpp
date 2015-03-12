@@ -1,8 +1,13 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <time.h>
+#include <cstdlib>
 #include "Player.h"
 #include "Alien.h"
+#include "Encounter.h"
+
+using namespace std;
 
 //Displays a message and gets input. Only cares about the first character entered.
 int Encounter::getTraitInput()
@@ -19,29 +24,37 @@ int Encounter::getTraitInput()
 	switch (checkChar)
 	{
 	    case 'L':
+		cout << "Lasers!" << endl;
 		return 1;
 	    case 'S':
 		if (second == 'H')
 		{
+		    cout << "Shields!" << endl;
 		    return 2;
 		}
 		else if (second == 'P')
 		{
+		    cout << "Speed!" << endl;
 		    return 5;
 		}
 		else break;
 	    case 'T':
+		cout << "Trickery!" << endl;
 		return 3;
 	    case 'D':
+		cout << "Diplomacy!" << endl;
 		return 4;
 	    case 'N':
+		cout << "Navigation!" << endl;
 		return 6;
 	    case 'B':
+		cout << "Bravery!" << endl;
 		return 7;
 	    case 'C':
+		cout << "Caution!" << endl;
 		return 8;
 	}
-	cout << "Invalid input. Please try again" << endl;
+	cout << "Invalid input. Please try again: ";
     }
 }
 
@@ -70,12 +83,14 @@ char Encounter::firstCharEntered(char* second)
 //TRUE means player won, false means player lost
 bool Encounter::challenge(int alienTrait, int playerTrait) {
   //nothing yet
+  return true;
 }
 
 //Decides if the chosen trait works in the given encounter.
 //For example: Using diplomacy when a golem tries to rob you isn't going to help
 bool Encounter::decideGood(int input, int encounter) {
   //nothing yet
+  return true;
 }
 
 //main encounter logic. Displays text, get's the user's response, determines the
@@ -83,14 +98,14 @@ bool Encounter::decideGood(int input, int encounter) {
 void Encounter::start(Alien* myAlien, Player* captain) {
   int encounter, input;
   bool win;
-  encounter = myAlien->encounter[rand()%2];
+  encounter = myAlien->getEncounter(rand()%2);
   if (myAlien->hostilityRole()) {
     encounter = 0; //fight
   }
-  Alien->displayEncounter(encounter);
+  myAlien->displayEncounter(encounter);
   input = getTraitInput();
-  if (decideGood(input)) {
-    if (challenge(myAlien->trait[input], captain->getTrait(input))) {
+  if (decideGood(input, encounter)) {
+    if (challenge(myAlien->getTrait(input), captain->getTrait(input))) {
       win = true;
     } else {
       win = false;

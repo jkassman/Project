@@ -17,7 +17,7 @@ void Player::updateStats(int input, bool win) {
 }
 
 //The waiting stage in between encounters.
-void Player::updateAtt() {
+void Player::upgradeAtt() {
   //nothing yet
 }
 
