@@ -39,6 +39,17 @@ void Dragon::displaystats()
 }
 
 //displays text for each encounter the dragon can be in, specific to the dragon.
-void Dragon::displayEncounter(int encoutner) {
-	//nothing yet
+void Dragon::displayEncounter(int encounter) {
+	//very simple version:
+  switch (encounter) {
+  case 0: //Attack
+    cout << "A Dragon attacks you!" << endl;
+    break;
+  case 1: //Threaten
+    cout << "A Dragon threatens you!" << endl;
+    break;
+  case 5: //Race
+    cout << "A Dragon wants to race you!" << endl;
+    break;
+  }
 }

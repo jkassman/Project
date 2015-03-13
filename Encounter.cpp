@@ -67,7 +67,7 @@ char Encounter::firstCharEntered(char* second)
   int i = 0;
   int whiteSpace = 0;
 
-  getline(cin,input);
+  cin >> input;
   while (input[i] != '\0')
     {
       i++;
@@ -180,5 +180,16 @@ void Encounter::start(Alien* myAlien, Player* captain) {
   }
   captain->updateStats(input, win);
   myAlien->updateStats(encounter, input, win);
+  displayResult(win);
+}
+
+//displays a message letting the user know how the encounter went
+void Encounter::displayResult(bool win) {
+  //very simple
+  if (win) {
+    cout << "You won the encounter!" << endl;
+  } else {
+    cout << "You lost the encounter!" << endl;
+  }
 }
 
