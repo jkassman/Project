@@ -15,14 +15,14 @@ Alien::Alien() {
 //Also, hostility is changed (NOTE: Should this be separate function?)
 void Alien::updateStats(int encounterType, int whichTrait, bool win) {
   switch (encounterType){
-    case 0; //Fight
+    case 0: //Fight
       switch (whichTrait){
-        case 1; //Laser
+        case 1: //Laser
 	  if (win){
 	    trait[1]++;
 	  }
           break;
-        case 5; //Speed
+        case 5: //Speed
 	  if (win){
 	    trait[5]++;
 	  }
@@ -30,39 +30,39 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
 	    hostility--;
 	  }
           break;
-        case 2; //Shield
+        case 2: //Shield
 	  if (win){
 	    trait[2]++;
 	    hostility--;
 	  }
           break;
-        case 6; //Navigation
+        case 6: //Navigation
 	  if (win){
 	    trait[6]++;
 	    hostility--;
 	  }
           break;
       }
-    case 1; //Threaten
+    case 1: //Threaten
       switch (whichTrait){
-        case 1; //Laser
+        case 1: //Laser
 	  if (win){
 	    trait[1]++;
 	    hostility--;
 	  }
           break;
-        case 5; //Speed
+        case 5: //Speed
 	  if (win){
 	    trait[5]++;
 	  }
           break;
-        case 7; //Bravery
+        case 7: //Bravery
 	  if (win){
 	    trait[7]++;
 	    hostility--;
 	  }
           break;
-        case 3; //Trickery
+        case 3: //Trickery
 	  if (win){
 	    trait[3]++;
 	    hostility++;
@@ -72,20 +72,20 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
 	  }
           break;
       }
-    case 2; //Rob
+    case 2: //Rob
       switch (whichTrait){
-        case 1; //Laser
+        case 1: //Laser
 	  if (win){
 	    trait[1]++;
 	    hostility--;
 	  }
           break;
-        case 5; //Speed
+        case 5: //Speed
 	  if (win){
 	    trait[5]++;
 	  }
           break;
-        case 2; //Shield
+        case 2: //Shield
 	  if (win){
 	    trait[2]++;
 	  }
@@ -93,7 +93,7 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
 	    hostility++;
 	  }
           break;
-        case 8; //Caution
+        case 8: //Caution
 	  if (win){
 	    trait[8]++;
 	  }
@@ -102,9 +102,9 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
 	  }
           break;
       }
-    case 3; //Story
+    case 3: //Story
       switch (whichTrait){
-        case 1; //Laser
+        case 1: //Laser
 	  if (win){
 	    trait[1]++;
 	    hostility++;
@@ -113,12 +113,12 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
 	    hostility++;
 	  }
           break;
-        case 5; //Speed
+        case 5: //Speed
 	  if (win){
 	    trait[5]++;
 	  }
           break;
-        case 4; //Diplomacy
+        case 4: //Diplomacy
 	  if (win){
 	    trait[4]++;
 	    hostility--;
@@ -127,15 +127,15 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
 	    hostility++;
 	  }
           break;
-        case 8; //Caution
+        case 8: //Caution
 	  if (win){
 	    trait[8]++;
 	  }
           break;
       }
-    case 4; //Trade
+    case 4: //Trade
       switch (whichTrait){
-        case 1; //Laser
+        case 1: //Laser
 	  if (win){
 	    trait[1]++;
 	    hostility++;
@@ -144,18 +144,18 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
 	    hostility++;
 	  }
           break;
-        case 5; //Speed
+        case 5: //Speed
 	  if (win){
 	    trait[5]++;
 	  }
           break;
-        case 4; //Diplomacy
+        case 4: //Diplomacy
 	  if (win){
 	    trait[4]++;
 	    hostility--;
 	  }
           break;
-        case 3; //Trick
+        case 3: //Trick
 	  if (win){
 	    trait[3]++;
 	    hostility++;
@@ -165,9 +165,9 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
 	  }
           break;
       }
-    case 5; //Race
+    case 5: //Race
       switch (whichTrait){
-        case 1; //Laser
+        case 1: //Laser
 	  if (win){
 	    trait[1]++;
 	    hostility++;
@@ -176,19 +176,19 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
 	    hostility++;
 	  }
           break;
-        case 5; //Speed
+        case 5: //Speed
 	  if (win){
 	    trait[5]++;
 	    hostility--;
 	  }
           break;
-        case 6; //Navigation
+        case 6: //Navigation
 	  if (win){
 	    trait[6]++;
 	    hostility--;
 	  }
           break;
-        case 7; //Bravery
+        case 7: //Bravery
 	  if (win){
 	    trait[7]++;
 	  }
