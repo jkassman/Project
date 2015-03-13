@@ -20,6 +20,8 @@ class Player {
     int getAttribute(int);
     void setTrait(int, int);
     void setAttribute(int, int);
+    void upgradeAtt(); //does nothing yet
+    void updateStats(int input, bool win); //does nothing yet
     void upgradeSanity();
     void upgradeEngines();
     void upgradeIntel();
