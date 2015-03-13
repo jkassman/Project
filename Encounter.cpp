@@ -82,9 +82,16 @@ char Encounter::firstCharEntered(char* second)
 //Decides the outcome of the encounter.
 //TRUE means player won, false means player lost
 bool Encounter::challenge(int alienTrait, int playerTrait) {
-  //create a random number from 0 to player/alienTrait.
-  int modAlien = rand() % alienTrait;
-  int modPlayer = rand() % playerTrait;
+  //if you have 0 in any trait, instantly lose.
+  if (alienTrait <= 0) {
+    return true;
+  } else if (playerTrait <=0) {
+    return false;
+  }
+
+  //create a random number from 0 to max of player/alienTrait.
+  int modAlien = rand() % max(alienTrait, playerTrait);
+  int modPlayer = rand() % max(alienTrait, playerTrait);
 
   if ((playerTrait + modPlayer) >= (alienTrait + modAlien)) {
     return true;
