@@ -79,18 +79,75 @@ char Encounter::firstCharEntered(char* second)
   return input[whiteSpace];
 }
 
-//decides the outcome of the encounter.
+//Decides the outcome of the encounter.
 //TRUE means player won, false means player lost
 bool Encounter::challenge(int alienTrait, int playerTrait) {
-  //nothing yet
-  return true;
+  //create a random number from 0 to player/alienTrait.
+  int modAlien = rand() % alienTrait;
+  int modPlayer = rand() % playerTrait;
+
+  if ((playerTrait + modPlayer) >= (alienTrait + modAlien)) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 //Decides if the chosen trait works in the given encounter.
 //For example: Using diplomacy when a golem tries to rob you isn't going to help
 bool Encounter::decideGood(int input, int encounter) {
-  //nothing yet
-  return true;
+  if (input >= 1 && input <= 8 && encounter >= 0 && encounter <= 5) {
+    //nothing, good.
+  } else {
+    cout << "This shouldn't happen, but invalid input was passed to decideGood" << endl;
+  }
+  switch (encounter) {
+  case 0: //Fight
+    //	power 	      shields 	    navigation 	  speed
+    if (input == 1 || input == 2 || input == 6 || input == 5) {
+      return true;
+    } else {
+      break;
+    }
+  case 1: //Threaten
+    //	power 	      bravery	    trickery	  speed
+    if (input == 1 || input == 7 || input == 3 || input == 5) {
+      return true;
+    } else {
+      break;
+    }
+  case 2: //Rob
+    //	power 	      shields	    caution	  speed
+    if (input == 1 || input == 2 || input == 8 || input == 5) {
+      return true;
+    } else {
+      break;
+    }
+  case 3: //Story
+    //	power 	      diplomacy	    caution	  speed
+    if (input == 1 || input == 4 || input == 8 || input == 5) {
+      return true;
+    } else {
+      break;
+    }
+  case 4: //Trade
+    //	power 	      diplomacy	    trickery	  speed
+    if (input == 1 || input == 4 || input == 3 || input == 5) {
+      return true;
+    } else {
+      break;
+    }
+  case 5: //Race
+    //	power 	      navigation    bravery	  speed
+    if (input == 1 || input == 6 || input == 7 || input == 5) {
+      return true;
+    } else {
+      break;
+    }
+  }
+  //it only gets here if it doesn't return true, so the person chose wrong.
+  cout << "You have chosen...poorly..." << endl;
+  return false;
 }
 
 //main encounter logic. Displays text, get's the user's response, determines the
@@ -114,6 +171,6 @@ void Encounter::start(Alien* myAlien, Player* captain) {
     win = false;
   }
   captain->updateStats(input, win);
-  myAlien->updateStats(input, win);
+  myAlien->updateStats(encounter, input, win);
 }
 
