@@ -178,6 +178,6 @@ void Encounter::start(Alien* myAlien, Player* captain) {
     win = false;
   }
   captain->updateStats(input, win);
-  myAlien->updateStats(input, win);
+  myAlien->updateStats(encounter, input, win);
 }
 
