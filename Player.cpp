@@ -95,7 +95,7 @@ void Player::upgradeEnergy() {
   int raise, NewEner;
   cout << "You fiddle with the power and shield systems aboard the ship." << endl;
   cout << "These adjustments will definitely help in the long run." << endl << endl;
-  rais = rand() % 4 + 1;
+  raise = rand() % 4 + 1;
   NewEner = Attributes[0] + raise;
   cout << "Your energy level has increased " << raise << "points!" << endl;
   cout << "You total energy level is" << NewEner << "." << endl;
