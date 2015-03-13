@@ -27,20 +27,28 @@ Player::Player() {
 
 void Player::printAttributes() {
   int m;
-  for (m = 0; m < Attributes.size()-1; m++) {
+  for (m = 0; m < (int) Attributes.size()-1; m++) {
     cout << Attributes[m] << " ";
   }
 }
 
 void Player::printTraits() {
   int m;
-  for (m = 0; m < Traits.size()-1; m++) {
+  for (m = 0; m < (int) Traits.size()-1; m++) {
     cout << Traits[m] << " ";
   }
 }
 
 int Player::getAttribute(int n) {
    return Attributes[n-1];
+}
+
+void Player::updateStats(int input, bool win) {
+   //nothing yet
+}
+
+void Player::upgradeAtt() {
+   //nothing yet
 }
 
 int Player::getTrait(int n) {
@@ -95,7 +103,7 @@ void Player::upgradeEnergy() {
   int raise, NewEner;
   cout << "You fiddle with the power and shield systems aboard the ship." << endl;
   cout << "These adjustments will definitely help in the long run." << endl << endl;
-  rais = rand() % 4 + 1;
+  raise = rand() % 4 + 1;
   NewEner = Attributes[0] + raise;
   cout << "Your energy level has increased " << raise << "points!" << endl;
   cout << "You total energy level is" << NewEner << "." << endl;
