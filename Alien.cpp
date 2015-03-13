@@ -1,18 +1,200 @@
 #include <iostream>
+#include <time.h>
+#include <cstdlib>
 #include "Alien.h"
 #include "Player.h"
 
 using namespace std;
 
 Alien::Alien() {
-  //Not sure why this is needed?
+  srand(time(NULL)); //Not sure why this is needed?
 }
 
 //updates the alien's stats based on the result of the encounter.
-//if the alien lost (win is false), alien gains a point in the corresponding trait. 
+//if the alien lost (win is true), alien gains a point in the corresponding trait. 
 //Also, hostility is changed (NOTE: Should this be separate function?)
-void Alien::updateStats(int input, bool win) {
-  //nothing yet
+void Alien::updateStats(int encounterType, int whichTrait, bool win) {
+  switch (encounterType){
+    case 0; //Fight
+      switch (whichTrait){
+        case 1; //Laser
+	  if (win){
+	    trait[1]++;
+	  }
+          break;
+        case 5; //Speed
+	  if (win){
+	    trait[5]++;
+	  }
+	  else{
+	    hostility--;
+	  }
+          break;
+        case 2; //Shield
+	  if (win){
+	    trait[2]++;
+	    hostility--;
+	  }
+          break;
+        case 6; //Navigation
+	  if (win){
+	    trait[6]++;
+	    hostility--;
+	  }
+          break;
+      }
+    case 1; //Threaten
+      switch (whichTrait){
+        case 1; //Laser
+	  if (win){
+	    trait[1]++;
+	    hostility--;
+	  }
+          break;
+        case 5; //Speed
+	  if (win){
+	    trait[5]++;
+	  }
+          break;
+        case 7; //Bravery
+	  if (win){
+	    trait[7]++;
+	    hostility--;
+	  }
+          break;
+        case 3; //Trickery
+	  if (win){
+	    trait[3]++;
+	    hostility++;
+	  }
+	  else{
+	    hostility++;
+	  }
+          break;
+      }
+    case 2; //Rob
+      switch (whichTrait){
+        case 1; //Laser
+	  if (win){
+	    trait[1]++;
+	    hostility--;
+	  }
+          break;
+        case 5; //Speed
+	  if (win){
+	    trait[5]++;
+	  }
+          break;
+        case 2; //Shield
+	  if (win){
+	    trait[2]++;
+	  }
+	  else{
+	    hostility++;
+	  }
+          break;
+        case 8; //Caution
+	  if (win){
+	    trait[8]++;
+	  }
+	  else{
+	    hostility++;
+	  }
+          break;
+      }
+    case 3; //Story
+      switch (whichTrait){
+        case 1; //Laser
+	  if (win){
+	    trait[1]++;
+	    hostility++;
+	  }
+	  else{
+	    hostility++;
+	  }
+          break;
+        case 5; //Speed
+	  if (win){
+	    trait[5]++;
+	  }
+          break;
+        case 4; //Diplomacy
+	  if (win){
+	    trait[4]++;
+	    hostility--;
+	  }
+	  else{
+	    hostility++;
+	  }
+          break;
+        case 8; //Caution
+	  if (win){
+	    trait[8]++;
+	  }
+          break;
+      }
+    case 4; //Trade
+      switch (whichTrait){
+        case 1; //Laser
+	  if (win){
+	    trait[1]++;
+	    hostility++;
+	  }
+	  else{
+	    hostility++;
+	  }
+          break;
+        case 5; //Speed
+	  if (win){
+	    trait[5]++;
+	  }
+          break;
+        case 4; //Diplomacy
+	  if (win){
+	    trait[4]++;
+	    hostility--;
+	  }
+          break;
+        case 3; //Trick
+	  if (win){
+	    trait[3]++;
+	    hostility++;
+	  }
+	  else{
+	    hostility++;
+	  }
+          break;
+      }
+    case 5; //Race
+      switch (whichTrait){
+        case 1; //Laser
+	  if (win){
+	    trait[1]++;
+	    hostility++;
+	  }
+	  else{
+	    hostility++;
+	  }
+          break;
+        case 5; //Speed
+	  if (win){
+	    trait[5]++;
+	    hostility--;
+	  }
+          break;
+        case 6; //Navigation
+	  if (win){
+	    trait[6]++;
+	    hostility--;
+	  }
+          break;
+        case 7; //Bravery
+	  if (win){
+	    trait[7]++;
+	  }
+          break;
+      }
+  }
 }
 
 //virtual function; each alien class will override it with their own fancy
@@ -23,7 +205,11 @@ void Alien::updateStats(int input, bool win) {
 
 //Decides if the alien will attack. True = attack.
 bool Alien::hostilityRole() {
-  //nothing yet
+  if (hostility > 6){ //if the alien is hostile
+    if (rand()%10 < 9){ //it will attack you 9 times out of 10
+    return true;
+    }
+  }
   return false;
 }
 
