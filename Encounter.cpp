@@ -104,14 +104,14 @@ bool Encounter::decideGood(int input, int encounter) {
   switch (encounter) {
   case 0: //Fight
     //	power 	      shields 	    navigation 	  speed
-    if (input == 1 || input == 2 || input == 6 || input == 5) {
+    if (input == 1 || input == 2 || input == 6 || (input == 5)) {
       return true;
     } else {
       break;
     }
   case 1: //Threaten
     //	power 	      bravery	    trickery	  speed
-    if (input == 1 || input == 7 || input == 3 || input == 5) {
+    if (input == 1 || input == 7 || input == 3 || (input == 5)) {
       return true;
     } else {
       break;
