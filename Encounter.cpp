@@ -3,6 +3,7 @@
 #include <iostream>
 #include <time.h>
 #include <cstdlib>
+#include <algorithm>
 #include "Player.h"
 #include "Alien.h"
 #include "Encounter.h"
