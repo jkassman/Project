@@ -43,16 +43,69 @@ int Player::getAttribute(int n) {
    return Attributes[n-1];
 }
 
-//Based on which input was used and whether you won, update traits/attributes.
-//If you win: +1 trait, -1 opposite trait
-//if you lose: -randomish number in that attribute
-void Player::updateStats(int input, bool win) {
-   //nothing yet
-}
-
-//The waiting stage in between encounters.
 void Player::upgradeAtt() {
-   //nothing yet
+  int num = 42;
+  char choice;
+   while(num != 4) {
+   cout << "Which of your stats would you like to upgrade?" << endl;
+   cout << "Press S for Sanity, Press G for Engines, I for Intelligence, E for Energy, or Q to quit." << endl;
+   cin >> choice;
+   switch (choice) {
+    case 'S':
+      upgradeSanity();
+      break;
+    case 'G':
+      upgradeEngines();
+      break;
+    case 'I':
+      upgradeIntel();
+      break;
+    case 'E':
+      upgradeEnergy();
+      break;
+    case 'Q':
+      num = 4;
+      break;
+    default:
+       cout << "Please enter something else." << endl;
+    }
+   if(num == 4) {
+     num = 4;
+     break;
+   }
+   num = rand() % 4 + 1;
+   cout << endl << "Num " << num << endl;
+  }
+}
+  
+void Player::updateStats(int TraitUsed, bool win) { //True if Player wins
+  int NewTrait, NewCompTrait;
+  if(win) {
+     NewTrait = Traits[TraitUsed-1] + 1;
+     Traits[TraitUsed-1] = NewTrait;
+     cout << "Trait that should be +1" << NewTrait << endl;
+     if(TraitUsed % 2) {
+       NewCompTrait = Traits[TraitUsed]--;
+       Traits[TraitUsed] = NewCompTrait;
+     }else{
+       NewCompTrait = Traits[TraitUsed-2]--;
+       Traits[TraitUsed-2] = NewCompTrait;  
+     }
+  }else{
+       if(TraitUsed == 1 || TraitUsed == 2) {
+          Attributes[0]--;
+          Traits[7]++;
+       }if(TraitUsed == 3 || TraitUsed == 4) {
+          Attributes[1]--;
+          Traits[7]++;
+       }if(TraitUsed == 5 || TraitUsed == 6) {
+          Attributes[2]--;
+          Traits[7]++;
+       }if(TraitUsed == 7 || TraitUsed == 8) {
+          Attributes[3]--;
+          Traits[7]++;
+    }   
+  }
 }
 
 int Player::getTrait(int n) {
