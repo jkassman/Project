@@ -13,12 +13,13 @@ int main() {
   bool quit = false;
   while (!quit) {
     captain.upgradeAtt();
-    switch (rand()% 5) {
+    myEncounter.start(alienDragon, &captain); //only Dragon encounters
+    /*switch (rand()% 5) {
     case 0:
       myEncounter.start( alienDragon, &captain);
       break;
     default:
       cout << "Not coded, come back later!" << endl;
-    }
+    }*/
   }
 }

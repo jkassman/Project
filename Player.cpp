@@ -50,6 +50,7 @@ void Player::upgradeAtt() {
    cout << "Which of your stats would you like to upgrade?" << endl;
    cout << "Press S for Sanity, Press G for Engines, I for Intelligence, E for Energy, or Q to quit." << endl;
    cin >> choice;
+   cout << endl;
    switch (choice) {
     case 'S':
       upgradeSanity();
@@ -74,7 +75,6 @@ void Player::upgradeAtt() {
      break;
    }
    num = rand() % 4 + 1;
-   cout << endl << "Num " << num << endl;
   }
 }
   
