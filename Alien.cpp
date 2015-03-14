@@ -228,7 +228,7 @@ int Alien::getTrait(int select) {
 }
 
 void Alien::displayTraits() {
-	cout<<"Displaying Alien Traits"<<endl;
+	cout<<"DEBUGGING Alien Traits"<<endl;
   int m;
   for (m = 0; m < (int) trait.size(); m++) {
     cout << trait[m] << " ";

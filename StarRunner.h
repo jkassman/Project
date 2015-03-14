@@ -1,14 +1,14 @@
-#ifndef DRAGON_H
-#define DRAGON_H
+#ifndef STARRUNNER_H
+#define STARRUNNER_H
 
 #include <vector>
 #include "Alien.h"
 using namespace std;
 
-class Dragon : public Alien
+class StarRunner : public Alien
 {
 	public:
-	  Dragon();
+	  StarRunner();
 	  void displayEncounter(int);
 	private: 
 };

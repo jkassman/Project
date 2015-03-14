@@ -96,8 +96,8 @@ bool Encounter::challenge(int alienTrait, int playerTrait) {
   //create a random number from 0 to max of player/alienTrait.
   int modAlien = rand() % max(alienTrait, playerTrait);
   int modPlayer = rand() % max(alienTrait, playerTrait);
-	cout<<"ALIEN: "<<alienTrait<<" PLAYER: "<<playerTrait<<endl;
-	cout<<"MODALIEN: "<<modAlien<<" MODPLAYER: "<<modPlayer<<endl;
+	////cout<<"ALIEN: "<<alienTrait<<" PLAYER: "<<playerTrait<<endl;
+	////cout<<"MODALIEN: "<<modAlien<<" MODPLAYER: "<<modPlayer<<endl;
 
   if ((playerTrait + modPlayer) >= (alienTrait + modAlien)) {
     return true;

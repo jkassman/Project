@@ -1,17 +1,18 @@
 Chris Maheu
-7:00pm-9:30pm CST  March 13, 2015
-Looked over work done by others previously
-Fixed text spacing in Energy training
-Fixed update stats text spacing after successful encounter
-When upgrading attributes, now changes input to uppercase
-Fixed: Bug: Seems to always lose bravery challenge
-Debug mode added. When training or encountering, enter ? to dislay stats
-Fixed: Garbage values for alien stats (removed dragon.cpp traits vector)
-Player and alien traits: 1-8 player attr: 0-3
-Now correctly adds attribute to trait before challenge
+12:00AM-2:30AM CST
 
+Fixed quit.
+Always does 1-6 training sessions before encounter
+Negative starting player traits
+Added Golem, Star Runner, Scribe, Smuggler
 
 To do:
-Fix quit
-Change number of turns till encounter to have max value
-Add other races
+Add quit option during encounter
+Have displayResult depend on encounter type.
+Change text after training to hide numbers.
+Balance trait growth: player gets stronger much faster than aliens
+
+
+
+
+

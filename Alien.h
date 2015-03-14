@@ -7,7 +7,7 @@
 class Alien {
     public:
 	Alien();
-	virtual void displayEncounter(int encounter) =0; //defined in each alien
+	virtual void displayEncounter(int) =0; //defined in each alien
 	void updateStats(int encounterType, int whichTrait, bool win); //not coded
 	bool hostilityRole();
 	int getEncounter(int select);
