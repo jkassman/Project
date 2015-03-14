@@ -1,5 +1,4 @@
-Chris Maheu
-12:00AM-2:30AM CST
+Chris Maheu March 14,2015 12:00AM-2:30AM CST
 
 Fixed quit.
 Always does 1-6 training sessions before encounter
