@@ -12,14 +12,14 @@ Dragon::Dragon()
 	srand(time(NULL));
 	trait.push_back(0); 	// Store dummy in 0
 
-	trait.push_back(10+rand()%5-2);	// Shield
 	trait.push_back(8+rand()%5-2);	// Laser
+	trait.push_back(10+rand()%5-2);	// Shield
 	trait.push_back(6+rand()%5-2);	// Diplomacy
 	trait.push_back(4+rand()%5-2);	// Trick
-	trait.push_back(6+rand()%5-2);	// Navigation
 	trait.push_back(9+rand()%5-2);	// Speed
-	trait.push_back(4+rand()%5-2);	// Caution
+	trait.push_back(6+rand()%5-2);	// Navigation
 	trait.push_back(8+rand()%5-2);	// Bravery
+	trait.push_back(4+rand()%5-2);	// Caution
 
 	encounter[0] = 1; //Threaten
 	encounter[1] = 5; //Race
@@ -53,3 +53,4 @@ void Dragon::displayEncounter(int encounter) {
     break;
   }
 }
+

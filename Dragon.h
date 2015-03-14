@@ -12,8 +12,9 @@ class Dragon : public Alien
 	  int startencounter();
 	  void displaystats();
 	  virtual void displayEncounter(int encounter);
+	  //virtual void displayTraits();
 	private: 
-	  vector <int> trait;	// Temporary. Will be in base class
+	 // vector <int> trait;	// Temporary. Will be in base class
 };
 
 #endif

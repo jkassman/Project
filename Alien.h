@@ -1,6 +1,7 @@
 #ifndef ALIEN_H
 #define ALIEN_H
 
+#include<vector>
 #include "Player.h"
 
 class Alien {
@@ -11,9 +12,10 @@ class Alien {
 	bool hostilityRole();
 	int getEncounter(int select);
 	int getTrait(int select);
+	void displayTraits();
 
     protected:
-	int trait[9];
+	vector <int> trait;
 	int encounter[2];
 	int hostility;
 };

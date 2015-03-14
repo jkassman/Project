@@ -26,6 +26,7 @@ class Player {
     void upgradeEngines();
     void upgradeIntel();
     void upgradeEnergy();
+    void debug();		// Used for coder to see stat values. Remove from final version
 
   private:
     vector <int> Traits;
