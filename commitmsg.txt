@@ -1,0 +1,17 @@
+Chris Maheu March 14,2015 12:00AM-2:30AM CST
+
+Fixed quit.
+Always does 1-6 training sessions before encounter
+Negative starting player traits
+Added Golem, Star Runner, Scribe, Smuggler
+
+To do:
+Add quit option during encounter
+Have displayResult depend on encounter type.
+Change text after training to hide numbers.
+Balance trait growth: player gets stronger much faster than aliens
+
+
+
+
+

@@ -1,14 +1,14 @@
-#ifndef DRAGON_H
-#define DRAGON_H
+#ifndef SMUGGLER_H
+#define SMUGGLER_H
 
 #include <vector>
 #include "Alien.h"
 using namespace std;
 
-class Dragon : public Alien
+class Smuggler : public Alien
 {
 	public:
-	  Dragon();
+	  Smuggler();
 	  void displayEncounter(int);
 	private: 
 };

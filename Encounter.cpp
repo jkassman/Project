@@ -3,6 +3,7 @@
 #include <iostream>
 #include <time.h>
 #include <cstdlib>
+#include <algorithm>
 #include "Player.h"
 #include "Alien.h"
 #include "Encounter.h"
@@ -53,6 +54,9 @@ int Encounter::getTraitInput()
 	    case 'C':
 		cout << "Caution!" << endl;
 		return 8;
+	    case '?':
+		cout << "Debugging!" << endl;
+		return 9;
 	}
 	cout << "Invalid input. Please try again: ";
     }
@@ -66,7 +70,7 @@ char Encounter::firstCharEntered(char* second)
   int i = 0;
   int whiteSpace = 0;
 
-  getline(cin,input);
+  cin >> input;
   while (input[i] != '\0')
     {
       i++;
@@ -92,6 +96,8 @@ bool Encounter::challenge(int alienTrait, int playerTrait) {
   //create a random number from 0 to max of player/alienTrait.
   int modAlien = rand() % max(alienTrait, playerTrait);
   int modPlayer = rand() % max(alienTrait, playerTrait);
+	////cout<<"ALIEN: "<<alienTrait<<" PLAYER: "<<playerTrait<<endl;
+	////cout<<"MODALIEN: "<<modAlien<<" MODPLAYER: "<<modPlayer<<endl;
 
   if ((playerTrait + modPlayer) >= (alienTrait + modAlien)) {
     return true;
@@ -168,8 +174,16 @@ void Encounter::start(Alien* myAlien, Player* captain) {
   }
   myAlien->displayEncounter(encounter);
   input = getTraitInput();
+	////////// Debugging
+	if (input==9) {	
+	myAlien->displayTraits();
+	start(myAlien,captain);
+	}else{
+	////////// 
+	
   if (decideGood(input, encounter)) {
-    if (challenge(myAlien->getTrait(input), captain->getTrait(input))) {
+	int playersum=captain->getTrait(input) + captain->getAttribute((input-1)/2);
+    if (challenge(myAlien->getTrait(input), playersum)) {
       win = true;
     } else {
       win = false;
@@ -179,5 +193,19 @@ void Encounter::start(Alien* myAlien, Player* captain) {
   }
   captain->updateStats(input, win);
   myAlien->updateStats(encounter, input, win);
+  displayResult(win);
+	////////// 
+	}
+	////////// 
+}
+
+//displays a message letting the user know how the encounter went
+void Encounter::displayResult(bool win) {
+  //very simple
+  if (win) {
+    cout << "You won the encounter!" << endl;
+  } else {
+    cout << "You lost the encounter!" << endl;
+  }
 }
 

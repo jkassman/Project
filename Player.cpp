@@ -15,14 +15,18 @@ using namespace std;
 
 Player::Player() {
   srand(time(NULL));
+  int val;
+ // Set Attributes: 0 = Energy, 1 = Intelligence, 2 = Engines, 3 = Sanity
   for(int i = 0; i <= 4; i++) {
     Attributes.push_back(6);
-   }
- // Attributes: 0 = Energy, 1 = Intelligence, 2 = Engines, 3 = Sanity
-  for(int j = 0; j < 9; j++) {
-    Traits.push_back(rand() % 3 + 1);
   }
-
+ // Set Traits:  1=laser, 2=shield, 3=diplo, 4=trick, 5=speed, 6=nav, 7=brav, 8=caution
+    Traits.push_back(0);	// First spot dummy
+  for(int j = 1; j < 8; j+=2) {
+    val=rand() % 7 - 3;
+    Traits.push_back(val);
+    Traits.push_back(val*-1);
+  }
 }
 
 void Player::printAttributes() {
@@ -34,24 +38,25 @@ void Player::printAttributes() {
 
 void Player::printTraits() {
   int m;
-  for (m = 0; m < (int) Traits.size()-1; m++) {
+  for (m = 1; m < (int) Traits.size(); m+=2) {
     cout << Traits[m] << " ";
+    cout << Traits[m+1] << " | ";
   }
 }
 
 int Player::getAttribute(int n) {
-   return Attributes[n-1];
+   return Attributes[n];
 }
 
-void Player::upgradeAtt() {
-  int num = 42;
+int Player::upgradeAtt() {
+  int num = rand()% 6 + 1; //	Randomly does 1 to 6 upgrades before encounter
   char choice;
-   while(num != 4) {
+   for(int i=0;i<num;i++) {
    cout << "Which of your stats would you like to upgrade?" << endl;
    cout << "Press S for Sanity, Press G for Engines, I for Intelligence, E for Energy, or Q to quit." << endl;
    cin >> choice;
    cout << endl;
-   switch (choice) {
+   switch (toupper(choice)) {
     case 'S':
       upgradeSanity();
       break;
@@ -65,51 +70,55 @@ void Player::upgradeAtt() {
       upgradeEnergy();
       break;
     case 'Q':
-      num = 4;
+      return 1;		// User quit
+      break;
+    case '?':
+      debug();
+      i--;
       break;
     default:
-       cout << "Please enter something else." << endl;
+      cout << "Please enter something else." << endl;
+      i--;
+      break;
     }
-   if(num == 4) {
-     num = 4;
-     break;
-   }
-   num = rand() % 4 + 1;
   }
+  return 0;		// Go to encounter
 }
   
 void Player::updateStats(int TraitUsed, bool win) { //True if Player wins
-  int NewTrait, NewCompTrait;
+  int NewTrait;
   if(win) {
-     NewTrait = Traits[TraitUsed-1] + 1;
-     Traits[TraitUsed-1] = NewTrait;
-     cout << "Trait that should be +1" << NewTrait << endl;
-     if(TraitUsed % 2) {
-       NewCompTrait = Traits[TraitUsed]--;
-       Traits[TraitUsed] = NewCompTrait;
+     NewTrait = Traits[TraitUsed] + 1;	// Increase winning trait by 1
+     Traits[TraitUsed] = NewTrait;
+    //// cout << "Trait that should be +1: " << NewTrait << endl;
+     if(TraitUsed % 2) {	// if traitused is odd
+       Traits[TraitUsed+1]--;	// Decrease corresponding trait
      }else{
-       NewCompTrait = Traits[TraitUsed-2]--;
-       Traits[TraitUsed-2] = NewCompTrait;  
+       Traits[TraitUsed-1]--; 	// Decrease corresponding trait
      }
   }else{
        if(TraitUsed == 1 || TraitUsed == 2) {
-          Attributes[0]--;
-          Traits[7]++;
+          Attributes[0]--;	// Decrease attribute used
+          Traits[8]++;		// Increase caution
+          Traits[7]--;		// Decrease bravery
        }if(TraitUsed == 3 || TraitUsed == 4) {
-          Attributes[1]--;
-          Traits[7]++;
+          Attributes[1]--;	// Decrease attribute used
+          Traits[8]++;		// Increase caution
+          Traits[7]--;		// Decrease bravery
        }if(TraitUsed == 5 || TraitUsed == 6) {
-          Attributes[2]--;
-          Traits[7]++;
+          Attributes[2]--;	// Decrease attribute used
+          Traits[8]++;		// Increase caution
+          Traits[7]--;		// Decrease bravery
        }if(TraitUsed == 7 || TraitUsed == 8) {
-          Attributes[3]--;
-          Traits[7]++;
-    }   
+          Attributes[3]--;	// Decrease attribute used
+          Traits[8]++;		// Increase caution
+          Traits[7]--;		// Decrease bravery
+       }   
   }
 }
 
 int Player::getTrait(int n) {
-   return Traits[n-1];
+   return Traits[n];
 }
 
 void Player::setAttribute(int pos, int value) {
@@ -162,8 +171,16 @@ void Player::upgradeEnergy() {
   cout << "These adjustments will definitely help in the long run." << endl << endl;
   raise = rand() % 4 + 1;
   NewEner = Attributes[0] + raise;
-  cout << "Your energy level has increased " << raise << "points!" << endl;
-  cout << "You total energy level is" << NewEner << "." << endl;
+  cout << "Your energy level has increased " << raise << " points!" << endl;
+  cout << "You total energy level is " << NewEner << "." << endl;
   Attributes[0] = NewEner;
+}
+
+void Player::debug() {
+	cout<<"DEBUGGING"<<endl;
+	printAttributes();
+	cout<<endl;
+	printTraits();
+	cout<<endl;
 }
    

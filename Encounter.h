@@ -11,6 +11,7 @@ class Encounter {
   bool decideGood(int input, int encounter); //not coded
   void start(Alien*, Player*);
   char firstCharEntered(char* second);
+  void displayResult(bool win);
 };
 
 #endif

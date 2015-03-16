@@ -226,3 +226,13 @@ int Alien::getEncounter(int select) {
 int Alien::getTrait(int select) {
   return trait[select]; //Add input (select) checking!
 }
+
+void Alien::displayTraits() {
+	cout<<"DEBUGGING Alien Traits"<<endl;
+  int m;
+  for (m = 0; m < (int) trait.size(); m++) {
+    cout << trait[m] << " ";
+  }
+	cout<<endl;	
+}
+
