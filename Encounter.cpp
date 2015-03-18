@@ -169,7 +169,6 @@ bool Encounter::decideGood(int input, int encounter) {
 void Encounter::start(Alien* myAlien, Player* captain) {
   int encounter, input;
   bool win;
-  resetScreen(captain);
   encounter = myAlien->getEncounter(rand()%2);
   if (myAlien->hostilityRole()) {
     encounter = 0; //fight

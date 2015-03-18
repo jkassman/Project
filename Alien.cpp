@@ -236,3 +236,9 @@ void Alien::displayTraits() {
 	cout<<endl;	
 }
 
+void Alien::incrTrait() {
+	displayTraits();
+	trait[rand()%8+1]++;
+	displayTraits();
+}
+
