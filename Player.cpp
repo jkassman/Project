@@ -10,6 +10,7 @@
 #include <ctime>
 #include <cstdlib>
 #include "Player.h"
+#include "Encounter.h"
 
 using namespace std;
 
@@ -49,7 +50,8 @@ int Player::getAttribute(int n) {
 }
 
 int Player::upgradeAtt() {
-  int num = rand()% 6 + 1; //	Randomly does 1 to 6 upgrades before encounter
+  Encounter screen; //I'm not sure this is the best way to do this.
+  int num = rand()% 4 + 2; //	Randomly does 2 to 4 upgrades before encounter
   char choice;
    for(int i=0;i<num;i++) {
    cout << "Which of your stats would you like to upgrade?" << endl;
@@ -81,6 +83,7 @@ int Player::upgradeAtt() {
       i--;
       break;
     }
+   screen.resetScreen(this);
   }
   return 0;		// Go to encounter
 }

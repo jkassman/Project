@@ -4,6 +4,8 @@
 #include <time.h>
 #include <cstdlib>
 #include <algorithm>
+#include <unistd.h>
+#include <iomanip>
 #include "Player.h"
 #include "Alien.h"
 #include "Encounter.h"
@@ -159,7 +161,6 @@ bool Encounter::decideGood(int input, int encounter) {
     }
   }
   //it only gets here if it doesn't return true, so the person chose wrong.
-  cout << "You have chosen...poorly..." << endl;
   return false;
 }
 
@@ -168,6 +169,7 @@ bool Encounter::decideGood(int input, int encounter) {
 void Encounter::start(Alien* myAlien, Player* captain) {
   int encounter, input;
   bool win;
+  resetScreen(captain);
   encounter = myAlien->getEncounter(rand()%2);
   if (myAlien->hostilityRole()) {
     encounter = 0; //fight
@@ -175,12 +177,11 @@ void Encounter::start(Alien* myAlien, Player* captain) {
   myAlien->displayEncounter(encounter);
   input = getTraitInput();
 	////////// Debugging
-	if (input==9) {	
-	myAlien->displayTraits();
-	start(myAlien,captain);
-	}else{
+	while(input==9) {	
+	  myAlien->displayTraits();
+	  input = getTraitInput();
+	}
 	////////// 
-	
   if (decideGood(input, encounter)) {
 	int playersum=captain->getTrait(input) + captain->getAttribute((input-1)/2);
     if (challenge(myAlien->getTrait(input), playersum)) {
@@ -193,15 +194,16 @@ void Encounter::start(Alien* myAlien, Player* captain) {
   }
   captain->updateStats(input, win);
   myAlien->updateStats(encounter, input, win);
-  displayResult(win);
-	////////// 
-	}
-	////////// 
+  resetScreen(captain);
+  displayResult(win, encounter, input);
 }
 
 //displays a message letting the user know how the encounter went
-void Encounter::displayResult(bool win) {
-  //very simple
+void Encounter::displayResult(bool win, int encounter, int trait) {
+  if (!decideGood(trait, encounter)) {
+    cout << "You shouldn't use " << trait2str(trait) 
+	 << " during a " << encounter2str(encounter) << '.' << endl;
+  }
   if (win) {
     cout << "You won the encounter!" << endl;
   } else {
@@ -209,3 +211,87 @@ void Encounter::displayResult(bool win) {
   }
 }
 
+string Encounter::trait2str(int trait)
+{
+  switch (trait) {
+  case 1:
+    return "Lasers";
+  case 2:
+    return "Shields";
+  case 3:
+    return "Trickery";
+  case 4:
+    return "Diplomacy";
+  case 5:
+    return "Speed";
+  case 6:
+    return "Navigation";
+  case 7:
+    return "Bravery";
+  case 8:
+    return "Caution";
+  default:
+    return "ERROR: unknown trait";
+  }
+}
+
+string Encounter::encounter2str(int encounter)
+{
+  switch (encounter) {
+  case 0:
+    return "Fight";
+  case 1:
+    return "Threaten";
+  case 2:
+    return "Rob";
+  case 3:
+    return "Story";
+  case 4:
+    return "Trade";
+  case 5:
+    return "Race";
+  default:
+    return "ERROR: Unkown encounter";
+  }
+}
+
+string Encounter::attribute2str(int attribute)
+{
+  switch (attribute) {
+  case 0:
+    return "Power";
+  case 1:
+    return "Intelligence";
+  case 2:
+    return "Engines";
+  case 3:
+    return "Sanity";
+  default:
+    return "ERROR: Unknown attribute";
+  }
+}
+
+void Encounter::resetScreen(Player* captain)
+{
+  int width = 3; //width of the traits; how much space padding to add.
+                 //for example, 3 does: |  1|, | 42|, and |123| 
+  system("clear");
+  cout << "POWER            Lasers |"
+       << setw(width) << captain->getTrait(1)+captain->getAttribute(0) << "|"
+       << setw(width) << captain->getTrait(2)+captain->getAttribute(0)
+       << "| Shields"<< endl;
+  cout << "INTELLIGENCE   Trickery |"
+       << setw(width) << captain->getTrait(3) + captain->getAttribute(1) <<"|"
+       << setw(width) << captain->getTrait(4) + captain->getAttribute(1) 
+       <<"| Diplomacy"<<endl;
+  cout << "ENGINES           Speed |"
+       << setw(width) << captain->getTrait(5) + captain->getAttribute(2) <<"|"
+       << setw(width) << captain->getTrait(6) + captain->getAttribute(2) 
+       <<"| Navigation"<<endl;
+  cout << "SANITY          Bravery |"
+       << setw(width) << captain->getTrait(7) + captain->getAttribute(3) <<"|"
+       << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
+       <<"| Caution"<<endl;
+
+  cout << endl;
+}
