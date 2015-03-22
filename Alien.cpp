@@ -15,7 +15,8 @@ Alien::Alien() {
 //if the alien lost (win is true), alien gains a point in the corresponding trait. 
 //Also, hostility is changed (NOTE: Should this be separate function?)
 void Alien::updateStats(int encounterType, int whichTrait, bool win) {
-  trait[whichTrait]+=(rand()%2+4);
+  if(win) trait[whichTrait]+=(rand()%2+4);	// Make alien stronger if it lost
+  if(win && !encounterType) trait[whichTrait]+=(rand()%2+4); // Make alien much stronger if it lost a fight
   switch (encounterType){
     case 0: //Fight
       switch (whichTrait){
