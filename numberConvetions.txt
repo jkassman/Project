@@ -1,0 +1,10 @@
+Traits:				Attributes:		Encounters:
+0: Hostility (Alien)					0: Fight
+1: Lasers			0: Power		1: Threaten
+2: Shields						2: Rob
+3: Trickery			1: Intelligence		3: Story
+4: Diplomacy						4: Trade
+5: Speed			2: Engines		5: Race
+6: Navigation			
+7: Bravery			3: Sanity
+8: Caution

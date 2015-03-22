@@ -3,6 +3,7 @@
 
 #include<vector>
 #include "Player.h"
+#include<string>
 
 class Alien {
     public:
@@ -15,10 +16,11 @@ class Alien {
 	void incrTrait();
 	void displayTraits();
 
-    protected:
+    protected:	// All initialized in each species' constructor
 	vector <int> trait;
 	int encounter[2];
 	int hostility;
+	string name;
 };
 
 #endif //!ALIEN_H

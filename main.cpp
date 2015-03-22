@@ -22,12 +22,31 @@ int main() {
   myEncounter.resetScreen(&captain);
 
   while (1) {
-    myDragon.incrTraits();
-    myGolem.incrTraits();
-    myStarRunner.incrTraits();
-    myScribe.incrTraits();
-    mySmuggler.incrTraits();
-    if(captain.upgradeAtt()) return 1;	// Returns if user quit
+
+    // Training Phase
+    int num = rand()% 4 + 2; 		// Randomly does 2 to 4 upgrades before encounter
+    for(int i=0;i<num;i++) 
+    {
+      myAlien=&myDragon;
+      myAlien->incrTrait();
+      myAlien=&myGolem;
+      myGolem.incrTrait();
+      myAlien=&myStarRunner;
+      myStarRunner.incrTrait();
+      myAlien=&myScribe;
+      myScribe.incrTrait();
+      myAlien=&mySmuggler;
+      mySmuggler.incrTrait();
+      switch(captain.upgradeAtt()) {
+	case 1:
+	  i--;
+	  break;
+	case 2:
+	  return 1;	// Returns if user quit
+      }
+    }
+
+    // Encounter Phase
     switch (rand()% 5) {
     case 0:
       myAlien=&myDragon;

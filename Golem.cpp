@@ -14,8 +14,8 @@ Golem::Golem()
 // The numbers between | | are the starting values for the alien's traits
 	trait.push_back(12+rand()%5-2);	// Against player's Laser
 	trait.push_back(5+rand()%5-2);	// Shield
-	trait.push_back(9+rand()%5-2);	// Diplomacy
 	trait.push_back(2+rand()%5-2);	// Trick
+	trait.push_back(9+rand()%5-2);	// Diplomacy
 	trait.push_back(2+rand()%5-2);	// Speed
 	trait.push_back(5+rand()%5-2);	// Navigation
 	trait.push_back(8+rand()%5-2);	// Bravery
@@ -24,6 +24,7 @@ Golem::Golem()
 	encounter[0] = 1; //Threaten
 	encounter[1] = 2; //Rob
 	hostility = 3; //Just to initialize it, I forgot what we decided on hostility randomness.
+	name="Golem";
 }
 
 //displays text for each encounter the Golem can be in, specific to the Golem.
