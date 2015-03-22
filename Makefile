@@ -17,4 +17,4 @@ $(MAIN).o: $(MAIN).cpp $(OBJECTS)
 
 .PHONY: clean
 clean:
-	rm *.o $(EXEC)
+	rm *.o $(EXEC) *~

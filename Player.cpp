@@ -21,7 +21,7 @@ Player::Player() {
   for(int i = 0; i <= 4; i++) {
     Attributes.push_back(6);
   }
- // Set Traits:  1=laser, 2=shield, 3=diplo, 4=trick, 5=speed, 6=nav, 7=brav, 8=caution
+ // Set Traits:  1=laser, 2=shield, 3=trick, 4=diplo, 5=speed, 6=nav, 7=brav, 8=caution
     Traits.push_back(0);	// First spot dummy
   for(int j = 1; j < 8; j+=2) {
     val=rand() % 7 - 3;
@@ -51,9 +51,7 @@ int Player::getAttribute(int n) {
 
 int Player::upgradeAtt() {
   Encounter screen; //I'm not sure this is the best way to do this.
-  int num = rand()% 4 + 2; //	Randomly does 2 to 4 upgrades before encounter
   char choice;
-   for(int i=0;i<num;i++) {
    cout << "Which of your stats would you like to upgrade?" << endl;
    cout << "Press S for Sanity, Press G for Engines, I for Intelligence, E for Energy, or Q to quit." << endl;
    cin >> choice;
@@ -74,18 +72,17 @@ int Player::upgradeAtt() {
       break;
     case 'Q':
       system("clear");
-      return 1;		// User quit
+      return 2;		// User quit
       break;
     case '?':
       debug();
-      i--;
+      return 1;
       break;
     default:
       cout << "Please enter something else." << endl;
-      i--;
+      return 1;
       break;
     }
-  }
   return 0;		// Go to encounter
 }
   

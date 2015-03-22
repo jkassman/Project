@@ -1,7 +1,8 @@
-Chris Maheu March 18,2015 3:00PM-4:00PM
+Chris Maheu March 21,2015 10:00PM
 
-Changing display order to give all displayed text.
-Began making incrTrait function for alien to increase difficulty (not complete yet)
+Finished incrTrait function in alien.cpp
+Polished display trait function in alien.cpp
+Moved the loop in upgradeAtt to main.cpp
 
 
 To do:
@@ -9,7 +10,6 @@ Add quit option during encounter
 Have displayResult depend on encounter type.
 Change text after training to hide numbers.
 Balance trait growth: player gets stronger much faster than aliens
-Finish incrTrait function in alien.cpp
 
 
 
