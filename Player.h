@@ -25,7 +25,7 @@ class Player {
     void upgradeSanity();
     void upgradeEngines();
     void upgradeIntel();
-    void upgradeEnergy();
+    void upgradePower();
     void debug();		// Used for coder to see stat values. Remove from final version
 
   private:

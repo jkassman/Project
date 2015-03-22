@@ -50,25 +50,23 @@ int Player::getAttribute(int n) {
 }
 
 int Player::upgradeAtt() {
-  Encounter screen; //I'm not sure this is the best way to do this.
-  char choice;
+   char choice;
    cout << "Which of your stats would you like to upgrade?" << endl;
-   cout << "Press S for Sanity, Press G for Engines, I for Intelligence, E for Energy, or Q to quit." << endl;
+   cout << "Press S for Sanity, Press E for Engines, I for Intelligence, P for Power, or Q to quit." << endl;
    cin >> choice;
    cout << endl;
-   screen.resetScreen(this);
    switch (toupper(choice)) {
     case 'S':
       upgradeSanity();
       break;
-    case 'G':
+    case 'E':
       upgradeEngines();
       break;
     case 'I':
       upgradeIntel();
       break;
-    case 'E':
-      upgradeEnergy();
+    case 'P':
+      upgradePower();
       break;
     case 'Q':
       system("clear");
@@ -122,50 +120,50 @@ void Player::setTrait(int pos, int value) {
 }
 
 void Player::upgradeSanity() {
+  Encounter screen; //I'm not sure this is the best way to do this.
   srand(time(NULL));
   int raise, NewSan;
-  cout << "You decide to take a nap on your ratty cot to calm your nerves and improve your concentration." << endl << endl;
   raise = rand() % 4 + 1;
   NewSan = Attributes[3] + raise;
-  cout << "Your sanity level has increased " << raise << " points!" << endl<< endl;
-  ////cout << "Your total sanity is " << NewSan << "." << endl;
   Attributes[3] = NewSan;
+  screen.resetScreen(this);
+  cout << "You decide to take a nap on your ratty cot to calm your nerves and improve your concentration." << endl << endl;
 }
 
 void Player::upgradeEngines() {
+  Encounter screen; //I'm not sure this is the best way to do this.
   srand(time(NULL));
   int raise, NewEng;
-  cout << "You double check that your engines are in working condition.  Looks like they'll last a little while longer." << endl << endl;
   raise = rand() % 4 + 1;
   NewEng = Attributes[2] + raise;
-  cout << "Your engines' level has increased " << raise << " points!" << endl<< endl;
-  ////cout << "The total level of your engines is " << NewEng << "." << endl;
   Attributes[2] = NewEng;
+  screen.resetScreen(this);
+  cout << "You double check that your engines are in working condition.  Looks like they'll last a little while longer." << endl << endl;
 }
 
 void Player::upgradeIntel() {
+  Encounter screen; //I'm not sure this is the best way to do this.
   srand(time(NULL));
   int raise, NewIntel;
+  raise = rand() % 4 + 1;
+  NewIntel = Attributes[1] + raise;
+  Attributes[1] = NewIntel;
+  screen.resetScreen(this);
   cout << "You flip through the pages of some the old lore books stached in a nook of the ship." << endl;
   cout << "(you're too old fashioned to use the ship's databases)." << endl; 
   cout << "Some of this information could be helpful for the encounters ahead!" << endl << endl;
-  raise = rand() % 4 + 1;
-  NewIntel = Attributes[1] + raise;
-  cout << "Your intelligence level has increased " << raise << " points!" << endl<< endl;
-  ////cout << "Your total intellgence level is " << NewIntel << "." << endl;
-  Attributes[1] = NewIntel;
 }
 
-void Player::upgradeEnergy() {
+void Player::upgradePower() {
+  Encounter screen; //I'm not sure this is the best way to do this.
   srand(time(NULL));
-  int raise, NewEner;
+  int raise, NewPow;
+  raise = rand() % 4 + 1;
+  NewPow = Attributes[0] + raise;
+  Attributes[0] = NewPow;
+  screen.resetScreen(this);
   cout << "You fiddle with the power and shield systems aboard the ship." << endl;
   cout << "These adjustments will definitely help in the long run." << endl << endl;
-  raise = rand() % 4 + 1;
-  NewEner = Attributes[0] + raise;
-  cout << "Your energy level has increased " << raise << " points!" << endl<< endl;
-  ////cout << "You total energy level is " << NewEner << "." << endl;
-  Attributes[0] = NewEner;
 }
 
 void Player::debug() {
