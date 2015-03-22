@@ -8,7 +8,6 @@
 using namespace std;
 
 Alien::Alien() {
-  srand(time(NULL)); //Not sure why this is needed?
 }
 
 //updates the alien's stats based on the result of the encounter.
@@ -231,9 +230,20 @@ void Alien::displayTraits() {
 }
 
 void Alien::incrTrait() {
-	int upd=rand()%8+1;
-	//cout<<"Trait: "<<upd<<endl;
-	trait[upd]=trait[upd]+rand() % 4 + 1;;
-	//displayTraits();
+	int sel;
+	int sum;
+	int numruns=trait[0]*(rand()%4+3);
+	for(int j=0;j<numruns;j++)
+	{
+	  sum=0;
+	  sel=rand()%50;
+	  // Choose a random trait to upgrade. More likely to upgrade traits with higher base trait
+	  for(int i=1;i<9;i++)
+	  {
+	    if(sel>=sum && sel<sum+baseTrait[i])
+	      trait[i]++;
+	    sum=sum+baseTrait[i];
+	  }
+	}
 }
 

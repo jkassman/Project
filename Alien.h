@@ -18,6 +18,7 @@ class Alien {
 
     protected:	// All initialized in each species' constructor
 	vector <int> trait;
+	vector <int> baseTrait;
 	int encounter[2];
 	string name;
 };

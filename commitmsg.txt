@@ -1,6 +1,9 @@
-Chris Maheu March 21,2015 11:15PM
+Chris Maheu March 22,2015 1:15AM
 
-When an alien loses a fight, its stat increase a lot more
+THIS IS HARD MODE
+In incrTrait,
+increases much more with high hostility
+increases random stats a random number of times
 
 
 To do:

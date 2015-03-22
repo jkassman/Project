@@ -11,6 +11,7 @@
 #include "Smuggler.h"
 
 int main() {
+  srand(time(NULL));
   Dragon myDragon;
   Golem myGolem;
   StarRunner myStarRunner;
