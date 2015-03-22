@@ -10,8 +10,8 @@ using namespace std;
 Golem::Golem()
 {
 	srand(time(NULL));
-	trait.push_back(0); 	// Store dummy in 0
 // The numbers between | | are the starting values for the alien's traits
+	trait.push_back(3+rand()%5-2); 	// Hostility
 	trait.push_back(12+rand()%5-2);	// Against player's Laser
 	trait.push_back(5+rand()%5-2);	// Shield
 	trait.push_back(2+rand()%5-2);	// Trick
@@ -23,7 +23,6 @@ Golem::Golem()
 // The numbers between| | correspond to different encounters. Must match cases below
 	encounter[0] = 1; //Threaten
 	encounter[1] = 2; //Rob
-	hostility = 3; //Just to initialize it, I forgot what we decided on hostility randomness.
 	name="Golem";
 }
 

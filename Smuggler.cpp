@@ -10,8 +10,8 @@ using namespace std;
 Smuggler::Smuggler()
 {
 	srand(time(NULL));
-	trait.push_back(0); 	// Store dummy in 0
 // The numbers between | | are the starting values for the alien's traits
+	trait.push_back(3+rand()%5-2); 	// Hostility
 	trait.push_back(3+rand()%5-2);	// Against player's Laser
 	trait.push_back(7+rand()%5-2);	// Shield
 	trait.push_back(5+rand()%5-2);	// Trick
@@ -23,7 +23,6 @@ Smuggler::Smuggler()
 // The numbers between| | correspond to different encounters. Must match cases below
 	encounter[0] = 2; //Rob
 	encounter[1] = 4; //Trade
-	hostility = 3; //Just to initialize it, I forgot what we decided on hostility randomness.
 	name="Smuggler";
 }
 

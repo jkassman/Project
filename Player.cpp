@@ -88,6 +88,8 @@ int Player::upgradeAtt() {
   
 void Player::updateStats(int TraitUsed, bool win) { //True if Player wins
   int NewTrait;
+  int AttrUsed; //which attribute was used.
+  int toReduce; //number to reduce Attribute by
   if(win) {
      NewTrait = Traits[TraitUsed] + 1;	// Increase winning trait by 1
      Traits[TraitUsed] = NewTrait;
@@ -97,24 +99,13 @@ void Player::updateStats(int TraitUsed, bool win) { //True if Player wins
      }else{
        Traits[TraitUsed-1]--; 	// Decrease corresponding trait
      }
-  }else{
-       if(TraitUsed == 1 || TraitUsed == 2) {
-          Attributes[0]--;	// Decrease attribute used
-          Traits[8]++;		// Increase caution
-          Traits[7]--;		// Decrease bravery
-       }if(TraitUsed == 3 || TraitUsed == 4) {
-          Attributes[1]--;	// Decrease attribute used
-          Traits[8]++;		// Increase caution
-          Traits[7]--;		// Decrease bravery
-       }if(TraitUsed == 5 || TraitUsed == 6) {
-          Attributes[2]--;	// Decrease attribute used
-          Traits[8]++;		// Increase caution
-          Traits[7]--;		// Decrease bravery
-       }if(TraitUsed == 7 || TraitUsed == 8) {
-          Attributes[3]--;	// Decrease attribute used
-          Traits[8]++;		// Increase caution
-          Traits[7]--;		// Decrease bravery
-       }   
+  }else{ //Player Lost
+	toReduce = rand()%5 + 4; //4-8
+	AttrUsed = (TraitUsed-1)/2;
+	Attributes[AttrUsed] -= toReduce;
+	cout << "Reduced " << AttrUsed << " by " << toReduce << "." << endl;
+	Traits[8]++; //Increase caution
+	Traits[7]--; //Decrease bravery
   }
 }
 
