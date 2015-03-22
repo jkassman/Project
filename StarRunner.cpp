@@ -14,8 +14,8 @@ StarRunner::StarRunner()
 // The numbers between | | are the starting values for the alien's traits
 	trait.push_back(4+rand()%5-2);	// Against player's Laser
 	trait.push_back(6+rand()%5-2);	// Shield
-	trait.push_back(5+rand()%5-2);	// Diplomacy
 	trait.push_back(6+rand()%5-2);	// Trick
+	trait.push_back(5+rand()%5-2);	// Diplomacy
 	trait.push_back(13+rand()%5-2);	// Speed
 	trait.push_back(8+rand()%5-2);	// Navigation
 	trait.push_back(2+rand()%5-2);	// Bravery
@@ -24,6 +24,7 @@ StarRunner::StarRunner()
 	encounter[0] = 3; //Story
 	encounter[1] = 5; //Race
 	hostility = 3; //Just to initialize it, I forgot what we decided on hostility randomness.
+	name="Star Runner";
 }
 
 //displays text for each encounter the dragon can be in, specific to the dragon.

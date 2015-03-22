@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <time.h>
 #include <cstdlib>
 #include "Alien.h"
@@ -228,17 +229,32 @@ int Alien::getTrait(int select) {
 }
 
 void Alien::displayTraits() {
-	cout<<"DEBUGGING Alien Traits"<<endl;
-  int m;
-  for (m = 0; m < (int) trait.size(); m++) {
-    cout << trait[m] << " ";
-  }
-	cout<<endl;	
+  int width = 3; //width of the traits; how much space padding to add.
+                 //for example, 3 does: |  1|, | 42|, and |123| 
+	cout<<"DEBUGGING "<<name<<" Traits"<<endl;
+  cout << "POWER            Lasers |"
+       << setw(width) << trait[1] << "|"
+       << setw(width) << trait[2]
+       << "| Shields"<< endl;
+  cout << "INTELLIGENCE   Trickery |"
+       << setw(width) << trait[3] <<"|"
+       << setw(width) << trait[4]
+       <<"| Diplomacy"<<endl;
+  cout << "ENGINES           Speed |"
+       << setw(width) << trait[5] <<"|"
+       << setw(width) << trait[6]
+       <<"| Navigation"<<endl;
+  cout << "SANITY          Bravery |"
+       << setw(width) << trait[7] <<"|"
+       << setw(width) << trait[8] 
+       <<"| Caution"<<endl;
+  cout << endl;
 }
 
 void Alien::incrTrait() {
-	displayTraits();
-	trait[rand()%8+1]++;
+	int upd=rand()%8+1;
+	cout<<"Trait: "<<upd<<endl;
+	trait[upd]=trait[upd]+rand() % 4 + 1;;
 	displayTraits();
 }
 
