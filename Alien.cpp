@@ -15,17 +15,16 @@ Alien::Alien() {
 //if the alien lost (win is true), alien gains a point in the corresponding trait. 
 //Also, hostility is changed (NOTE: Should this be separate function?)
 void Alien::updateStats(int encounterType, int whichTrait, bool win) {
+  trait[whichtrait]+=rand%2+4;
   switch (encounterType){
     case 0: //Fight
       switch (whichTrait){
         case 1: //Laser
 	  if (win){
-	    trait[1]++;
 	  }
           break;
         case 5: //Speed
 	  if (win){
-	    trait[5]++;
 	  }
 	  else{
 	    trait[0]--;
@@ -33,13 +32,11 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
           break;
         case 2: //Shield
 	  if (win){
-	    trait[2]++;
 	    trait[0]--;
 	  }
           break;
         case 6: //Navigation
 	  if (win){
-	    trait[6]++;
 	    trait[0]--;
 	  }
           break;
@@ -48,24 +45,20 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
       switch (whichTrait){
         case 1: //Laser
 	  if (win){
-	    trait[1]++;
 	    trait[0]--;
 	  }
           break;
         case 5: //Speed
 	  if (win){
-	    trait[5]++;
 	  }
           break;
         case 7: //Bravery
 	  if (win){
-	    trait[7]++;
 	    trait[0]--;
 	  }
           break;
         case 3: //Trickery
 	  if (win){
-	    trait[3]++;
 	    trait[0]++;
 	  }
 	  else{
@@ -77,18 +70,15 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
       switch (whichTrait){
         case 1: //Laser
 	  if (win){
-	    trait[1]++;
 	    trait[0]--;
 	  }
           break;
         case 5: //Speed
 	  if (win){
-	    trait[5]++;
 	  }
           break;
         case 2: //Shield
 	  if (win){
-	    trait[2]++;
 	  }
 	  else{
 	    trait[0]++;
@@ -96,7 +86,6 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
           break;
         case 8: //Caution
 	  if (win){
-	    trait[8]++;
 	  }
 	  else{
 	    trait[0]++;
@@ -107,7 +96,6 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
       switch (whichTrait){
         case 1: //Laser
 	  if (win){
-	    trait[1]++;
 	    trait[0]++;
 	  }
 	  else{
@@ -116,12 +104,10 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
           break;
         case 5: //Speed
 	  if (win){
-	    trait[5]++;
 	  }
           break;
         case 4: //Diplomacy
 	  if (win){
-	    trait[4]++;
 	    trait[0]--;
 	  }
 	  else{
@@ -130,7 +116,6 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
           break;
         case 8: //Caution
 	  if (win){
-	    trait[8]++;
 	  }
           break;
       }
@@ -138,7 +123,6 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
       switch (whichTrait){
         case 1: //Laser
 	  if (win){
-	    trait[1]++;
 	    trait[0]++;
 	  }
 	  else{
@@ -147,18 +131,15 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
           break;
         case 5: //Speed
 	  if (win){
-	    trait[5]++;
 	  }
           break;
         case 4: //Diplomacy
 	  if (win){
-	    trait[4]++;
 	    trait[0]--;
 	  }
           break;
         case 3: //Trick
 	  if (win){
-	    trait[3]++;
 	    trait[0]++;
 	  }
 	  else{
@@ -170,7 +151,6 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
       switch (whichTrait){
         case 1: //Laser
 	  if (win){
-	    trait[1]++;
 	    trait[0]++;
 	  }
 	  else{
@@ -179,19 +159,16 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
           break;
         case 5: //Speed
 	  if (win){
-	    trait[5]++;
 	    trait[0]--;
 	  }
           break;
         case 6: //Navigation
 	  if (win){
-	    trait[6]++;
 	    trait[0]--;
 	  }
           break;
         case 7: //Bravery
 	  if (win){
-	    trait[7]++;
 	  }
           break;
       }

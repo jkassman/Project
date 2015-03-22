@@ -1,6 +1,6 @@
-Chris Maheu March 21,2015 10:40PM
+Chris Maheu March 21,2015 11:00PM
 
-Commented out Alien Display Trait in incrTrait
+When an alien loses, its stat increase a lot more
 
 
 To do:
