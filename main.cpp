@@ -19,8 +19,14 @@ int main() {
   Alien * myAlien = &myDragon;
   Player captain;
   Encounter myEncounter;
+  myEncounter.resetScreen(&captain);
 
   while (1) {
+    myDragon.incrTraits();
+    myGolem.incrTraits();
+    myStarRunner.incrTraits();
+    myScribe.incrTraits();
+    mySmuggler.incrTraits();
     if(captain.upgradeAtt()) return 1;	// Returns if user quit
     switch (rand()% 5) {
     case 0:

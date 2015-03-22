@@ -10,6 +10,7 @@
 #include <ctime>
 #include <cstdlib>
 #include "Player.h"
+#include "Encounter.h"
 
 using namespace std;
 
@@ -49,13 +50,15 @@ int Player::getAttribute(int n) {
 }
 
 int Player::upgradeAtt() {
-  int num = rand()% 6 + 1; //	Randomly does 1 to 6 upgrades before encounter
+  Encounter screen; //I'm not sure this is the best way to do this.
+  int num = rand()% 4 + 2; //	Randomly does 2 to 4 upgrades before encounter
   char choice;
    for(int i=0;i<num;i++) {
    cout << "Which of your stats would you like to upgrade?" << endl;
    cout << "Press S for Sanity, Press G for Engines, I for Intelligence, E for Energy, or Q to quit." << endl;
    cin >> choice;
    cout << endl;
+   screen.resetScreen(this);
    switch (toupper(choice)) {
     case 'S':
       upgradeSanity();
@@ -70,6 +73,7 @@ int Player::upgradeAtt() {
       upgradeEnergy();
       break;
     case 'Q':
+      system("clear");
       return 1;		// User quit
       break;
     case '?':
@@ -135,8 +139,8 @@ void Player::upgradeSanity() {
   cout << "You decide to take a nap on your ratty cot to calm your nerves and improve your concentration." << endl << endl;
   raise = rand() % 4 + 1;
   NewSan = Attributes[3] + raise;
-  cout << "Your sanity level has increased " << raise << " points!" << endl;
-  cout << "Your total sanity is " << NewSan << "." << endl;
+  cout << "Your sanity level has increased " << raise << " points!" << endl<< endl;
+  ////cout << "Your total sanity is " << NewSan << "." << endl;
   Attributes[3] = NewSan;
 }
 
@@ -146,8 +150,8 @@ void Player::upgradeEngines() {
   cout << "You double check that your engines are in working condition.  Looks like they'll last a little while longer." << endl << endl;
   raise = rand() % 4 + 1;
   NewEng = Attributes[2] + raise;
-  cout << "Your engines' level has increased " << raise << " points!" << endl;
-  cout << "The total level of your engines is " << NewEng << "." << endl;
+  cout << "Your engines' level has increased " << raise << " points!" << endl<< endl;
+  ////cout << "The total level of your engines is " << NewEng << "." << endl;
   Attributes[2] = NewEng;
 }
 
@@ -159,8 +163,8 @@ void Player::upgradeIntel() {
   cout << "Some of this information could be helpful for the encounters ahead!" << endl << endl;
   raise = rand() % 4 + 1;
   NewIntel = Attributes[1] + raise;
-  cout << "Your intelligence level has increased " << raise << " points!" << endl;
-  cout << "Your total intellgence level is " << NewIntel << "." << endl;
+  cout << "Your intelligence level has increased " << raise << " points!" << endl<< endl;
+  ////cout << "Your total intellgence level is " << NewIntel << "." << endl;
   Attributes[1] = NewIntel;
 }
 
@@ -171,8 +175,8 @@ void Player::upgradeEnergy() {
   cout << "These adjustments will definitely help in the long run." << endl << endl;
   raise = rand() % 4 + 1;
   NewEner = Attributes[0] + raise;
-  cout << "Your energy level has increased " << raise << " points!" << endl;
-  cout << "You total energy level is " << NewEner << "." << endl;
+  cout << "Your energy level has increased " << raise << " points!" << endl<< endl;
+  ////cout << "You total energy level is " << NewEner << "." << endl;
   Attributes[0] = NewEner;
 }
 

@@ -1,6 +1,7 @@
 #ifndef ENCOUNTER_H
 #define ENCOUNTER_H
 
+//#include <string>
 #include "Player.h"
 #include "Alien.h"
 
@@ -11,7 +12,12 @@ class Encounter {
   bool decideGood(int input, int encounter); //not coded
   void start(Alien*, Player*);
   char firstCharEntered(char* second);
-  void displayResult(bool win);
+  void displayResult(bool win, int encounter, int trait);
+  void resetScreen(Player*);
+  string encounter2str(int);
+  string trait2str(int);
+  string attribute2str(int);
+  //void resetScreen(Player*, Alien*);
 };
 
 #endif
