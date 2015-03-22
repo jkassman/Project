@@ -10,8 +10,8 @@ using namespace std;
 StarRunner::StarRunner()
 {
 	srand(time(NULL));
-	trait.push_back(0); 	// Store dummy in 0
 // The numbers between | | are the starting values for the alien's traits
+	trait.push_back(3+rand()%5-2); 	// Hostility
 	trait.push_back(4+rand()%5-2);	// Against player's Laser
 	trait.push_back(6+rand()%5-2);	// Shield
 	trait.push_back(6+rand()%5-2);	// Trick
@@ -23,7 +23,6 @@ StarRunner::StarRunner()
 // The numbers between| | correspond to different encounters. Must match cases below
 	encounter[0] = 3; //Story
 	encounter[1] = 5; //Race
-	hostility = 3; //Just to initialize it, I forgot what we decided on hostility randomness.
 	name="Star Runner";
 }
 
