@@ -10,7 +10,7 @@ class Encounter {
   int getTraitInput();
   bool challenge(int alienTrait, int playerTrait); //not coded
   bool decideGood(int input, int encounter); //not coded
-  void start(Alien*, Player*);
+  bool start(Alien*, Player*);
   char firstCharEntered(char* second);
   void displayResult(bool win, int encounter, int trait);
   void resetScreen(Player*);

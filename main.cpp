@@ -11,6 +11,9 @@
 #include "Smuggler.h"
 
 int main() {
+  int wins=0,losses=0;
+  bool hasQuit=0;
+
   srand(time(NULL));
   Dragon myDragon;
   Golem myGolem;
@@ -22,7 +25,7 @@ int main() {
   Encounter myEncounter;
   myEncounter.resetScreen(&captain);
 
-  while (1) {
+  while (!hasQuit) {
 
     // Training Phase
     int num = rand()% 4 + 2; 		// Randomly does 2 to 4 upgrades before encounter
@@ -43,30 +46,39 @@ int main() {
 	  i--;
 	  break;
 	case 2:
-	  return 1;	// Returns if user quit
+	  hasQuit=1;
+	  i=num;
+	  break;
       }
     }
 
-    // Encounter Phase
-    switch (rand()% 5) {
-    case 0:
-      myAlien=&myDragon;
-      break;
-    case 1:
-      myAlien=&myGolem;
-      break;
-    case 2:
-      myAlien=&myStarRunner;
-      break;
-    case 3:
-      myAlien=&myScribe;
-      break;
-    case 4:
-      myAlien=&mySmuggler;
-      break;
-    default:
-      cout << "Not coded, come back later!" << endl;
+    if(!hasQuit) {
+      // Encounter Phase
+      switch (rand()% 5) {
+      case 0:
+        myAlien=&myDragon;
+        break;
+      case 1:
+        myAlien=&myGolem;
+        break;
+      case 2:
+        myAlien=&myStarRunner;
+        break;
+      case 3:
+        myAlien=&myScribe;
+        break;
+      case 4:
+        myAlien=&mySmuggler;
+        break;
+      default:
+        cout << "Not coded, come back later!" << endl;
+      }
+      if(myEncounter.start( myAlien, &captain)) wins++;
+      else losses++;
     }
-    myEncounter.start( myAlien, &captain);
   }
+
+  cout<<"Total number of encounter wins: "<<wins<<endl;
+  cout<<"Total number of encounter losses: "<<losses<<endl;
+  cout<<"Win/Loss Ratio: "<<(wins*1.)/losses<<endl;
 }

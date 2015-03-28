@@ -166,7 +166,7 @@ bool Encounter::decideGood(int input, int encounter) {
 
 //main encounter logic. Displays text, get's the user's response, determines the
 //outcome, and updates player and alien stats based on that outcome.
-void Encounter::start(Alien* myAlien, Player* captain) {
+bool Encounter::start(Alien* myAlien, Player* captain) {
   int encounter, input;
   bool win;
   encounter = myAlien->getEncounter(rand()%2);
@@ -195,6 +195,7 @@ void Encounter::start(Alien* myAlien, Player* captain) {
   myAlien->updateStats(encounter, input, win);
   resetScreen(captain);
   displayResult(win, encounter, input);
+  return win;
 }
 
 //displays a message letting the user know how the encounter went

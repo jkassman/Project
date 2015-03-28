@@ -1,17 +1,13 @@
-Chris Maheu March 22,2015 1:15AM
+Chris Maheu March 27,2015 9:45PM
 
-THIS IS HARD MODE
-In incrTrait,
-increases much more with high hostility
-increases random stats a random number of times
-
+Fixed Hostility Bug
+Changed growth of alien traits and situations that hostility changes to hopefully be more balanced
+Added win/loss ratio after quitting
 
 To do:
 Add quit option during encounter
-Have displayResult depend on encounter type.
-Change text after training to hide numbers.
-Balance trait growth: player gets stronger much faster than aliens
-
+Graphics!
+Lots of playtesting to balance incrTrait, hostility growth, etc.
 
 
 
