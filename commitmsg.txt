@@ -1,0 +1,3 @@
+Chris Maheu April 11 2015 11:27:PM
+
+Fixed alien trait display
