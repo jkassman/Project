@@ -22,10 +22,10 @@ class Player {
     void setAttribute(int, int);
     int upgradeAtt(); //between encounters, based on user input
     void updateStats(int, bool); //after an encounter
-    void upgradeSanity();
-    void upgradeEngines();
-    void upgradeIntel();
-    void upgradePower();
+    //void upgradeSanity();
+    //void upgradeEngines();
+    //void upgradeIntel();
+    //void upgradePower();
     void debug();		// Used for coder to see stat values. Remove from final version
 
   private:

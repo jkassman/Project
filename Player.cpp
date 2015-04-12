@@ -49,39 +49,61 @@ int Player::getAttribute(int n) {
    return Attributes[n];
 }
 
+//NOTE: Needs message
+//asks the user to upgrade attributes 4 times.
+//each time is 25% of total point allocation (10-15 * zone).
 int Player::upgradeAtt() {
-   char choice;
-   cout << "Which of your stats would you like to upgrade?" << endl;
-   cout << "Press S for Sanity, Press E for Engines, I for Intelligence, P for Power, or Q to quit." << endl;
-   cin >> choice;
-   cout << endl;
-   switch (toupper(choice)) {
-    case 'S':
-      upgradeSanity();
+  char choice;
+  
+  //how many upgrade points you can spend this upgrade phase:
+  int multiplier;
+  multiplier = Encounter::getMultiplier(); //2^zone
+  Encounter test;
+  int points = (rand() % 6 + 10) * multiplier; //(10-15) * multiplier
+  for (int i = 4; i > 0; i--) {
+    cout << "Which of your stats would you like to upgrade?" << endl;
+    cout << "Press S for Sanity, Press E for Engines, I for Intelligence, P for Power, or Q to quit." << endl;
+    if (i == 4) {
+      cout << "To warp to a new zone, type the number of the zone you would like to warp to." << endl;
+    }
+    cin >> choice;
+    cout << endl;
+    switch (toupper(choice)) {
+     case 'P':
+      Attributes[0] += points/i; //assign 25% of points to power
+      points -= points/i;
+      test.resetScreen(this);
       break;
-    case 'E':
-      upgradeEngines();
+     case 'I':
+      Attributes[1] += points/i;
+      points -= points/i;
+      test.resetScreen(this);
       break;
-    case 'I':
-      upgradeIntel();
+     case 'E':
+      Attributes[2] += points/i;
+      points -= points/i;
+      test.resetScreen(this);
       break;
-    case 'P':
-      upgradePower();
+     case 'S':
+      Attributes[3] += points/i;
+      points -= points/i;
+      test.resetScreen(this);
       break;
-    case 'Q':
+     case 'Q':
       system("clear");
       return 2;		// User quit
       break;
-    case '?':
+     case '?':
       debug();
-      return 1;
+      i++;
       break;
-    default:
+     default:
       cout << "Please enter something else." << endl;
-      return 1;
+      i++;
       break;
     }
-  return 0;		// Go to encounter
+  }
+  return 1;		// Go to encounter
 }
   
 void Player::updateStats(int TraitUsed, bool win) { //True if Player wins
@@ -118,7 +140,7 @@ void Player::setAttribute(int pos, int value) {
 void Player::setTrait(int pos, int value) {
    Traits[pos-1] = value;
 }
-
+/*
 void Player::upgradeSanity() {
   Encounter screen; //I'm not sure this is the best way to do this.
   srand(time(NULL));
@@ -165,6 +187,7 @@ void Player::upgradePower() {
   cout << "You fiddle with the power and shield systems aboard the ship." << endl;
   cout << "These adjustments will definitely help in the long run." << endl << endl;
 }
+*/
 
 void Player::debug() {
 	cout<<"DEBUGGING"<<endl;

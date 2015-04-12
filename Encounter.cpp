@@ -312,6 +312,8 @@ int Encounter::getZone()
 //does nothing if zero.
 void Encounter::changeZone(int select)
 {
+  myZone = select;
+  /*
     if (select > 0) {
 	myZone++;
     } else if (select <0) {
@@ -319,4 +321,15 @@ void Encounter::changeZone(int select)
     } else {
 	//do nothing
     }
+  */
+}
+
+int Encounter::getMultiplier()
+{
+  int multiplier = 1;
+  //2^myZone:
+  for (int i = 0; i < myZone; i++) {
+    multiplier *= 2;
+  }
+  return multiplier;
 }
