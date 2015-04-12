@@ -158,7 +158,7 @@ void Player::updateStats(int TraitUsed, bool win) { //True if Player wins
     Traits[7] += modifier; //Increase bravery
     Traits[8] -= modifier; //Decrease caution
   } else { //Player Lost
-    toReduce = modifier*(rand()%4 + 7); //7-10
+    toReduce = modifier*(rand()%4 + 13); //13-16
     AttrUsed = (TraitUsed-1)/2;
     Attributes[AttrUsed] -= toReduce;
     cout << "Reduced " << AttrUsed << " by " << toReduce << "." << endl;
@@ -178,54 +178,6 @@ void Player::setAttribute(int pos, int value) {
 void Player::setTrait(int pos, int value) {
    Traits[pos-1] = value;
 }
-/*
-void Player::upgradeSanity() {
-  Encounter screen; //I'm not sure this is the best way to do this.
-  srand(time(NULL));
-  int raise, NewSan;
-  raise = rand() % 4 + 1;
-  NewSan = Attributes[3] + raise;
-  Attributes[3] = NewSan;
-  screen.resetScreen(this);
-  cout << "You decide to take a nap on your ratty cot to calm your nerves and improve your concentration." << endl << endl;
-}
-
-void Player::upgradeEngines() {
-  Encounter screen; //I'm not sure this is the best way to do this.
-  srand(time(NULL));
-  int raise, NewEng;
-  raise = rand() % 4 + 1;
-  NewEng = Attributes[2] + raise;
-  Attributes[2] = NewEng;
-  screen.resetScreen(this);
-  cout << "You double check that your engines are in working condition.  Looks like they'll last a little while longer." << endl << endl;
-}
-
-void Player::upgradeIntel() {
-  Encounter screen; //I'm not sure this is the best way to do this.
-  srand(time(NULL));
-  int raise, NewIntel;
-  raise = rand() % 4 + 1;
-  NewIntel = Attributes[1] + raise;
-  Attributes[1] = NewIntel;
-  screen.resetScreen(this);
-  cout << "You flip through the pages of some the old lore books stached in a nook of the ship." << endl;
-  cout << "(you're too old fashioned to use the ship's databases)." << endl; 
-  cout << "Some of this information could be helpful for the encounters ahead!" << endl << endl;
-}
-
-void Player::upgradePower() {
-  Encounter screen; //I'm not sure this is the best way to do this.
-  srand(time(NULL));
-  int raise, NewPow;
-  raise = rand() % 4 + 1;
-  NewPow = Attributes[0] + raise;
-  Attributes[0] = NewPow;
-  screen.resetScreen(this);
-  cout << "You fiddle with the power and shield systems aboard the ship." << endl;
-  cout << "These adjustments will definitely help in the long run." << endl << endl;
-}
-*/
 
 void Player::debug() {
 	cout<<"DEBUGGING"<<endl;
@@ -234,4 +186,16 @@ void Player::debug() {
 	printTraits();
 	cout<<endl;
 }
-   
+
+int Player::highestTrait()
+{
+  int value, max = -2000000000;
+  for (int i = 1; i <= 8; i++) {
+    value = Traits[i] + Attributes[(i-1)/2];
+    if (value > max) {
+      max = value;
+    }
+  }
+  cout << max << endl;
+  return max;
+}

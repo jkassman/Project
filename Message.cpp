@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <ctype.h>
 #include <cstdlib>
+#include <math.h>
 #include "Message.h"
 
 using namespace std;
@@ -44,7 +45,8 @@ cout << "Prepare yourself! For you are about to make universal history as you ma
 
 void Message::resetScreen(Player * captain)
 {
-  int width = 3; //width of the traits; how much space padding to add.
+  int width = (log10(captain->highestTrait())) + 1; 
+  //width of the traits; how much space padding to add.
                  //for example, 3 does: |  1|, | 42|, and |123| 
   system("clear");
   cout << "POWER            Lasers |"

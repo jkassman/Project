@@ -171,7 +171,7 @@ void Alien::incrTrait() {
       sum=0;
       sel=rand()%50;
       // Choose a random trait to upgrade. More likely to upgrade traits with higher base trait
-      for(int i=1;i<9;i++)
+      for(int i=1;i<4;i++)
 	{
 	  if(!i) cout<<"Why are you raising hostility here? A wild bug appeared!"<<endl;
 	  if(sel>=sum && sel<sum+baseTrait[i])
