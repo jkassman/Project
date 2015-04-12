@@ -260,4 +260,7 @@ string Message::encounter2str(int encounter)
 	}
 }
 
-
+void Message::warpMessage(int zone)
+{
+  cout << "Warped to zone " << zone << "!" << endl;
+}
