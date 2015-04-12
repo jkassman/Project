@@ -26,25 +26,18 @@ int main() {
   myEncounter.resetScreen(&captain);
 
   while (!hasQuit) {
-
     // Training Phase
-    int num = rand()% 4 + 2; 		// Randomly does 2 to 5 upgrades before encounter
-    for(int i=0;i<num;i++) 
-    {
-      myDragon.incrTrait();
-      myGolem.incrTrait();
-      myStarRunner.incrTrait();
-      myScribe.incrTrait();
-      mySmuggler.incrTrait();
-      switch(captain.upgradeAtt()) {
-	case 1: //invalid input/debug (?)
-	  i--;
-	  break;
-	case 2: //quit case
-	  hasQuit=1;
-	  i=num;
-	  break;
-      }
+    myDragon.incrTrait(); //NOTE: These are only called once now. They used to
+    myGolem.incrTrait();  //be called 2-5 times. The player gets +10-15 atts.
+    myStarRunner.incrTrait(); //in this same space
+    myScribe.incrTrait();
+    mySmuggler.incrTrait();
+    switch(captain.upgradeAtt()) {
+    case 1: //go to encounter
+      break;
+    case 2: //quit case
+      hasQuit=1;
+      break;
     }
 
     if(!hasQuit) {

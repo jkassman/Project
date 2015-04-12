@@ -49,33 +49,45 @@ int Player::getAttribute(int n) {
    return Attributes[n];
 }
 
+//NOTE: Needs message
 //asks the user to upgrade attributes 4 times.
 //each time is 25% of total point allocation (10-15 * zone).
 int Player::upgradeAtt() {
   char choice;
+  
   //how many upgrade points you can spend this upgrade phase:
-  int points = rand() % 6 + 10; //10 - 15
+  int multiplier;
+  multiplier = Encounter::getMultiplier(); //2^zone
+  Encounter test;
+  int points = (rand() % 6 + 10) * multiplier; //(10-15) * multiplier
   for (int i = 4; i > 0; i--) {
     cout << "Which of your stats would you like to upgrade?" << endl;
     cout << "Press S for Sanity, Press E for Engines, I for Intelligence, P for Power, or Q to quit." << endl;
+    if (i == 4) {
+      cout << "To warp to a new zone, type the number of the zone you would like to warp to." << endl;
+    }
     cin >> choice;
     cout << endl;
     switch (toupper(choice)) {
      case 'P':
       Attributes[0] += points/i; //assign 25% of points to power
       points -= points/i;
+      test.resetScreen(this);
       break;
      case 'I':
       Attributes[1] += points/i;
       points -= points/i;
+      test.resetScreen(this);
       break;
      case 'E':
       Attributes[2] += points/i;
       points -= points/i;
+      test.resetScreen(this);
       break;
      case 'S':
       Attributes[3] += points/i;
       points -= points/i;
+      test.resetScreen(this);
       break;
      case 'Q':
       system("clear");
