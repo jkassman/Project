@@ -11,8 +11,11 @@ class Message
 	  void trainAttr(char);
 	  void newEncounter(int, string);
 	  void askTrait(int);
+	  bool decideGood(int, int);
 	  void encResults(int, int, bool, string);
 	  void getMad(string);
+          string trait2str(int);
+          string encounter2str(int);
 };
 
 
