@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include "Alien.h"
 #include "Player.h"
+#include "Message.h"
+
 using namespace std;
 Alien::Alien() {
 }
@@ -11,99 +13,189 @@ Alien::Alien() {
 //if the alien lost (win is true), alien gains a point in the corresponding trait.
 //Also, hostility is changed (NOTE: Should this be separate function?)
 void Alien::updateStats(int encounterType, int whichTrait, bool win) {
+  Message say;
+
   if(!whichTrait) cout<<"Why are you fighting with hostility? A wild bug appeared!"<<endl;
   if(win) trait[whichTrait]+=rand()%2+4; // Make alien stronger if it lost
   if(win && !encounterType) trait[whichTrait]+=(rand()%2+4); // Make alien much stronger if it lost a fight
-  cout<<"*************Hostility: "<<trait[0]<<endl;
   switch (encounterType){
   case 0: //Fight
     switch (whichTrait){
     case 5: //Speed
-      if (!win) trait[0]--;
+      if (!win) 
+      {
+	 trait[0]--;
+	 say.getHappy(name);
+      }
       break;
     case 2: //Shield
       trait[0]--;
+      say.getHappy(name);
       break;
     case 6: //Navigation
-      if (win) trait[0]--;
+      if (win) 
+      {
+        trait[0]--;
+	say.getHappy(name);
+      }
       break;
     }
     break;
   case 1: //Threaten
     switch (whichTrait){
     case 1: //Laser
-      if (!win) trait[0]++;
+      if (!win) 
+      {
+        trait[0]++;
+	say.getMad(name);
+      }
       break;
     case 5: //Speed
-      if (!win) trait[0]++;
+      if (!win) 
+      {
+        trait[0]++;
+	say.getMad(name);
+      }
       break;
     case 7: //Bravery
-      if (win) trait[0]--;
+      if (win) 
+      {
+        trait[0]--;
+	say.getHappy(name);
+      }
       break;
     case 3: //Trickery
-      if (win) trait[0]--;
+      if (win) 
+      {
+        trait[0]--;
+	say.getHappy(name);
+      }
       break;
     }
     break;
   case 2: //Rob
     switch (whichTrait){
     case 1: //Laser
-      if (!win) trait[0]++;
+      if (!win) 
+      {
+        trait[0]++;
+	say.getMad(name);
+      }
       break;
     case 2: //Shield
-      if (win) trait[0]--;
+      if (win) 
+      {
+        trait[0]--;
+	say.getHappy(name);
+      }
       break;
     case 5: //Speed
-      if (!win) trait[0]++;
+      if (!win) 
+      {
+         trait[0]++;
+	say.getMad(name);
+      }
       break;
     case 8: //Caution
-      if (win) trait[0]--;
+      if (win) 
+      {
+        trait[0]--;
+	say.getHappy(name);
+      }
       break;
     }
     break;
   case 3: //Story
     switch (whichTrait){
     case 1: //Laser
-      trait[0]++;
+      if (win)
+      {
+        trait[0]++;
+	say.getMad(name);
+      }
       break;
     case 5: //Speed
-      if (win) trait[0]++;
+      if (win) 
+      {
+        trait[0]++;
+	say.getMad(name);
+      }
       break;
     case 4: //Diplomacy
-      if (win) trait[0]--;
+      if (win) 
+      {
+        trait[0]--;
+	say.getHappy(name);
+      }
       break;
     case 8: //Caution
-      if (win) trait[0]--;
+      if (win) 
+      {
+        trait[0]--;
+	say.getHappy(name);
+      }
       break;
     }
     break;
   case 4: //Trade
     switch (whichTrait){
     case 1: //Laser
-      if(win) trait[0]++;
+      if(win) 
+      {
+        trait[0]++;
+	say.getMad(name);
+      }
       break;
     case 4: //Diplomacy
-      if(win) trait[0]--;
+      if(win) 
+      {
+        trait[0]--;
+	say.getHappy(name);
+      }
       break;
     case 3: //Trick
-      if(win) trait[0]--;
-      else trait[0]++;
+      if(win) 
+      {
+	trait[0]--;
+	say.getHappy(name);
+      }
+      else 
+      {
+        trait[0]++;
+	say.getMad(name);
+      }
       break;
     }
     break;
   case 5: //Race
     switch (whichTrait){
     case 1: //Laser
-      if (win) trait[0]++;
+      if (win) 
+      {
+        trait[0]++;
+	say.getMad(name);
+      }
       break;
     case 5: //Speed
-      if (win) trait[0]--;
+      if (win) 
+      {
+        trait[0]--;
+	say.getHappy(name);
+      }
       break;
     case 6: //Navigation
-      if (win) trait[0]--;
+      if (win) 
+      {
+        trait[0]--;
+	say.getHappy(name);
+      }
       break;
     case 7: //Bravery
-      if (!win) trait[0]++;
+      if (!win) 
+      {
+        trait[0]++;
+	say.getMad(name);
+      }
       break;
     }
     break;
@@ -111,7 +203,6 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
     cout<<"A wild bug appeared! That's not an encounter!"<<endl;
     break;
   }
-  cout<<"*************Hostility: "<<trait[0]<<endl;
 }
 //virtual function; each alien class will override it with their own fancy
 //encounter text.

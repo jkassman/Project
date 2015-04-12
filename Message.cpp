@@ -198,7 +198,12 @@ void Message::encResults(int encType, int trait, int win, string alienName)
 
 void Message::getMad(string alienName)
 {
-  cout << "The " << alienName << "s are mad at you!" << endl;
+  cout << "The " << alienName << "s seem upset!" << endl;
+}
+
+void Message::getHappy(string alienName)
+{
+  cout << "The " << alienName << "s are pleased with your actions!" << endl;
 }
 
 string Message::trait2str(int trait)

@@ -16,6 +16,7 @@ class Message
 	  bool decideGood(int, int);
 	  void encResults(int, int, int, string);
 	  void getMad(string);
+	  void getHappy(string);
           string trait2str(int);
           string encounter2str(int);
 };

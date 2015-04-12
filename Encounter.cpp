@@ -195,8 +195,8 @@ int Encounter::start(Alien* myAlien, Player* captain) {
     win = 0;
   }
   captain->updateStats(input, win);
-  myAlien->updateStats(encounter, input, win);
   msgs.resetScreen(captain);
+  myAlien->updateStats(encounter, input, win);
   msgs.encResults(encounter, input, win, myAlien->getName());
   return win;
 }
