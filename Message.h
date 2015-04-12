@@ -1,7 +1,6 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 
-#include <string>
 class Message
 {
 	public:
@@ -12,7 +11,7 @@ class Message
 	  void askTrait(int);
 	  void encResults(int, int, bool, string);
 	  void getMad(string);
-}
+};
 
 
 

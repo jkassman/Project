@@ -59,6 +59,9 @@ int Encounter::getTraitInput()
 	    case '?':
 		cout << "Debugging!" << endl;
 		return 9;
+	    case 'Q':
+		cout << "Quiting!" << endl;
+		return 10;
 	}
 	cout << "Invalid input. Please try again: ";
     }
@@ -166,9 +169,9 @@ bool Encounter::decideGood(int input, int encounter) {
 
 //main encounter logic. Displays text, get's the user's response, determines the
 //outcome, and updates player and alien stats based on that outcome.
-bool Encounter::start(Alien* myAlien, Player* captain) {
+int Encounter::start(Alien* myAlien, Player* captain) {
   int encounter, input;
-  bool win;
+  int win;
   encounter = myAlien->getEncounter(rand()%2);
   if (myAlien->hostilityRole()) {
     encounter = 0; //fight
@@ -181,15 +184,17 @@ bool Encounter::start(Alien* myAlien, Player* captain) {
 	  input = getTraitInput();
 	}
 	////////// 
+  if(input==10)
+    return 2;
   if (decideGood(input, encounter)) {
 	int playersum=captain->getTrait(input) + captain->getAttribute((input-1)/2);
     if (challenge(myAlien->getTrait(input), playersum)) {
-      win = true;
+      win = 1;
     } else {
-      win = false;
+      win = 0;
     }
   } else {
-    win = false;
+    win = 0;
   }
   captain->updateStats(input, win);
   myAlien->updateStats(encounter, input, win);

@@ -1,11 +1,7 @@
-Chris Maheu March 27,2015 9:45PM
+Chris Maheu April 11, 2015 9:50PM
 
-Added empty message class
 
-To do:
-Add quit option during encounter
-Graphics!
-Lots of playtesting to balance incrTrait, hostility growth, etc.
+Added quit option to encounter (FINALLY)
 
 
 

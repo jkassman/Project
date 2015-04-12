@@ -175,6 +175,7 @@ void Alien::incrTrait() {
 	int sel;
 	int sum;
 	int numruns=(rand()%7+5);
+cout<<"Increasing some alien's trait"<<endl;
 
 	for(int j=0;j<numruns;j++)
 	{
