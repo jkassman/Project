@@ -174,7 +174,7 @@ void Alien::displayTraits() {
 void Alien::incrTrait() {
 	int sel;
 	int sum;
-	int numruns=(rand()%7+5);
+	int numruns=(rand()%3+3);
 
 	for(int j=0;j<numruns;j++)
 	{
