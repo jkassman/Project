@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <unistd.h>
 #include <iomanip>
+#include <math.h> //consider removing after move to Message
 #include "Player.h"
 #include "Alien.h"
 #include "Encounter.h"
@@ -208,84 +209,12 @@ int Encounter::start(Alien* myAlien, Player* captain) {
   msgs.encResults(encounter, input, win, myAlien->getName());
   return win;
 }
-/*
-//displays a message letting the user know how the encounter went
-void Encounter::displayResult(bool win, int encounter, int trait) {
-  if (!decideGood(trait, encounter)) {
-    cout << "You shouldn't use " << trait2str(trait) 
-	 << " during a " << encounter2str(encounter) << '.' << endl;
-  }
-  if (win) {
-    cout << "You won the encounter!" << endl;
-  } else {
-    cout << "You lost the encounter!" << endl;
-  }
-}
-
-string Encounter::trait2str(int trait)
-{
-  switch (trait) {
-  case 1:
-    return "Lasers";
-  case 2:
-    return "Shields";
-  case 3:
-    return "Trickery";
-  case 4:
-    return "Diplomacy";
-  case 5:
-    return "Speed";
-  case 6:
-    return "Navigation";
-  case 7:
-    return "Bravery";
-  case 8:
-    return "Caution";
-  default:
-    return "ERROR: unknown trait";
-  }
-}
-
-string Encounter::encounter2str(int encounter)
-{
-  switch (encounter) {
-  case 0:
-    return "Fight";
-  case 1:
-    return "Threaten";
-  case 2:
-    return "Rob";
-  case 3:
-    return "Story";
-  case 4:
-    return "Trade";
-  case 5:
-    return "Race";
-  default:
-    return "ERROR: Unkown encounter";
-  }
-}
-
-string Encounter::attribute2str(int attribute)
-{
-  switch (attribute) {
-  case 0:
-    return "Power";
-  case 1:
-    return "Intelligence";
-  case 2:
-    return "Engines";
-  case 3:
-    return "Sanity";
-  default:
-    return "ERROR: Unknown attribute";
-  }
-}*/
 
 void Encounter::resetScreen(Player* captain)
 {
-  int width = 3; //width of the traits; how much space padding to add.
-                 //for example, 3 does: |  1|, | 42|, and |123| 
+  int width = log10(captain->highestTrait())+ 1;
+  //width of the traits; how much space padding to add.
+  //for example, 3 does: |  1|, | 42|, and |123| 
   system("clear");
   cout << "POWER            Lasers |"
        << setw(width) << captain->getTrait(1)+captain->getAttribute(0) << "|"
