@@ -96,6 +96,8 @@ char Encounter::firstCharEntered(char* second)
 //TRUE means player won, false means player lost
 //TAKES INTO ACCOUNT WHICH ZONE YOU ARE IN
 bool Encounter::challenge(int alienTrait, int playerTrait) {
+  int modifier = getMultiplier(); //2^zone
+  alienTrait *= modifier;
   //if you have 0 in any trait, instantly lose.
   if (alienTrait <= 0) {
     return true;
@@ -108,8 +110,7 @@ bool Encounter::challenge(int alienTrait, int playerTrait) {
   int modPlayer = rand() % max(alienTrait, playerTrait);
 	////cout<<"ALIEN: "<<alienTrait<<" PLAYER: "<<playerTrait<<endl;
 	////cout<<"MODALIEN: "<<modAlien<<" MODPLAYER: "<<modPlayer<<endl;
-  int modifier = getMultiplier();
-  if ((playerTrait + modPlayer) >= (modifier * (alienTrait + modAlien))) {
+  if ((playerTrait + modPlayer) >= (alienTrait + modAlien)) {
     return true;
   } else {
     return false;
