@@ -11,7 +11,7 @@
 #include "Smuggler.h"
 
 int main() {
-  int wins=0,losses=0;
+  int wins=0,losses=0, enc;
   bool hasQuit=0;
 
   srand(time(NULL));
@@ -31,15 +31,10 @@ int main() {
     int num = rand()% 4 + 2; 		// Randomly does 2 to 5 upgrades before encounter
     for(int i=0;i<num;i++) 
     {
-      myAlien=&myDragon;
-      myAlien->incrTrait();
-      myAlien=&myGolem;
+      myDragon.incrTrait();
       myGolem.incrTrait();
-      myAlien=&myStarRunner;
       myStarRunner.incrTrait();
-      myAlien=&myScribe;
       myScribe.incrTrait();
-      myAlien=&mySmuggler;
       mySmuggler.incrTrait();
       switch(captain.upgradeAtt()) {
 	case 1: //invalid input/debug (?)
@@ -73,8 +68,14 @@ int main() {
       default:
         cout << "Not coded, come back later!" << endl;
       }
-      if(myEncounter.start( myAlien, &captain)) wins++;
-      else losses++;
+      enc=myEncounter.start( myAlien, &captain);
+      switch (enc) {
+	case 0:
+          losses++;
+	case 1:
+	  wins++;
+	case 2:
+	  hasQuit=1;
     }
   }
 
