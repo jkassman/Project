@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include "Player.h"
 #include "Encounter.h"
+#include "Message.h"
 
 using namespace std;
 
@@ -59,6 +60,7 @@ int Player::upgradeAtt() {
   int multiplier;
   multiplier = Encounter::getMultiplier(); //2^zone
   Encounter test;
+  Message say;
   int points = (rand() % 6 + 10) * multiplier; //(10-15) * multiplier
   for (int i = 4; i > 0; i--) {
     cout << "Which of your stats would you like to upgrade?" << endl;
@@ -95,27 +97,40 @@ int Player::upgradeAtt() {
       break;
     case '0':
       Encounter::changeZone(0);
+      test.resetScreen(this);
+      say.warpMessage(0);
       return 1;
     case '1':
       Encounter::changeZone(1);
+      test.resetScreen(this);
+      say.warpMessage(1);
       return 1;
     case '2':
       Encounter::changeZone(2);
+      test.resetScreen(this);
+      say.warpMessage(2);
       return 1;
     case '3':
       Encounter::changeZone(3);
+      test.resetScreen(this);
+      say.warpMessage(3);
       return 1;
     case '4':
       Encounter::changeZone(4);
+      test.resetScreen(this);
+      say.warpMessage(4);
       return 1;
     case '5':
       Encounter::changeZone(5);
+      test.resetScreen(this);
+      say.warpMessage(5);
       return 1;
     case '?':
       debug();
-    i++;
-    break;
+      i++;
+      break;
     default:
+      //test.resetScreen(this);
       cout << "Please enter something else." << endl;
       i++;
       break;
@@ -124,28 +139,31 @@ int Player::upgradeAtt() {
   return 1;		// Go to encounter
 }
   
+//if you lost, reduce attributes.
+//if you won, increase one trait and decrease another
+//takes into account which zone you are in
 void Player::updateStats(int TraitUsed, bool win) { //True if Player wins
   int NewTrait;
   int AttrUsed; //which attribute was used.
   int toReduce; //number to reduce Attribute by
+  int modifier = Encounter::getMultiplier(); //2^zone
   if(win) {
-     NewTrait = Traits[TraitUsed] + 1;	// Increase winning trait by 1
-     Traits[TraitUsed] = NewTrait;
-    //// cout << "Trait that should be +1: " << NewTrait << endl;
-     if(TraitUsed % 2) {	// if traitused is odd
-       Traits[TraitUsed+1]--;	// Decrease corresponding trait
-     }else{
-       Traits[TraitUsed-1]--; 	// Decrease corresponding trait
-     }
-     Traits[7]++; //Increase bravery
-     Traits[8]--; //Decrease caution
-  }else{ //Player Lost
-	toReduce = rand()%5 + 4; //4-8
-	AttrUsed = (TraitUsed-1)/2;
-	Attributes[AttrUsed] -= toReduce;
-	cout << "Reduced " << AttrUsed << " by " << toReduce << "." << endl;
-	Traits[8]++; //Increase caution
-	Traits[7]--; //Decrease bravery
+    NewTrait = Traits[TraitUsed] + modifier;	// Increase winning trait by 1
+    Traits[TraitUsed] = NewTrait;
+    if(TraitUsed % 2) {	// if traitused is odd
+      Traits[TraitUsed+1] -= modifier;	// Decrease corresponding trait
+    }else{
+      Traits[TraitUsed-1] -= modifier; // Decrease corresponding trait
+    }
+    Traits[7] += modifier; //Increase bravery
+    Traits[8] -= modifier; //Decrease caution
+  } else { //Player Lost
+    toReduce = modifier*(rand()%4 + 7); //7-10
+    AttrUsed = (TraitUsed-1)/2;
+    Attributes[AttrUsed] -= toReduce;
+    cout << "Reduced " << AttrUsed << " by " << toReduce << "." << endl;
+    Traits[8] += modifier; //Increase caution
+    Traits[7] -= modifier; //Decrease bravery
   }
 }
 

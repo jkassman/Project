@@ -18,6 +18,7 @@ class Message
 	  void getMad(string);
           string trait2str(int);
           string encounter2str(int);
+	  void warpMessage(int zone);
 };
 
 
