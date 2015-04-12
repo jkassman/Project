@@ -322,7 +322,7 @@ void Encounter::changeZone(int select)
     }
 }
 
-int Encounter::getMultiplier()
+static int Encounter::getMultiplier()
 {
   int multiplier = 1;
   //2^myZone:
