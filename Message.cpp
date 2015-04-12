@@ -12,7 +12,8 @@ using namespace std;
 
 void Message::intro(Player * captain)
 {
-  int width = 3; //width of the traits; how much space padding to add.
+  int width = (log10(captain->highestTrait())) + 1; 
+  //width of the traits; how much space padding to add.
                  //for example, 3 does: |  1|, | 42|, and |123| 
   system("clear");
 cout << endl<<"Welcome to Stellarim. You're a wandering traveler, a mutineer recently \" freed \" from the hold of your terrible employers." << endl;
@@ -35,15 +36,10 @@ cout << "Prepare yourself! For you are about to make universal history as you ma
        << setw(width) << captain->getTrait(7) + captain->getAttribute(3) <<"|"
        << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
        <<"| Caution"<<endl;
-  cout<< "You are currently in zone "<<Encounter::getZone()<<endl;
+  cout<< "You are currently in zone "<<Encounter::getZone()<<"."<<endl;
 
   cout << endl;
 }
-
-/* Goes the in the following places:
-  -In each case in Player::upgradeAtt()
-  
-*/
 
 void Message::resetScreen(Player * captain)
 {
@@ -67,7 +63,7 @@ void Message::resetScreen(Player * captain)
        << setw(width) << captain->getTrait(7) + captain->getAttribute(3) <<"|"
        << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
        <<"| Caution"<<endl;
-  cout<< "You are currently in zone "<<Encounter::getZone()<<endl;
+  cout<< "You are currently in zone "<<Encounter::getZone()<<"."<<endl;
 
   cout << endl;
 }

@@ -73,18 +73,26 @@ int Player::upgradeAtt() {
     case 'P':
       Attributes[0] += points/i; //assign 25% of points to power
       points -= points/i;
+      say.resetScreen(this); 
+      say.trainAttr('P');
       break;
     case 'I':
       Attributes[1] += points/i;
       points -= points/i;
+      say.resetScreen(this); 
+      say.trainAttr('I');
       break;
     case 'E':
       Attributes[2] += points/i;
       points -= points/i;
+      say.resetScreen(this); 
+      say.trainAttr('E');
       break;
     case 'S':
       Attributes[3] += points/i;
       points -= points/i;
+      say.resetScreen(this); 
+      say.trainAttr('S');
       break;
     case 'Q':
       system("clear");
@@ -98,9 +106,10 @@ int Player::upgradeAtt() {
     case '5':
       if(i==max){
         Encounter::changeZone(choice-'0');
-        say.resetScreen(this);
+        say.resetScreen(this); 
         return 1;
       }else{
+        say.resetScreen(this); 
 	cout<<"You should try to encounter something in this zone before warping."<<endl<<endl;
 	i++;
 	break;
@@ -114,7 +123,6 @@ int Player::upgradeAtt() {
       i++;
       break;
     }
-    say.resetScreen(this);
   }
   return 1;		// Go to encounter
 }
