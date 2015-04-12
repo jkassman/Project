@@ -121,7 +121,7 @@ void Message::newEncounter(int encType, string alienName)
   }
 
   if(alienName == "Golem") {
-    switch (encType) {
+    switch (thisencounter) {
       case 0: //Attack
         cout << "A Golem attacks you!" << endl;
         break;
@@ -137,49 +137,6 @@ void Message::newEncounter(int encType, string alienName)
 
 void Message::askTrait(int encType)
 {
-  cout << "Do you want to use Lasers, Shields, Diplomacy, Trickery, " <<endl;
-  cout << "Speed, Navigation, Bravery, or Caution? ";
-
-  switch (checkChar) {
-    case 'L':
-      if (print) cout << "Lasers!" << endl;
-        return 1;
-case 'S':
-if (second == 'H')
-{
-if (print) cout << "Shields!" << endl;
-return 2;
-}
-else if (second == 'P')
-{
-if (print) cout << "Speed!" << endl;
-return 5;
-}
-else break;
-case 'T':
-if (print) cout << "Trickery!" << endl;
-return 3;
-case 'D':
-if (print) cout << "Diplomacy!" << endl;
-return 4;
-case 'N':
-if (print) cout << "Navigation!" << endl;
-return 6;
-case 'B':
-if (print) cout << "Bravery!" << endl;
-return 7;
-case 'C':
-if (print) cout << "Caution!" << endl;
-return 8;
-case '?':
-if (print) cout << "Debugging!" << endl;
-return 9;
-case 'Q':
-cout << "Quiting!" << endl;
-return 10;
-}
-cout << "Invalid input. Please try again: ";
-}
 }
 
 void Message::encResults(int encType, int trait, bool win, string alienName)
