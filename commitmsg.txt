@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 Chris Maheu April 11, 2015 9:50PM
 
+=======
+Lauren Kuta 4/11/2015 9:00 PM
+
+Defined some of the functions in the Message class.
+>>>>>>> 8e0973494f7c9245d8ee6a8ad2fba341dfda1068
 
 Added quit option to encounter (FINALLY)
 

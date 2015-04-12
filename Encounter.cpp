@@ -12,11 +12,14 @@
 
 using namespace std;
 
+int Encounter::myZone = 0;
+
 //Displays a message and gets input. Only cares about the first character entered.
 int Encounter::getTraitInput()
 {
     char checkChar;
     char second;
+    int print = 0;
 
     cout << "Do you want to use Lasers, Shields, Diplomacy, Trickery, " <<endl;
     cout << "Speed, Navigation, Bravery, or Caution? "; 
@@ -27,37 +30,37 @@ int Encounter::getTraitInput()
 	switch (checkChar)
 	{
 	    case 'L':
-		cout << "Lasers!" << endl;
+		if (print) cout << "Lasers!" << endl;
 		return 1;
 	    case 'S':
 		if (second == 'H')
 		{
-		    cout << "Shields!" << endl;
+		    if (print) cout << "Shields!" << endl;
 		    return 2;
 		}
 		else if (second == 'P')
 		{
-		    cout << "Speed!" << endl;
+		    if (print) cout << "Speed!" << endl;
 		    return 5;
 		}
 		else break;
 	    case 'T':
-		cout << "Trickery!" << endl;
+		if (print) cout << "Trickery!" << endl;
 		return 3;
 	    case 'D':
-		cout << "Diplomacy!" << endl;
+		if (print) cout << "Diplomacy!" << endl;
 		return 4;
 	    case 'N':
-		cout << "Navigation!" << endl;
+		if (print) cout << "Navigation!" << endl;
 		return 6;
 	    case 'B':
-		cout << "Bravery!" << endl;
+		if (print) cout << "Bravery!" << endl;
 		return 7;
 	    case 'C':
-		cout << "Caution!" << endl;
+		if (print) cout << "Caution!" << endl;
 		return 8;
 	    case '?':
-		cout << "Debugging!" << endl;
+		if (print) cout << "Debugging!" << endl;
 		return 9;
 	    case 'Q':
 		cout << "Quiting!" << endl;
@@ -299,4 +302,22 @@ void Encounter::resetScreen(Player* captain)
        <<"| Caution"<<endl;
 
   cout << endl;
+}
+
+int Encounter::getZone()
+{
+    return myZone;
+}
+
+//increments zone if select is positive, decrements if negative
+//does nothing if zero.
+void Encounter::changeZone(int select)
+{
+    if (select > 0) {
+	myZone++;
+    } else if (select <0) {
+	myZone--;
+    } else {
+	//do nothing
+    }
 }
