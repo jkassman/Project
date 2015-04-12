@@ -301,7 +301,7 @@ void Encounter::resetScreen(Player* captain)
        << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
        <<"| Caution"<<endl;
 
-  cout << endl;  
+  cout << endl;
 }
 
 int Encounter::getZone()
@@ -320,14 +320,4 @@ void Encounter::changeZone(int select)
     } else {
 	//do nothing
     }
-}
-
-int Encounter::getMultiplier()
-{
-  int multiplier = 1;
-  //2^myZone:
-  for (int i = 0; i < myZone; i++) {
-    multiplier *= 2;
-  }
-  return multiplier;
 }
