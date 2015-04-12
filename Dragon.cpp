@@ -27,19 +27,3 @@ Dragon::Dragon()
 	name="Dragon";
 }
 
-//displays text for each encounter the dragon can be in, specific to the dragon.
-void Dragon::displayEncounter(int thisencounter) {
-	//very simple version:
-  switch (thisencounter) {
-  case 0: //Attack
-    cout << "A Dragon attacks you!" << endl;
-    break;
-  case 1: //Threaten
-    cout << "A Dragon threatens you!" << endl;
-    break;
-  case 5: //Race
-    cout << "A Dragon wants to race you!" << endl;
-    break;
-  }
-}
-

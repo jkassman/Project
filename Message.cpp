@@ -9,22 +9,41 @@
 
 using namespace std;
 
-//Goes in main.cpp only:
-void Message::intro()
+void Message::intro(Player * captain)
 {
-
-cout << "Welcome to Stellarim. You're a wandering traveler, a mutineer recently \" freed \" from the hold of your terrible employers." << endl;
+  int width = 3; //width of the traits; how much space padding to add.
+                 //for example, 3 does: |  1|, | 42|, and |123| 
+  system("clear");
+cout << endl<<"Welcome to Stellarim. You're a wandering traveler, a mutineer recently \" freed \" from the hold of your terrible employers." << endl;
 cout << "In a universe where societies had been driven apart by diesease for countless years, you are the sole member of a ship destined to encounter these foreign races." << endl;
-cout << "Prepare yourself! For you are about to make universal history as you make contact with various alien species during your quest to reunite the galaxy." << endl;
+cout << "Prepare yourself! For you are about to make universal history as you make contact with various alien species during your quest to reunite the galaxy." << endl<<endl<<endl;
+
+  cout << "POWER            Lasers |"
+       << setw(width) << captain->getTrait(1)+captain->getAttribute(0) << "|"
+       << setw(width) << captain->getTrait(2)+captain->getAttribute(0)
+       << "| Shields"<< endl;
+  cout << "INTELLIGENCE   Trickery |"
+       << setw(width) << captain->getTrait(3) + captain->getAttribute(1) <<"|"
+       << setw(width) << captain->getTrait(4) + captain->getAttribute(1) 
+       <<"| Diplomacy"<<endl;
+  cout << "ENGINES           Speed |"
+       << setw(width) << captain->getTrait(5) + captain->getAttribute(2) <<"|"
+       << setw(width) << captain->getTrait(6) + captain->getAttribute(2) 
+       <<"| Navigation"<<endl;
+  cout << "SANITY          Bravery |"
+       << setw(width) << captain->getTrait(7) + captain->getAttribute(3) <<"|"
+       << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
+       <<"| Caution"<<endl;
+
+  cout << endl;
 }
 
 /* Goes the in the following places:
-  -End of Encounter start
   -In each case in Player::upgradeAtt()
   
 */
 
-void Message::resetscreen(Player * captain)
+void Message::resetScreen(Player * captain)
 {
   int width = (log10(captain->highestTrait())) + 1; 
   //width of the traits; how much space padding to add.
@@ -75,78 +94,32 @@ void Message::trainAttr(char attr)
   } 
 }
 
-// In Encounter line 181 in encounter::start
+// In Encounter line 181 in encounter::start ADDED
+// Is alien::displayencounter
 void Message::newEncounter(int encType, string alienName)
 {
-  if(alienName == "Dragon") {
-    switch (encType) {
+
+  cout<<"A "<<alienName;
+  switch (encType){
       case 0: //Attack
-        cout << "A Dragon attacks you!" << endl;
+        cout << " attacks you!" << endl;
         break;
       case 1: //Threaten
-        cout << "A Dragon threatens you!" << endl;
-        break;
-      case 5: //Race
-        cout << "A Dragon wants to race you!" << endl;
-        break;
-    }
-  }
-
-  if(alienName == "Scribe") {
-    switch (encType) {
-      case 0: //Attack
-        cout << "A Scribe attacks you!" << endl;
-        break;
-      case 3: //Story
-        cout << "A Scribe wants to tell you a story!" << endl;
-        break;
-      case 4: //Trade
-        cout << "A Scribe wants to trade with you!" << endl;
-        break;
-    }
-  }
-
-  if(alienName == "Smuggler") {
-    switch (encType) {
-      case 0: //Attack
-        cout << "A Smuggler attacks you!" << endl;
+        cout << " threatens you!" << endl;
         break;
       case 2: //Rob
-        cout << "A Smuggler is trying to rob you!" << endl;
-        break;
-      case 4: //Trade
-        cout << "A Smuggler wants to trade with you!" << endl;
-        break;
-    }
-  }
-
-  if(alienName == "Star Runner") {
-    switch (encType) {
-      case 0: //Attack
-        cout << "A Star Runner attacks you!" << endl;
+        cout << " is trying to rob you!" << endl;
         break;
       case 3: //Story
-        cout << "A Star Runner wants to tell you a story!" << endl;
+        cout << " wants to tell you a story!" << endl;
+        break;
+      case 4: //Trade
+        cout << " wants to trade with you!" << endl;
         break;
       case 5: //Race
-        cout << "A Star Runner wants to race you!" << endl;
+        cout << " wants to race you!" << endl;
         break;
     }
-  }
-
-  if(alienName == "Golem") {
-    switch (encType) {
-      case 0: //Attack
-        cout << "A Golem attacks you!" << endl;
-        break;
-      case 1: //Threaten
-        cout << "A Golem threatens you!" << endl;
-        break;
-     case 2: //Rob
-        cout << "A Golem is trying to rob you!" << endl;
-        break;
-    }
-  }  
 }
 
 //Goes in the beginning of the getTraitImput() in Encounter.cpp
@@ -212,7 +185,7 @@ bool Message::decideGood(int input, int encounter) {
 
 
 
-void Message::encResults(int encType, int trait, bool win, string alienName)
+void Message::encResults(int encType, int trait, int win, string alienName)
 {
 	if (!decideGood(trait, encType)) {
 		cout << "You shouldn't use " << trait2str(trait) << " during a " << encounter2str(encType) << '.' << endl;

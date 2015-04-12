@@ -9,7 +9,6 @@ class Smuggler : public Alien
 {
 	public:
 	  Smuggler();
-	  void displayEncounter(int);
 	private: 
 };
 

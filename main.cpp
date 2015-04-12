@@ -8,9 +8,12 @@
 #include "StarRunner.h"
 #include "Scribe.h"
 #include "Smuggler.h"
+#include "Message.h"
+
 int main() {
   int wins=0,losses=0, enc;
   bool hasQuit=0;
+  Message msgs;
   srand(time(NULL));
   Dragon myDragon;
   Golem myGolem;
@@ -20,7 +23,8 @@ int main() {
   Alien * myAlien = &myDragon;
   Player captain;
   Encounter myEncounter;
-  myEncounter.resetScreen(&captain);
+  msgs.intro(&captain);
+  //msgs.resetScreen(&captain);
   while (!hasQuit) {
     // Training Phase
     myDragon.incrTrait(); //NOTE: These are only called once now. They used to

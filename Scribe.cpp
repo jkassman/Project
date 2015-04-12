@@ -27,19 +27,3 @@ Scribe::Scribe()
 	name="Scribe";
 }
 
-//displays text for each encounter the dragon can be in, specific to the dragon.
-void Scribe::displayEncounter(int thisencounter) {
-	//very simple version:
-  switch (thisencounter) {
-  case 0: //Attack
-    cout << "A Scribe attacks you!" << endl;
-    break;
-  case 3: //Story
-    cout << "A Scribe wants to tell you a story!" << endl;
-    break;
-  case 4: //Trade
-    cout << "A Scribe wants to trade with you!" << endl;
-    break;
-  }
-}
-
