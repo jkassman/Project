@@ -140,46 +140,35 @@ void Message::askTrait(int encType)
   cout << "Do you want to use Lasers, Shields, Diplomacy, Trickery, " <<endl;
   cout << "Speed, Navigation, Bravery, or Caution? ";
 
-  switch (checkChar) {
+  switch (encType) {
     case 'L':
-      if (print) cout << "Lasers!" << endl;
-        return 1;
-case 'S':
-if (second == 'H')
-{
-if (print) cout << "Shields!" << endl;
-return 2;
-}
-else if (second == 'P')
-{
-if (print) cout << "Speed!" << endl;
-return 5;
-}
-else break;
-case 'T':
-if (print) cout << "Trickery!" << endl;
-return 3;
-case 'D':
-if (print) cout << "Diplomacy!" << endl;
-return 4;
-case 'N':
-if (print) cout << "Navigation!" << endl;
-return 6;
-case 'B':
-if (print) cout << "Bravery!" << endl;
-return 7;
-case 'C':
-if (print) cout << "Caution!" << endl;
-return 8;
-case '?':
-if (print) cout << "Debugging!" << endl;
-return 9;
-case 'Q':
-cout << "Quiting!" << endl;
-return 10;
-}
-cout << "Invalid input. Please try again: ";
-}
+      cout << "Lasers!" << endl;
+      break;  
+    case 'S':
+      cout << "Shields!" << endl;
+      break;
+    case 'T':
+      cout << "Trickery!" << endl;
+      break;
+    case 'D':
+      cout << "Diplomacy!" << endl;
+      break;
+    case 'N':
+      cout << "Navigation!" << endl;
+      break;
+    case 'B':
+      cout << "Bravery!" << endl;
+      break;
+    case 'C':
+      cout << "Caution!" << endl;
+      break;
+    case '?':
+      cout << "Debugging!" << endl;
+      break;
+    default:
+      cout << "This should never happen." << endl;
+      break;
+  }
 }
 
 void Message::encResults(int encType, int trait, bool win, string alienName)
