@@ -20,8 +20,8 @@ class Player {
     int getAttribute(int);
     void setTrait(int, int);
     void setAttribute(int, int);
-    int upgradeAtt();
-    void updateStats(int, bool); 
+    int upgradeAtt(); //between encounters, based on user input
+    void updateStats(int, bool); //after an encounter
     void upgradeSanity();
     void upgradeEngines();
     void upgradeIntel();

@@ -28,7 +28,7 @@ int main() {
   while (!hasQuit) {
 
     // Training Phase
-    int num = rand()% 4 + 2; 		// Randomly does 2 to 4 upgrades before encounter
+    int num = rand()% 4 + 2; 		// Randomly does 2 to 5 upgrades before encounter
     for(int i=0;i<num;i++) 
     {
       myAlien=&myDragon;
@@ -42,10 +42,10 @@ int main() {
       myAlien=&mySmuggler;
       mySmuggler.incrTrait();
       switch(captain.upgradeAtt()) {
-	case 1:
+	case 1: //invalid input/debug (?)
 	  i--;
 	  break;
-	case 2:
+	case 2: //quit case
 	  hasQuit=1;
 	  i=num;
 	  break;
