@@ -1,8 +1,6 @@
 Chris Maheu March 27,2015 9:45PM
 
-Fixed Hostility Bug
-Changed growth of alien traits and situations that hostility changes to hopefully be more balanced
-Added win/loss ratio after quitting
+Added empty message class
 
 To do:
 Add quit option during encounter

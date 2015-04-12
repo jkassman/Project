@@ -1,6 +1,6 @@
 CMP = g++
 MAIN = main
-OBJECTS = Player.o Encounter.o Alien.o Dragon.o Golem.o  Scribe.o StarRunner.o Smuggler.o
+OBJECTS = Player.o Encounter.o Alien.o Dragon.o Golem.o  Scribe.o StarRunner.o Smuggler.o Message.o
 EXEC = $(MAIN)
 FLAGS = -Wall
 
