@@ -138,42 +138,10 @@ void Message::newEncounter(int encType, string alienName)
   }  
 }
 
-void Message::askTrait(int encType)
+void Message::askTrait(char encType)
 {
   cout << "Do you want to use Lasers, Shields, Diplomacy, Trickery, " <<endl;
   cout << "Speed, Navigation, Bravery, or Caution? ";
-
-  switch (encType) {
-    case 'L':
-      cout << "Lasers!" << endl;
-      break;  
-    case 'S':
-      cout << "Shields!" << endl;
-      break;
-    case 'T':
-      cout << "Trickery!" << endl;
-      break;
-    case 'D':
-      cout << "Diplomacy!" << endl;
-      break;
-    case 'N':
-      cout << "Navigation!" << endl;
-      break;
-    case 'B':
-      cout << "Bravery!" << endl;
-      break;
-    case 'C':
-      cout << "Caution!" << endl;
-      break;
-    case '?':
-      cout << "Debugging!" << endl;
-      break;
-    case 'Q':
-      cout << "Quiting!" << endl;
-    default:
-      cout << "This should never happen." << endl;
-      break;
-  }
 }
 
 bool Message::decideGood(int input, int encounter) {

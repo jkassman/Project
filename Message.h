@@ -10,7 +10,7 @@ class Message
 	  void resetscreen(int *);
 	  void trainAttr(char);
 	  void newEncounter(int, string);
-	  void askTrait(int);
+	  void askTrait(char);
 	  bool decideGood(int, int);
 	  void encResults(int, int, bool, string);
 	  void getMad(string);
