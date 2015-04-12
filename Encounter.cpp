@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <unistd.h>
 #include <iomanip>
+#include <math.h> //consider removing after move to Message
 #include "Player.h"
 #include "Alien.h"
 #include "Encounter.h"
@@ -281,7 +282,8 @@ string Encounter::attribute2str(int attribute)
 
 void Encounter::resetScreen(Player* captain)
 {
-  int width = 3; //width of the traits; how much space padding to add.
+  int width = log10(captain->highestTrait())+ 1;
+  //width of the traits; how much space padding to add.
                  //for example, 3 does: |  1|, | 42|, and |123| 
   system("clear");
   cout << "POWER            Lasers |"
