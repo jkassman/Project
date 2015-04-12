@@ -143,19 +143,19 @@ void Alien::displayTraits() {
   int width = 3; //width of the traits; how much space padding to add.
   //for example, 3 does: | 1|, | 42|, and |123|
   cout<<"DEBUGGING "<<name<<" Traits"<<endl;
-  cout << "POWER Lasers |"
+  cout << "POWER            Lasers |"
        << setw(width) << trait[1] << "|"
        << setw(width) << trait[2]
        << "| Shields"<< endl;
-  cout << "INTELLIGENCE Trickery |"
+  cout << "INTELLIGENCE   Trickery |"
        << setw(width) << trait[3] <<"|"
        << setw(width) << trait[4]
        <<"| Diplomacy"<<endl;
-  cout << "ENGINES Speed |"
+  cout << "ENGINES           Speed |"
        << setw(width) << trait[5] <<"|"
        << setw(width) << trait[6]
        <<"| Navigation"<<endl;
-  cout << "SANITY Bravery |"
+  cout << "SANITY          Bravery |"
        << setw(width) << trait[7] <<"|"
        << setw(width) << trait[8]
        <<"| Caution"<<endl;

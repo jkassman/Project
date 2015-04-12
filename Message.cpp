@@ -5,9 +5,10 @@
 #include <ctype.h>
 #include <cstdlib>
 #include "Message.h"
+
 using namespace std;
 
-
+//Goes in main.cpp only:
 void Message::intro()
 {
 
@@ -16,7 +17,13 @@ cout << "In a universe where societies had been driven apart by diesease for cou
 cout << "Prepare yourself! For you are about to make universal history as you make contact with various alien species during your quest to reunite the galaxy." << endl;
 }
 
-void Message::resetscreen(int * captain)
+/* Goes the in the following places:
+  -End of Encounter start
+  -In each case in Player::upgradeAtt()
+  
+*/
+
+void Message::resetscreen(Player * captain)
 {
   int width = 3; //width of the traits; how much space padding to add.
                  //for example, 3 does: |  1|, | 42|, and |123| 
@@ -138,6 +145,7 @@ void Message::newEncounter(int encType, string alienName)
   }  
 }
 
+//Goes in the beginning of the getTraitImput() in Encounter.cpp
 void Message::askTrait(char encType)
 {
   cout << "Do you want to use Lasers, Shields, Diplomacy, Trickery, " <<endl;
@@ -214,6 +222,7 @@ void Message::encResults(int encType, int trait, bool win, string alienName)
 
 void Message::getMad(string alienName)
 {
+  cout << "The " << alienName << "s are mad at you!" << endl;
 }
 
 string Message::trait2str(int trait)
