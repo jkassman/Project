@@ -19,6 +19,7 @@ class Encounter {
   string attribute2str(int);
   int getZone();
   void changeZone(int select);
+  int getMultiplier();
  private:
   static int myZone;
 };

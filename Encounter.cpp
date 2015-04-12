@@ -316,3 +316,13 @@ void Encounter::changeZone(int select)
 	//do nothing
     }
 }
+
+int Encounter::getMultiplier()
+{
+  int multiplier = 1;
+  //2^myZone:
+  for (int i = 0; i < myZone; i++) {
+    multiplier *= 2;
+  }
+  return multiplier;
+}
