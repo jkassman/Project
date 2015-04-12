@@ -9,7 +9,6 @@ class Scribe : public Alien
 {
 	public:
 	  Scribe();
-	  void displayEncounter(int);
 	private: 
 };
 

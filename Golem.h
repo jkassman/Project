@@ -9,7 +9,6 @@ class Golem : public Alien
 {
 	public:
 	  Golem();
-	  void displayEncounter(int);
 	private: 
 };
 

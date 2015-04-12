@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "Alien.h"
 #include "Encounter.h"
+#include "Message.h"
 
 using namespace std;
 
@@ -175,11 +176,13 @@ bool Encounter::decideGood(int input, int encounter) {
 int Encounter::start(Alien* myAlien, Player* captain) {
   int encounter, input;
   int win;
+  Message msgs;
+
   encounter = myAlien->getEncounter(rand()%2);
   if (myAlien->hostilityRole()) {
     encounter = 0; //fight
   }
-  myAlien->displayEncounter(encounter);
+  msgs.newEncounter(encounter,myAlien->getName());
   input = getTraitInput();
 	////////// Debugging
 	while(input==9) {	
@@ -201,11 +204,11 @@ int Encounter::start(Alien* myAlien, Player* captain) {
   }
   captain->updateStats(input, win);
   myAlien->updateStats(encounter, input, win);
-  resetScreen(captain);
-  displayResult(win, encounter, input);
+  msgs.resetScreen(captain);
+  msgs.encResults(encounter, input, win, myAlien->getName());
   return win;
 }
-
+/*
 //displays a message letting the user know how the encounter went
 void Encounter::displayResult(bool win, int encounter, int trait) {
   if (!decideGood(trait, encounter)) {
@@ -277,7 +280,7 @@ string Encounter::attribute2str(int attribute)
   default:
     return "ERROR: Unknown attribute";
   }
-}
+}*/
 
 void Encounter::resetScreen(Player* captain)
 {

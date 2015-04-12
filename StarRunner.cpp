@@ -27,19 +27,3 @@ StarRunner::StarRunner()
 	name="Star Runner";
 }
 
-//displays text for each encounter the dragon can be in, specific to the dragon.
-void StarRunner::displayEncounter(int thisencounter) {
-	//very simple version:
-  switch (thisencounter) {
-  case 0: //Attack
-    cout << "A Star Runner attacks you!" << endl;
-    break;
-  case 3: //Story
-    cout << "A Star Runner wants to tell you a story!" << endl;
-    break;
-  case 5: //Race
-    cout << "A Star Runner wants to race you!" << endl;
-    break;
-  }
-}
-

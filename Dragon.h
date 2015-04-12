@@ -9,7 +9,6 @@ class Dragon : public Alien
 {
 	public:
 	  Dragon();
-	  void displayEncounter(int);
 	private: 
 };
 

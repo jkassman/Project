@@ -27,19 +27,3 @@ Smuggler::Smuggler()
 	name="Smuggler";
 }
 
-//displays text for each encounter the dragon can be in, specific to the dragon.
-void Smuggler::displayEncounter(int thisencounter) {
-	//very simple version:
-  switch (thisencounter) {
-  case 0: //Attack
-    cout << "A Smuggler attacks you!" << endl;
-    break;
-  case 2: //Rob
-    cout << "A Smuggler is trying to rob you!" << endl;
-    break;
-  case 4: //Trade
-    cout << "A Smuggler wants to trade with you!" << endl;
-    break;
-  }
-}
-

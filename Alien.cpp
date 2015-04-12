@@ -180,3 +180,6 @@ void Alien::incrTrait() {
 	}
     }
 }
+
+string Alien::getName()
+{	return name;}

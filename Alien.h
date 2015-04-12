@@ -8,13 +8,13 @@
 class Alien {
     public:
 	Alien();
-	virtual void displayEncounter(int) =0; //defined in each alien
 	void updateStats(int encounterType, int whichTrait, bool win);
 	bool hostilityRole();
 	int getEncounter(int select);
 	int getTrait(int select);
 	void incrTrait();
 	void displayTraits();
+	string getName();
 
     protected:	// All initialized in each species' constructor
 	vector <int> trait;

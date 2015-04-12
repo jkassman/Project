@@ -27,19 +27,3 @@ Golem::Golem()
 	name="Golem";
 }
 
-//displays text for each encounter the Golem can be in, specific to the Golem.
-void Golem::displayEncounter(int thisencounter) {
-	//very simple version:
-  switch (thisencounter) {
-  case 0: //Attack
-    cout << "A Golem attacks you!" << endl;
-    break;
-  case 1: //Threaten
-    cout << "A Golem threatens you!" << endl;
-    break;
-  case 2: //Rob
-    cout << "A Golem is trying to rob you!" << endl;
-    break;
-  }
-}
-

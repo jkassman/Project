@@ -9,7 +9,6 @@ class StarRunner : public Alien
 {
 	public:
 	  StarRunner();
-	  void displayEncounter(int);
 	private: 
 };
 
