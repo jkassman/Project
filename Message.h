@@ -1,13 +1,15 @@
 #ifndef MESSAGE_H
 #define MESSAGE_H
 #include <string>
+#include "Player.h"
+
 using namespace std;
 
 class Message
 {
 	public:
 	  void intro();
-	  void resetscreen(int *);
+	  void resetscreen(Player *);
 	  void trainAttr(char);
 	  void newEncounter(int, string);
 	  void askTrait(char);
