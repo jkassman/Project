@@ -29,25 +29,26 @@ void Message::resetscreen(Player * captain)
                  //for example, 3 does: |  1|, | 42|, and |123| 
   system("clear");
   cout << "POWER            Lasers |"
-       << setw(width) << captain[1]+captain[0] << "|"
-       << setw(width) << captain[2]+captain[0]
+       << setw(width) << captain->getTrait(1)+captain->getAttribute(0) << "|"
+       << setw(width) << captain->getTrait(2)+captain->getAttribute(0)
        << "| Shields"<< endl;
   cout << "INTELLIGENCE   Trickery |"
-       << setw(width) << captain[3] + captain[1] <<"|"
-       << setw(width) << captain[4] + captain[1] 
+       << setw(width) << captain->getTrait(3) + captain->getAttribute(1) <<"|"
+       << setw(width) << captain->getTrait(4) + captain->getAttribute(1) 
        <<"| Diplomacy"<<endl;
   cout << "ENGINES           Speed |"
-       << setw(width) << captain[5] + captain[2] <<"|"
-       << setw(width) << captain[6] + captain[2] 
+       << setw(width) << captain->getTrait(5) + captain->getAttribute(2) <<"|"
+       << setw(width) << captain->getTrait(6) + captain->getAttribute(2) 
        <<"| Navigation"<<endl;
   cout << "SANITY          Bravery |"
-       << setw(width) << captain[7] + captain[3] <<"|"
-       << setw(width) << captain[8] + captain[3] 
+       << setw(width) << captain->getTrait(7) + captain->getAttribute(3) <<"|"
+       << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
        <<"| Caution"<<endl;
 
   cout << endl;
 }
 
+// In Player.cpp
 void Message::trainAttr(char attr)
 {
   switch (toupper(attr)) {
@@ -72,6 +73,7 @@ void Message::trainAttr(char attr)
   } 
 }
 
+// In Encounter line 181 in encounter::start
 void Message::newEncounter(int encType, string alienName)
 {
   if(alienName == "Dragon") {
