@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <math.h>
 #include "Message.h"
+#include "Encounter.h"
 
 using namespace std;
 
@@ -34,6 +35,7 @@ cout << "Prepare yourself! For you are about to make universal history as you ma
        << setw(width) << captain->getTrait(7) + captain->getAttribute(3) <<"|"
        << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
        <<"| Caution"<<endl;
+  cout<< "You are currently in zone "<<Encounter::getZone()<<endl;
 
   cout << endl;
 }
@@ -65,6 +67,7 @@ void Message::resetScreen(Player * captain)
        << setw(width) << captain->getTrait(7) + captain->getAttribute(3) <<"|"
        << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
        <<"| Caution"<<endl;
+  cout<< "You are currently in zone "<<Encounter::getZone()<<endl;
 
   cout << endl;
 }
@@ -244,9 +247,4 @@ string Message::encounter2str(int encounter)
 		default:
 			return "ERROR: Unkown encounter";
 	}
-}
-
-void Message::warpMessage(int zone)
-{
-  cout << "Warped to zone " << zone << "!" << endl;
 }
