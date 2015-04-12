@@ -1,4 +1,4 @@
-Lauren Kuta -- Fixing git pull errors
+Lauren Kuta -- Completed Message class
 
 Added quit option to encounter (FINALLY)
 

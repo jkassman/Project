@@ -11,6 +11,11 @@ using namespace std;
 void Message::intro()
 {
 
+cout << "Welcome to Stellarim. You're a wandering traveler, a mutineer recently \" freed \" from the hold of your terrible employers." << endl;
+cout << "In a universe where societies had been driven apart by diesease for countless years, you are the sole member of a ship destined to encounter these foreign races." << endl;
+cout << "Prepare yourself! For you are about to make universal history as you make contact with various alien species during your quest to reunite the galaxy." << endl;
+}
+
 }
 
 void Message::resetscreen(int * captain)
@@ -165,17 +170,128 @@ void Message::askTrait(int encType)
     case '?':
       cout << "Debugging!" << endl;
       break;
+    case 'Q':
+      cout << "Quiting!" << endl;
     default:
       cout << "This should never happen." << endl;
       break;
   }
 }
 
+bool Message::decideGood(int input, int encounter) {
+  if (input >= 1 && input <= 8 && encounter >= 0 && encounter <= 5) {
+		//nothing, good.
+	} else {
+		cout << "This shouldn't happen, but invalid input was passed to decideGood" << endl;
+	}
+	switch (encounter) {
+		case 0: //Fight
+			// power shields navigation speed
+			if (input == 1 || input == 2 || input == 6 || (input == 5)) {
+				return true;
+			} else {
+				break;
+			}
+		case 1: //Threaten
+			// power bravery trickery speed
+			if (input == 1 || input == 7 || input == 3 || (input == 5)) {
+				return true;
+			} else {
+				break;
+			}
+		case 2: //Rob
+			// power shields caution speed
+			if (input == 1 || input == 2 || input == 8 || input == 5) {
+				return true;
+			} else {
+				break;
+			}
+		case 3: //Story
+			// power diplomacy caution speed
+			if (input == 1 || input == 4 || input == 8 || input == 5) {
+				return true;
+			} else {
+				break;
+			}
+		case 4: //Trade
+			// power diplomacy trickery speed
+			if (input == 1 || input == 4 || input == 3 || input == 5) {
+				return true;
+			} else {
+				break;
+			}
+		case 5: //Race
+			// power navigation bravery speed
+			if (input == 1 || input == 6 || input == 7 || input == 5) {
+				return true;
+			} else {
+				break;
+		}
+	}
+	//it only gets here if it doesn't return true, so the person chose wrong.
+	return false;
+}
+
+
+
 void Message::encResults(int encType, int trait, bool win, string alienName)
 {
+	if (!decideGood(trait, encounter)) {
+		cout << "You shouldn't use " << trait2str(trait) << " during a " << encounter2str(encounter) << '.' << endl;
+	}
+	if (win) {
+		cout << "You won the encounter!" << endl;
+	} else {
+		cout << "You lost the encounter!" << endl;
+	}    
 }
 
 void Message::getMad(string alienName)
 {
 }
+
+string Message::trait2str(int trait)
+{
+	switch (trait) {
+		case 1:
+			return "Lasers";
+		case 2:
+			return "Shields";
+		case 3:
+			return "Trickery";
+		case 4:
+			return "Diplomacy";
+		case 5:
+			return "Speed";
+		case 6:
+			return "Navigation";
+		case 7:
+			return "Bravery";
+		case 8:
+		return "Caution";
+		default:
+			return "ERROR: unknown trait";
+	}
+}
+
+string Message::encounter2str(int encounter)
+{
+	switch (encounter) {
+		case 0:
+			return "Fight";
+		case 1:
+			return "Threaten";
+		case 2:
+			return "Rob";
+		case 3:
+			return "Story";
+		case 4:
+			return "Trade";
+		case 5:
+			return "Race";
+		default:
+			return "ERROR: Unkown encounter";
+	}
+}
+
 
