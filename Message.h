@@ -12,7 +12,7 @@ class Message
 	  void askTrait(int);
 	  void encResults(int, int, bool, string);
 	  void getMad(string);
-}
+};
 
 
 
