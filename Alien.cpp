@@ -256,16 +256,16 @@ void Alien::displayTraits() {
 void Alien::incrTrait() {
   int sel;
   int sum;
-  int numruns=(rand()%3+3);
+  int numruns=(rand()%5+6); //6-10
   for(int j=0;j<numruns;j++)
     {
       sum=0;
       sel=rand()%50;
       // Choose a random trait to upgrade. More likely to upgrade traits with higher base trait
-      for(int i=1;i<4;i++)
+      for(int i=1;i<9;i++)
 	{
 	  if(!i) cout<<"Why are you raising hostility here? A wild bug appeared!"<<endl;
-	  if(sel>=sum && sel<sum+baseTrait[i])
+	  if(sel>=sum && sel<(sum+baseTrait[i]))
 	    trait[i]++;
 	  sum=sum+baseTrait[i];
 	}

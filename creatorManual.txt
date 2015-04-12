@@ -1,0 +1,44 @@
+Traits:				Attributes:		Encounters:
+0: Hostility (Alien)
+0: Nothing (Player)					0: Fight
+1: Lasers			0: Power		1: Threaten
+2: Shields						2: Rob
+3: Trickery			1: Intelligence		3: Story
+4: Diplomacy						4: Trade
+5: Speed			2: Engines		5: Race
+6: Navigation			
+7: Bravery			3: Sanity
+8: Caution
+
+Zones: Difficulty and reward DOUBLES each zone
+Currently Zones 0-5 ONLY.
+Player's upgradeAtt() and updateStats() are affected. So you gain more during
+	the upgrade phase and lose more if you fail an encounter.
+You gain a base stat of 10-15 points in upgradeAtt() in 3-5 stages.
+	-can be split across multiple attributes
+You lose a base stat of 13-16 points in updateStats() if you fail an encounter.
+	-the attribute corresponding to the trait you chose.
+You gain + 2^zone in the trait you chose and -2^zone in the corresponding trait
+	if you win
+Encounter's challenge: Alien trait is multiplied by 2^zone without actually
+	changing the alien's stored trait.
+Alien incrTrait(): Aliens get 6-10 traits (like 3-5 player attributes).
+	-about a third how fast the player naturally progresses.
+
+TO-DO:
+Only go forwards and backwards one zone, unlock somehow?
+Unlock a new Alien each zone
+
+Proposal: Logbook.
+You have an entry for each encounter. A rob would say something like
+"You get invaded by tiny craft built to duck through shields. As usual, blasting
+the mothership away will force them to retreat. Also, speeding away should work,
+provided your engines are good enough. However, there's no time to cleverly
+navigate way. You can't bargain with or trick them once they've boarded, and
+they will laugh in your face no matter how bold you appear. You can cautiously 
+lay traps for the invaders to discourage them and send them back."
+
+In the future, we could even have it so you unlock the logbook a little bit at a
+time. Like if you lose with trick or diplomacy that line is unlocked. Also maybe
+if you hear a story, a random line in the logbook is unlocked. Stuff like that.
+
