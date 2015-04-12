@@ -69,35 +69,53 @@ int Player::upgradeAtt() {
     cin >> choice;
     cout << endl;
     switch (toupper(choice)) {
-     case 'P':
+    case 'P':
       Attributes[0] += points/i; //assign 25% of points to power
       points -= points/i;
       test.resetScreen(this);
       break;
-     case 'I':
+    case 'I':
       Attributes[1] += points/i;
       points -= points/i;
       test.resetScreen(this);
       break;
-     case 'E':
+    case 'E':
       Attributes[2] += points/i;
       points -= points/i;
       test.resetScreen(this);
       break;
-     case 'S':
+    case 'S':
       Attributes[3] += points/i;
       points -= points/i;
       test.resetScreen(this);
       break;
-     case 'Q':
+    case 'Q':
       system("clear");
       return 2;		// User quit
       break;
-     case '?':
+    case '0':
+      Encounter::changeZone(0);
+      return;
+    case '1':
+      Encounter::changeZone(1);
+      return 1;
+    case '2':
+      Encounter::changeZone(2);
+      return 1;
+    case '3':
+      Encounter::changeZone(3);
+      return 1;
+    case '4':
+      Encounter::changeZone(4);
+      return 1;
+    case '5':
+      Encounter::changeZone(5);
+      return 1;
+    case '?':
       debug();
-      i++;
-      break;
-     default:
+    i++;
+    break;
+    default:
       cout << "Please enter something else." << endl;
       i++;
       break;
