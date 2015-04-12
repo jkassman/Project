@@ -17,7 +17,7 @@ class Encounter {
   string encounter2str(int);
   string trait2str(int);
   string attribute2str(int);
-  int getZone();
+  static int getZone();
   static void changeZone(int);
   static int getMultiplier();
  private:

@@ -59,82 +59,62 @@ int Player::upgradeAtt() {
   //how many upgrade points you can spend this upgrade phase:
   int multiplier;
   multiplier = Encounter::getMultiplier(); //2^zone
-  Encounter test;
   Message say;
   int points = (rand() % 6 + 10) * multiplier; //(10-15) * multiplier
-  for (int i = 4; i > 0; i--) {
+  int max = rand () % 3 + 3;
+  for (int i = max; i > 0; i--) {
     cout << "Which of your stats would you like to upgrade?" << endl;
     cout << "Press S for Sanity, Press E for Engines, I for Intelligence, P for Power, or Q to quit." << endl;
-    if (i == 4) {
+    if (i == max) {
       cout << "To warp to a new zone, type the number of the zone you would like to warp to." << endl;
     }
     cin >> choice;
-    cout << endl;
     switch (toupper(choice)) {
     case 'P':
       Attributes[0] += points/i; //assign 25% of points to power
       points -= points/i;
-      test.resetScreen(this);
       break;
     case 'I':
       Attributes[1] += points/i;
       points -= points/i;
-      test.resetScreen(this);
       break;
     case 'E':
       Attributes[2] += points/i;
       points -= points/i;
-      test.resetScreen(this);
       break;
     case 'S':
       Attributes[3] += points/i;
       points -= points/i;
-      test.resetScreen(this);
       break;
     case 'Q':
       system("clear");
       return 2;		// User quit
       break;
     case '0':
-      Encounter::changeZone(0);
-      test.resetScreen(this);
-      say.warpMessage(0);
-      return 1;
     case '1':
-      Encounter::changeZone(1);
-      test.resetScreen(this);
-      say.warpMessage(1);
-      return 1;
     case '2':
-      Encounter::changeZone(2);
-      test.resetScreen(this);
-      say.warpMessage(2);
-      return 1;
     case '3':
-      Encounter::changeZone(3);
-      test.resetScreen(this);
-      say.warpMessage(3);
-      return 1;
     case '4':
-      Encounter::changeZone(4);
-      test.resetScreen(this);
-      say.warpMessage(4);
-      return 1;
     case '5':
-      Encounter::changeZone(5);
-      test.resetScreen(this);
-      say.warpMessage(5);
-      return 1;
+      if(i==max){
+        Encounter::changeZone(choice-'0');
+        say.resetScreen(this);
+        return 1;
+      }else{
+	cout<<"You should try to encounter something in this zone before warping."<<endl<<endl;
+	i++;
+	break;
+      }
     case '?':
       debug();
       i++;
       break;
     default:
-      //test.resetScreen(this);
       cout << "Please enter something else." << endl;
       i++;
       break;
     }
+    say.resetScreen(this);
   }
   return 1;		// Go to encounter
 }
