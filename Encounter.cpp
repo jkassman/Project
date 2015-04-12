@@ -63,7 +63,6 @@ int Encounter::getTraitInput()
 		if (print) cout << "Debugging!" << endl;
 		return 9;
 	    case 'Q':
-		cout << "Quiting!" << endl;
 		return 10;
 	}
 	cout << "Invalid input. Please try again: ";

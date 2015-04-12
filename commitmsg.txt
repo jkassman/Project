@@ -1,6 +1,6 @@
-Lauren Kuta -- Fixing git pull errors
+Chris Maheu April 11 2015 10:15PM
 
-Added quit option to encounter (FINALLY)
+Succesfully made quit work
 
 
 

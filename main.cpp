@@ -72,14 +72,21 @@ int main() {
       switch (enc) {
 	case 0:
           losses++;
+	  break;
 	case 1:
 	  wins++;
+	  break;
 	case 2:
 	  hasQuit=1;
+	  break;
+      }
     }
   }
-
+  cout<<"GAME OVER"<<endl;
   cout<<"Total number of encounter wins: "<<wins<<endl;
   cout<<"Total number of encounter losses: "<<losses<<endl;
-  cout<<"Win/Loss Ratio: "<<(wins*1.)/losses<<endl;
+  if(losses==0)
+    cout<<"Perfect game! You get a cookie!"<<endl;
+  else
+    cout<<"Win/Loss Ratio: "<<(wins*1.)/losses<<endl;
 }
