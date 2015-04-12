@@ -16,8 +16,6 @@ cout << "In a universe where societies had been driven apart by diesease for cou
 cout << "Prepare yourself! For you are about to make universal history as you make contact with various alien species during your quest to reunite the galaxy." << endl;
 }
 
-}
-
 void Message::resetscreen(int * captain)
 {
   int width = 3; //width of the traits; how much space padding to add.
@@ -236,8 +234,8 @@ bool Message::decideGood(int input, int encounter) {
 
 void Message::encResults(int encType, int trait, bool win, string alienName)
 {
-	if (!decideGood(trait, encounter)) {
-		cout << "You shouldn't use " << trait2str(trait) << " during a " << encounter2str(encounter) << '.' << endl;
+	if (!decideGood(trait, encType)) {
+		cout << "You shouldn't use " << trait2str(trait) << " during a " << encounter2str(encType) << '.' << endl;
 	}
 	if (win) {
 		cout << "You won the encounter!" << endl;
