@@ -95,7 +95,7 @@ int Player::upgradeAtt() {
       break;
     case '0':
       Encounter::changeZone(0);
-      return;
+      return 1;
     case '1':
       Encounter::changeZone(1);
       return 1;
