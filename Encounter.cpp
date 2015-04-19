@@ -14,6 +14,9 @@
 using namespace std;
 
 int Encounter::myZone = 0;
+int Encounter::encountersInZone[2][6] = {{0}};
+int Encounter::encountersTotal[2][6] = {{0}};
+
 //Displays a message and gets input. Only cares about the first character entered.
 int Encounter::getTraitInput()
 {
@@ -166,6 +169,7 @@ bool Encounter::decideGood(int input, int encounter) {
 }
 //main encounter logic. Displays text, get's the user's response, determines the
 //outcome, and updates player and alien stats based on that outcome.
+//updates encounter type with which type of encounter was used.
 int Encounter::start(Alien* myAlien, Player* captain) {
   int encounter, input;
   int win;
@@ -194,6 +198,7 @@ int Encounter::start(Alien* myAlien, Player* captain) {
   } else {
     win = 0;
   }
+  updateMemory(encounter, win);
   captain->updateStats(input, win);
   msgs.resetScreen(captain);
   myAlien->updateStats(encounter, input, win);
@@ -210,16 +215,20 @@ int Encounter::getZone()
 //does nothing if zero.
 void Encounter::changeZone(int select)
 {
-  myZone = select;
-  /*
-    if (select > 0) {
+  //myZone = select;
+  if (select > 0) {
     myZone++;
-    } else if (select <0) {
+  } else if (select <0) {
     myZone--;
-    } else {
+  } else {
     //do nothing
+  }
+  //clear encountersInZone
+  for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 6; j++) {
+      encountersInZone[i][j] = 0;
     }
-  */
+  }
 }
 int Encounter::getMultiplier()
 {
@@ -229,4 +238,98 @@ int Encounter::getMultiplier()
     multiplier *= 2;
   }
   return multiplier;
+}
+
+void Encounter::updateMemory(int encounter, int win) {
+  if (win) {
+    win = 1;
+  } else {
+    win = 0;
+  } //truncate win to 0 and 1. Probably not necessary, but if for whatever
+  //reason we want win to be 5, this code won't break.
+  if (encounter >= 0 && encounter <=5) {
+    encountersInZone[win][encounter]++;
+    encountersTotal[win][encounter]++;
+  } else {
+    cout << "An invalid encounter was passed to updateMemory!" << endl;
+  }
+}
+
+int Encounter::getNumTotal() {
+  int sum = 0;
+  for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 6; j++) {
+      sum += encountersTotal[i][j];
+    }
+  }
+  return sum;
+}
+
+int Encounter::getWonTotal() {
+  int sum = 0;
+  for (int j = 0; j < 6; j++) {
+    sum += encountersTotal[1][j];
+  }
+  return sum;
+}
+
+int Encounter::getLostTotal() {
+  int sum = 0;
+  for (int j = 0; j < 6; j++) {
+    sum += encountersTotal[0][j];
+  }
+  return sum;
+}
+
+int Encounter::getNumInZone() {
+  int sum = 0;
+  for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 6; j++) {
+      sum += encountersInZone[i][j];
+    }
+  }
+  return sum;
+}
+
+int Encounter::getLostInZone() {
+  int sum = 0;
+  for (int j = 0; j < 6; j++) {
+    sum += encountersInZone[0][j];
+  }
+  return sum;
+}
+
+int Encounter::getWonInZone() {
+  int sum = 0;
+  for (int j = 0; j < 6; j++) {
+    sum += encountersInZone[1][j];
+  }
+  return sum;
+}
+
+//the number of trades completed successfully in the zone
+int Encounter::getTradesInZone() {
+  return encountersInZone[1][4];
+}
+
+int Encounter::getStoriesInZone() {
+  return encountersInZone[1][3];
+}
+
+void Encounter::printAll() {
+  for (int j = 0; j < 6; j++) {
+    for (int i = 0; i < 2; i++) {
+      cout << encountersTotal[i][j] << " ";
+    }
+    cout << endl;
+  }
+}
+
+void Encounter::printInZone() {
+  for (int j = 0; j < 6; j++) {
+    for (int i = 0; i < 2; i++) {
+      cout << encountersInZone[i][j] << " ";
+    }
+    cout << endl;
+  }
 }
