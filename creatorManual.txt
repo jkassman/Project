@@ -13,11 +13,12 @@ Traits:				Attributes:		Encounters:
 Zones: Difficulty and reward DOUBLES each zone
 Currently Zones 0-5 ONLY.
 Player starts with:
+       0 in trait 0 (dummy value)
        6 in each attribute, each trait is +/- 3.
 Aliens start with:
        3 Hostility
        Total of 50 traits, distributed based on lore (dragons are strong and
-       	     fast, golems are strong and stupid, etc.)
+       fast, golems are strong and stupid, etc.)
 Player's upgradeAtt() and updateStats() are affected. So you gain more during
 	the upgrade phase and lose more if you fail an encounter.
 You gain a base stat of 10-15 points in upgradeAtt() in 3-5 stages.
@@ -30,15 +31,13 @@ Encounter's challenge: Alien trait is multiplied by 2^zone without actually
 	changing the alien's stored trait.
 Alien incrTrait(): Aliens get 6-10 traits (like 3-5 player attributes).
 	-about a third how fast the player naturally progresses.
-Alien updateStats(): Aliens get +4-5 in whichever trait they lose in.
-	-Aliens get +4-5 if they lose a fight.
-Proposal: +25% if they lose a regular encounter, +50% if they lose a fight.
+Alien updateStats(): Aliens get +33% if they lose a regular encounter, +66% if they lose a fight.
 	-forces you to switch your tactics, try out trickery every few times.
 	-consider a max. 4 * (10-15)?
 Hostility:
 	Aliens start with 3 hostility.
-	If hostility is greater than 6, there is a 90% chance the aliens will
-	     fight you.
+	If hostility is greater than or equal to 5, there is a hostility * 10
+	chance the aliens will fight you. (For example, hostility 6 * 10 = 60%)
 
 To make a new alien:
 1. Copy and rename Dragon.cpp and Dragon.h
@@ -50,13 +49,12 @@ To make a new alien:
 7. Add to objects list in makefile
 
 
-
-
 TO-DO:
 
 Only go forwards and backwards one zone, unlock zones somehow?
-Lose encounter: go back a zone?
+     -x stories, y trades, z navigation. Working on: z navigation
 Unlock a new Alien each zone
+Track how many encounters overall and how many in each zone
 Win condition
 Verify that you can't just laser everything
 Finish Graphics
@@ -88,9 +86,12 @@ Final Boss:
 
 
 
-
-
 Proposal: Logbook.
+Jacob: I looked at this again, and I still think it could work in the future,
+but for now I agree the better option is rollover text or something that
+describes what each trait will do. like in a fight, bravery is "Fearlessly
+stare down the laser bolts as they stream towards your ship"
+
 You have an entry for each encounter. A rob would say something like
 "You get invaded by tiny craft built to duck through shields. As usual, blasting
 the mothership away will force them to retreat. Also, speeding away should work,
@@ -102,4 +103,3 @@ lay traps for the invaders to discourage them and send them back."
 In the future, we could even have it so you unlock the logbook a little bit at a
 time. Like if you lose with trick or diplomacy that line is unlocked. Also maybe
 if you hear a story, a random line in the logbook is unlocked. Stuff like that.
-

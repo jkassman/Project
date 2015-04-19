@@ -13,14 +13,17 @@ Alien::Alien() {
 //if the alien lost (win is true), alien gains a point in the corresponding trait.
 //Also, hostility is changed (NOTE: Should this be separate function?)
 void Alien::updateStats(int encounterType, int whichTrait, bool win) {
+  int percent = 33; //if lost, increase the trait Alien lost in by x percent.
   Message say;
 
   if(!whichTrait) cout<<"Why are you fighting with hostility? A wild bug appeared!"<<endl;
-  if(win) trait[whichTrait]+=rand()%2+4; // Make alien stronger if it lost
-  if(win && !encounterType) trait[whichTrait]+=(rand()%2+4); // Make alien much stronger if it lost a fight
-  switch (encounterType){
+  if(win) trait[whichTrait]+=(trait[whichTrait] * percent)/100; // Make alien stronger if it lost
+  // Do the same thing again if the encounter was a fight:
+  if(win && !encounterType) trait[whichTrait]+=(trait[whichTrait]*percent)/100;
+  
+  switch (encounterType){ //Hostility cases
   case 0: //Fight
-    switch (whichTrait){
+    switch (whichTrait){ 
     case 5: //Speed
       if (!win) 
       {
@@ -211,8 +214,10 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
 //}
 //Decides if the alien will attack. True = attack.
 bool Alien::hostilityRole() {
-  if (trait[0] > 6){ //if the alien is hostile
-    if (rand()%10 < 9){ //it will attack you 9 times out of 10
+  int hostPercent; //how likely the alien is to attack you
+  if (trait[0] >=5) { //if the alien is mad enough
+    hostPercent = trait[0] * 10; //if 6 hostility, 60%
+    if ((rand() % 100) < hostPercent) { //hostPercent chance that it will be a fight
       return true;
     }
   }
