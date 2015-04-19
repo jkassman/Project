@@ -16,9 +16,8 @@ void Message::intro(Player * captain)
   //width of the traits; how much space padding to add.
                  //for example, 3 does: |  1|, | 42|, and |123| 
   system("clear");
-cout << endl<<"Welcome to Stellarim. You're a wandering traveler, a mutineer recently \" freed \" from the hold of your terrible employers." << endl;
-cout << "In a universe where societies had been driven apart by diesease for countless years, you are the sole member of a ship destined to encounter these foreign races." << endl;
-cout << "Prepare yourself! For you are about to make universal history as you make contact with various alien species during your quest to reunite the galaxy." << endl<<endl<<endl;
+cout << endl<<"Stellarim is the story of your quest to find freedom from the oppression of your past. You have stolen a starship and are fleeing through the galaxy. Your enemies are hunting you, but you might be able to get help from some of alien species in the universe. However, these species might become additional enemies just as easily, depending on how you deal with them."<<endl; 
+cout<<"Your goal is to reach Stellarim, a section of the galaxy so far away from civilization that you will easily be able to avoid all those who seek to destroy you. In this galaxy, you must grow as strong as possible without making too many others afraid of you. You must move quickly through the zones while gathering resources and power. You must reach Stellarim alive."<< endl<<endl<<endl;
 
   cout << "POWER            Lasers |"
        << setw(width) << captain->getTrait(1)+captain->getAttribute(0) << "|"
