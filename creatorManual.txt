@@ -24,6 +24,11 @@ Encounter's challenge: Alien trait is multiplied by 2^zone without actually
 	changing the alien's stored trait.
 Alien incrTrait(): Aliens get 6-10 traits (like 3-5 player attributes).
 	-about a third how fast the player naturally progresses.
+Alien updateStats(): Aliens get +4-5 in whichever trait they lose in.
+	-Aliens get +4-5 if they lose a fight.
+Proposal: +25% if they lose a regular encounter, +50% if they lose a fight.
+	-forces you to switch your tactics, try out trickery every few times.
+	-consider a max. 4 * (10-15)?
 
 TO-DO:
 Only go forwards and backwards one zone, unlock somehow?
