@@ -1,8 +1,0 @@
-To make a new alien:
-1. Copy and rename Dragon.cpp and Dragon.h
-2. Replace dragon in each with new alien name (Don't forget ifndef)
-3. Change starting traits. Sum = 50. Remember higher number means stronger against the trait. So golem has high laser because it is tough to kill, and low trickery because it is easy to trick.
-4. Change encounters in constructor (value of array spot and comment)
-5. Include .h and instantiate class in main
-6. Increase random number, add case with pointer
-7. Add to objects list in makefile
