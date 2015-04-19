@@ -40,16 +40,53 @@ Proposal: +25% if they lose a regular encounter, +50% if they lose a fight.
 	-forces you to switch your tactics, try out trickery every few times.
 	-consider a max. 4 * (10-15)?
 
+
+
+
 TO-DO:
-Only go forwards and backwards one zone, unlock somehow?
+
+Only go forwards and backwards one zone, unlock zones somehow?
+Lose encounter: go back a zone?
 Unlock a new Alien each zone
+Win condition
+Verify that you can't just laser everything
+Finish Graphics
+Add detailed encounter option text
+Have a minimum/maximum hostility,traits
+Instruction manual/help
+Save game
+
+Health
+	High shields reduces damage
+	Navigation increases rate of zone change
+Money
+Alliances
+Alien-Alien Encounters, hostility levels
+Random events: Meteor, computer malfunction, sickness
+Multiplayer
+
+Mercenaries:
+	Appear in a zone after 10-20 encounters there
+	Rarer than other races
+	Can only have fight encounters
+	Winning encounter against them: they leave for several encounters
+
+Final Boss:
+	Evil alien that was sending mercenaries after you (past employer?)
+	4-5 encounters in a row of different types
+	Trait chosen determines next type of encounter (story)
+	Ex: Fight encounter. You win with speed. Now that you are away from them, enter Prep encounter: Can use caution to lay traps, shields to charge shields, trickery to hide, etc. Then you get a bonus in the fight encounter that comes after, or something like that.
+
+
+
+
 
 Proposal: Logbook.
 You have an entry for each encounter. A rob would say something like
 "You get invaded by tiny craft built to duck through shields. As usual, blasting
 the mothership away will force them to retreat. Also, speeding away should work,
 provided your engines are good enough. However, there's no time to cleverly
-navigate way. You can't bargain with or trick them once they've boarded, and
+navigate away. You can't bargain with or trick them once they've boarded, and
 they will laugh in your face no matter how bold you appear. You can cautiously 
 lay traps for the invaders to discourage them and send them back."
 
