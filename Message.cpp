@@ -10,6 +10,8 @@
 
 using namespace std;
 
+bool Message::myVictory = false;
+
 void Message::intro(Player * captain)
 {
   int width = (log10(captain->highestTrait())) + 1; 
@@ -35,7 +37,7 @@ cout<<"Your goal is to reach Stellarim, a section of the galaxy so far away from
        << setw(width) << captain->getTrait(7) + captain->getAttribute(3) <<"|"
        << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
        <<"| Caution"<<endl;
-  cout<< "You are currently in zone "<<Encounter::getZone()<<"."<<endl;
+  cout<< "You are currently in zone "<<Encounter::getZone()+1<<"."<<endl;
 
   cout << endl;
 }
@@ -63,8 +65,8 @@ void Message::resetScreen(Player * captain)
        << setw(width) << captain->getTrait(7) + captain->getAttribute(3) <<"|"
        << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
        <<"| Caution"<<endl;
-  cout<< "You are currently in zone "<<Encounter::getZone()<<"."<<endl;
-  if (Encounter::getZone() == 5)  {
+  cout<< "You are currently in zone "<<Encounter::getZone()+1 <<"."<<endl;
+  if (Encounter::getZone() == Encounter::maxZone)  {
     finalUnlockMessage();
   } else {
     unlockMessage();
@@ -286,6 +288,24 @@ void Message::unlockMessage() {
 
 void Message::finalUnlockMessage() 
 {
+  bool wonGame = true;
   //you must win one of every type of encounter except fight.
-  cout << "Encounters left: "
+  cout << "Encounters left:\t";
+  for (int i = 1; i <= 5; i++) {
+    if (!Encounter::getWonInZone(i)) {
+      cout << encounter2str(i) << "\t";
+      wonGame = false;
+    }
+  }
+  if (wonGame) {
+    myVictory = true;
+  }
+  cout << endl;
 }
+
+//return true if the game is won, false otherwise.
+bool Message::checkVictory() 
+{
+  return myVictory;
+}
+

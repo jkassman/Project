@@ -6,6 +6,7 @@
 
 class Encounter {
  public:
+  const static int maxZones = 5; //min zone is 0.
   int getTraitInput();
   bool challenge(int alienTrait, int playerTrait);
   bool decideGood(int input, int encounter);

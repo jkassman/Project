@@ -1,6 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include <cstdlib>
+#include <algorithm>
 #include "Player.h"
 #include "Encounter.h"
 #include "Dragon.h"
@@ -24,7 +25,7 @@ int main() {
   Encounter myEncounter;
   msgs.intro(&captain);
   //msgs.resetScreen(&captain);
-  while (!hasQuit) {
+  while (!hasQuit && !Message::checkVictory()) {
     // Training Phase
     myDragon.incrTrait(); //NOTE: These are only called once now. They used to
     myGolem.incrTrait(); //be called 2-5 times. The player gets +10-15 atts.
@@ -40,7 +41,7 @@ int main() {
     }
     if(!hasQuit) {
       // Encounter Phase
-      switch (rand()% (Encounter::getZone() +2)) { //random number between 0 and myZone+1. 
+      switch (rand()% (min(4,Encounter::getZone() +2))) { //random number between 0 and myZone+1. 
       case 0:
 	myAlien=&myStarRunner;
 	break;
@@ -64,7 +65,11 @@ int main() {
       }
     }
   }
-  cout<<"GAME OVER"<<endl;
+  if (Message::checkVictory()) {
+    cout << "CONGRATULATIONS! You have reached Stellarim and impressed all the natives!" << endl;
+  } else {
+    cout<<"GAME OVER"<<endl;
+  }
   cout<<"Total number of encounter wins: "<<Encounter::getWonTotal()<<endl;
   cout<<"Total number of encounter losses: "<<Encounter::getLostTotal()<<endl;
   myEncounter.printAll(); //rough debugging
