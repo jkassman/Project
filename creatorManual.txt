@@ -21,8 +21,8 @@ Dragon			4
 //when they lose
 
 Zones: Difficulty and reward DOUBLES each zone.
-myZone: 0-5.
-displayed Zones: 1-6 (still needs to be implemented).
+myZone (internal Zones): 0-5.
+displayed Zones: 1-6
 Unlock with 2 trades and 2 stories, THEN win a race with navigation.
 Currently Zones 1-6 ONLY.
 Player starts with:
@@ -64,13 +64,9 @@ To make a new alien:
 
 TO-DO:
 
-Immediate things to fix: (Jacob Zone)
-Unlock aliens as you go! You still have access to all aliens. This could solve
-the balancing issue above; getting robbed and threatened early is hard.
-You still can't win. You can get to zone 5 and then you can't get past it.
-        -needs special zone 5 case.
-The number system is somewhat messed up, discrepencies between 0-5 and 1-6.
-
+Balancing: 33% may be too fast as the game progresses.
+Also, later aliens may be too weak (dragon hasn't increased as much by the time
+we unlock it)
 Verify that you can't just laser everything
 Finish Graphics
 Add detailed encounter option text
