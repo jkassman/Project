@@ -64,8 +64,11 @@ void Message::resetScreen(Player * captain)
        << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
        <<"| Caution"<<endl;
   cout<< "You are currently in zone "<<Encounter::getZone()<<"."<<endl;
-  unlockMessage();
-
+  if (Encounter::getZone() == 5)  {
+    finalUnlockMessage();
+  } else {
+    unlockMessage();
+  }
   cout << endl;
 }
 
@@ -267,12 +270,22 @@ void Message::unlockMessage() {
       cout << "\t Stor" << ((storiesLeft > 1) ? "ies":"y") << ": " << storiesLeft;
       cout << "\t Trade" << ((tradesLeft > 1) ? "s":"") << ": " << tradesLeft;
     } else {
-      if (!Encounter::tryUnlock()) {
+      int prev[3];
+      Encounter::getLastEncounter(prev);
+      if (!(prev[0] == 5 && prev[1] && prev[2] == 6)) { //if NOT (race and win and navigation
 	cout << "Win a Race with Navigation to test your new equipment!";
       } else {
-	cout << "Congratulations! Next Zone unlocked!";
+	if (Encounter::unlockNext()) {
+	  cout << "Congratulations! Next Zone unlocked!";
+	}
       }
     }
     cout << endl;
   }
+}
+
+void Message::finalUnlockMessage() 
+{
+  //you must win one of every type of encounter except fight.
+  cout << "Encounters left: "
 }

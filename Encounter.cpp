@@ -13,7 +13,7 @@
 using namespace std;
 
 int Encounter::myZone = 0;
-bool Encounter::systemsCheck = false;
+int Encounter::previousEncounter[3] = {0};
 int Encounter::encountersInZone[2][6] = {{0}};
 int Encounter::encountersTotal[2][6] = {{0}};
 bool Encounter::unlockedZones[6] = {0};
@@ -240,7 +240,6 @@ int Encounter::changeZone(int select)
       encountersInZone[i][j] = 0;
     }
   }
-  systemsCheck = 0;
   return 0;
 }
 int Encounter::getMultiplier()
@@ -254,7 +253,6 @@ int Encounter::getMultiplier()
 }
 
 void Encounter::updateMemory(int encounter, int win, int trait) {
-  systemsCheck = 0; //reset systemCheck
   if (win) {
     win = 1;
   } else {
@@ -264,11 +262,15 @@ void Encounter::updateMemory(int encounter, int win, int trait) {
   if (encounter >= 0 && encounter <=5) {
     encountersInZone[win][encounter]++;
     encountersTotal[win][encounter]++;
+    if (trait >= 1 && trait <= 8) {
+       previousEncounter[0] = encounter;
+       previousEncounter[1] = win;
+       previousEncounter[2] = trait;
+    } else {
+      cout << "An invalid trait was passed to updateMemory!" << endl;
+    }
   } else {
     cout << "An invalid encounter was passed to updateMemory!" << endl;
-  }
-  if (encounter == 5 && win && trait == 6) {
-    systemsCheck = true;
   }
 }
 
@@ -362,17 +364,22 @@ bool Encounter::checkNextUnlock()
   }
 }
 
-//tries to unlock the next zone. If it unlocks, returns true. Otherwise returns false. Based entirely on systemcheck, and nothing else.
-bool Encounter::tryUnlock()
+//returns an array of the last encounter.
+//encounter type, won-lost, trait used.
+void Encounter::getLastEncounter(int toReturn[3])
+{
+  toReturn[0] = previousEncounter[0];
+  toReturn[1] = previousEncounter[1];
+  toReturn[2] = previousEncounter[2];
+}
+
+bool Encounter::unlockNext()
 {
   if (myZone < 5) {
-    if (systemsCheck) {
-      unlockedZones[myZone + 1] = true;
-      return true;
-    } else {
-      return false;
-    }
+    unlockedZones[myZone+1] = true;
+    return 1;
   } else {
-    return false;
+    cout << "There is no zone beyond zone 5";
+    return 0;
   }
 }

@@ -40,21 +40,21 @@ int main() {
     }
     if(!hasQuit) {
       // Encounter Phase
-      switch (rand()% 5) {
+      switch (rand()% (Encounter::getZone() +2)) { //random number between 0 and myZone+1. 
       case 0:
-	myAlien=&myDragon;
-	break;
-      case 1:
-	myAlien=&myGolem;
-	break;
-      case 2:
 	myAlien=&myStarRunner;
 	break;
-      case 3:
+      case 1:
 	myAlien=&myScribe;
 	break;
-      case 4:
+      case 2:
 	myAlien=&mySmuggler;
+	break;
+      case 3:
+	myAlien=&myGolem;
+	break;
+      case 4:
+	myAlien=&myDragon;
 	break;
       default:
 	cout << "Not coded, come back later!" << endl;

@@ -23,13 +23,13 @@ class Encounter {
   static int getWonInZone();
   static int getWonInZone(int encounter);
   static bool checkNextUnlock();
-  static bool tryUnlock();
+  static bool unlockNext();
+  static void getLastEncounter(int[3]); //Modifies the given array to be what previousEncunter is.
   static void printAll(); //debugging
   static void printInZone(); //debugging
  private:
   static int myZone;
-  static bool systemsCheck; //whether you have won a race with navigation
-  //This value is reset each zone.
+  static int previousEncounter[3]; //type, won-lost, trait used
   static int encountersInZone[2][6]; //won-lost, encounter #
   static int encountersTotal[2][6]; //won-lost, encounter #
   static bool unlockedZones[6]; //false is locked, true is unlocked
