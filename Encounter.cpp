@@ -6,7 +6,6 @@
 #include <algorithm>
 #include <unistd.h>
 #include <iomanip>
-#include <math.h> //consider removing after move to Message
 #include "Player.h"
 #include "Alien.h"
 #include "Encounter.h"
@@ -14,8 +13,10 @@
 using namespace std;
 
 int Encounter::myZone = 0;
+bool Encounter::systemsCheck = false;
 int Encounter::encountersInZone[2][6] = {{0}};
 int Encounter::encountersTotal[2][6] = {{0}};
+bool Encounter::unlockedZones[6] = {0};
 
 //Displays a message and gets input. Only cares about the first character entered.
 int Encounter::getTraitInput()
@@ -198,9 +199,9 @@ int Encounter::start(Alien* myAlien, Player* captain) {
   } else {
     win = 0;
   }
-  updateMemory(encounter, win);
+  updateMemory(encounter, win, input);
   captain->updateStats(input, win);
-  msgs.resetScreen(captain);
+  msgs.resetScreen(captain); //this must be called after updateMemory
   myAlien->updateStats(encounter, input, win);
   msgs.encResults(encounter, input, win, myAlien->getName());
   return win;
@@ -213,13 +214,23 @@ int Encounter::getZone()
 }
 //increments zone if select is positive, decrements if negative
 //does nothing if zero.
-void Encounter::changeZone(int select)
+int Encounter::changeZone(int select)
 {
   //myZone = select;
   if (select > 0) {
-    myZone++;
+    if (myZone < 5 && unlockedZones [myZone + 1]) {
+      myZone++;
+    } else {
+      cout << "You haven't unlocked zone " << myZone+1 <<" yet!" << endl;
+      return 1;
+    }
   } else if (select <0) {
-    myZone--;
+    if (myZone > 0) {
+      myZone--;
+    } else {
+      cout << "There is no zone before Zone 1!" << endl;
+      return 1;
+    }
   } else {
     //do nothing
   }
@@ -229,6 +240,8 @@ void Encounter::changeZone(int select)
       encountersInZone[i][j] = 0;
     }
   }
+  systemsCheck = 0;
+  return 0;
 }
 int Encounter::getMultiplier()
 {
@@ -240,7 +253,8 @@ int Encounter::getMultiplier()
   return multiplier;
 }
 
-void Encounter::updateMemory(int encounter, int win) {
+void Encounter::updateMemory(int encounter, int win, int trait) {
+  systemsCheck = 0; //reset systemCheck
   if (win) {
     win = 1;
   } else {
@@ -252,6 +266,9 @@ void Encounter::updateMemory(int encounter, int win) {
     encountersTotal[win][encounter]++;
   } else {
     cout << "An invalid encounter was passed to updateMemory!" << endl;
+  }
+  if (encounter == 5 && win && trait == 6) {
+    systemsCheck = true;
   }
 }
 
@@ -307,13 +324,14 @@ int Encounter::getWonInZone() {
   return sum;
 }
 
-//the number of trades completed successfully in the zone
-int Encounter::getTradesInZone() {
-  return encountersInZone[1][4];
-}
-
-int Encounter::getStoriesInZone() {
-  return encountersInZone[1][3];
+//the number of encounters of the specified type completed successfully in the zone
+int Encounter::getWonInZone(int encounter) {
+  if (encounter >=0 && encounter <= 5) {
+    return encountersInZone[1][encounter];
+  } else {
+    cout << "Error: incorrect value passed to getWonInZone(int encounter)" << endl;
+    return 0;
+  }
 }
 
 void Encounter::printAll() {
@@ -331,5 +349,30 @@ void Encounter::printInZone() {
       cout << encountersInZone[i][j] << " ";
     }
     cout << endl;
+  }
+}
+
+//returns whether or not the next zone is locked
+bool Encounter::checkNextUnlock()
+{
+  if (myZone < 5) {
+    return unlockedZones[myZone+1];
+  } else {
+    return false;
+  }
+}
+
+//tries to unlock the next zone. If it unlocks, returns true. Otherwise returns false. Based entirely on systemcheck, and nothing else.
+bool Encounter::tryUnlock()
+{
+  if (myZone < 5) {
+    if (systemsCheck) {
+      unlockedZones[myZone + 1] = true;
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
   }
 }

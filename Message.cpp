@@ -46,6 +46,7 @@ void Message::resetScreen(Player * captain)
   //width of the traits; how much space padding to add.
                  //for example, 3 does: |  1|, | 42|, and |123| 
   system("clear");
+
   cout << "POWER            Lasers |"
        << setw(width) << captain->getTrait(1)+captain->getAttribute(0) << "|"
        << setw(width) << captain->getTrait(2)+captain->getAttribute(0)
@@ -63,6 +64,7 @@ void Message::resetScreen(Player * captain)
        << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
        <<"| Caution"<<endl;
   cout<< "You are currently in zone "<<Encounter::getZone()<<"."<<endl;
+  unlockMessage();
 
   cout << endl;
 }
@@ -247,4 +249,30 @@ string Message::encounter2str(int encounter)
 		default:
 			return "ERROR: Unkown encounter";
 	}
+}
+
+void Message::unlockMessage() {
+  //Encounter stats;
+  int requiredStories = 2;
+  int requiredTrades = 2;
+  int story = Encounter::getWonInZone(3);
+  int trade = Encounter::getWonInZone(4);
+  int storiesLeft = requiredStories - story;
+  int tradesLeft = requiredTrades -trade;
+  if (storiesLeft < 0) storiesLeft = 0;
+  if (tradesLeft < 0) tradesLeft = 0;
+  if (!Encounter::checkNextUnlock()) { //if next zone is not unlocked.
+    cout << "Unlock next zone: ";
+    if (tradesLeft > 0 || storiesLeft > 0) {
+      cout << "\t Stor" << ((storiesLeft > 1) ? "ies":"y") << ": " << storiesLeft;
+      cout << "\t Trade" << ((tradesLeft > 1) ? "s":"") << ": " << tradesLeft;
+    } else {
+      if (!Encounter::tryUnlock()) {
+	cout << "Win a Race with Navigation to test your new equipment!";
+      } else {
+	cout << "Congratulations! Next Zone unlocked!";
+      }
+    }
+    cout << endl;
+  }
 }

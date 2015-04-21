@@ -10,8 +10,21 @@ Traits:				Attributes:		Encounters:
 7: Bravery			3: Sanity
 8: Caution
 
+Aliens:			Unlock Zone:
+StarRunners		1
+Scribes			1
+Smugglers		2
+Golem			3
+Dragon			5
+//Mercenary		varies
+//make locked characters increase stats faster because they don't increase stats
+//when they lose
+
+1-2: Skyrunners and storytellers
+3: Unlock smugglers (can n
+
 Zones: Difficulty and reward DOUBLES each zone
-Currently Zones 0-5 ONLY.
+Currently Zones 1-6 ONLY.
 Player starts with:
        0 in trait 0 (dummy value)
        6 in each attribute, each trait is +/- 3.
