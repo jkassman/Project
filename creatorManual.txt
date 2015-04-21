@@ -15,15 +15,13 @@ StarRunners		1
 Scribes			1
 Smugglers		2
 Golem			3
-Dragon			5
+Dragon			4
 //Mercenary		varies
 //make locked characters increase stats faster because they don't increase stats
 //when they lose
 
-1-2: Skyrunners and storytellers
-3: Unlock smugglers (can n
-
 Zones: Difficulty and reward DOUBLES each zone
+Unlock with 2 trades and 2 stories, THEN win a race with navigation.
 Currently Zones 1-6 ONLY.
 Player starts with:
        0 in trait 0 (dummy value)
@@ -64,11 +62,13 @@ To make a new alien:
 
 TO-DO:
 
-Only go forwards and backwards one zone, unlock zones somehow?
-     -x stories, y trades, z navigation. Working on: z navigation
-Unlock a new Alien each zone
-Track how many encounters overall and how many in each zone
-Win condition
+Immediate things to fix: (Jacob Zone)
+Unlock aliens as you go! You still have access to all aliens. This could solve
+the balancing issue above; getting robbed and threatened early is hard.
+You still can't win. You can get to zone 5 and then you can't get past it.
+        -needs special zone 5 case.
+The number system is somewhat messed up, discrepencies between 0-5 and 1-6.
+
 Verify that you can't just laser everything
 Finish Graphics
 Add detailed encounter option text
