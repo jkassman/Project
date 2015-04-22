@@ -379,7 +379,7 @@ bool Encounter::unlockNext()
     unlockedZones[myZone+1] = true;
     return 1;
   } else {
-    cout << "There is no zone beyond zone 6";
+    cout << "There is no zone beyond zone " << maxZones + 1;
     return 0;
   }
 }
