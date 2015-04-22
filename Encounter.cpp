@@ -207,11 +207,16 @@ int Encounter::start(Alien* myAlien, Player* captain) {
   return win;
 }
 
-
 int Encounter::getZone()
 {
   return myZone;
 }
+
+int Encounter::maxZone() 
+{
+  return maxZones;
+}
+
 //increments zone if select is positive, decrements if negative
 //does nothing if zero.
 int Encounter::changeZone(int select)
