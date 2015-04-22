@@ -74,7 +74,7 @@ int main() {
   cout<<"Total number of encounter losses: "<<Encounter::getLostTotal()<<endl;
   myEncounter.printAll(); //rough debugging
   if(Encounter::getLostTotal()==0)
-    cout<<"Perfect game! You get a cookie!"<<endl;
+    cout<<"Perfect game! You get a pie!"<<endl;
   else
     cout<<"Win/Loss Ratio: "<<(Encounter::getWonTotal()*1.)/Encounter::getLostTotal()<<endl;
 }

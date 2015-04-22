@@ -66,6 +66,7 @@ void Message::resetScreen(Player * captain)
        << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
        <<"| Caution"<<endl;
   cout<< "You are currently in zone "<<Encounter::getZone()+1 <<"."<<endl;
+
   if (Encounter::getZone() == Encounter::maxZones)  {
     finalUnlockMessage();
   } else {

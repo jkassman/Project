@@ -13,6 +13,7 @@ class Encounter {
   int start(Alien*, Player*);
   char firstCharEntered(char* second);
   static int getZone();
+	static int maxZone();
   static int changeZone(int);
   static int getMultiplier();
   static void updateMemory(int encounter, int win, int trait);
