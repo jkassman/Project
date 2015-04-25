@@ -1,6 +1,7 @@
 #include <iostream>
 #include <time.h>
 #include <cstdlib>
+#include <algorithm>
 #include "Player.h"
 #include "Encounter.h"
 #include "Dragon.h"
@@ -11,7 +12,6 @@
 #include "Message.h"
 
 int main() {
-  int wins=0,losses=0, enc;
   bool hasQuit=0;
   Message msgs;
   srand(time(NULL));
@@ -25,7 +25,7 @@ int main() {
   Encounter myEncounter;
   msgs.intro(&captain);
   //msgs.resetScreen(&captain);
-  while (!hasQuit) {
+  while (!hasQuit && !Message::checkVictory()) {
     // Training Phase
     myDragon.incrTrait(); //NOTE: These are only called once now. They used to
     myGolem.incrTrait(); //be called 2-5 times. The player gets +10-15 atts.
@@ -41,44 +41,40 @@ int main() {
     }
     if(!hasQuit) {
       // Encounter Phase
-      switch (rand()% 5) {
+      switch (rand()% (min(4,Encounter::getZone() +2))) { //random number between 0 and myZone+1. 
       case 0:
-	myAlien=&myDragon;
-	break;
-      case 1:
-	myAlien=&myGolem;
-	break;
-      case 2:
 	myAlien=&myStarRunner;
 	break;
-      case 3:
+      case 1:
 	myAlien=&myScribe;
 	break;
-      case 4:
+      case 2:
 	myAlien=&mySmuggler;
+	break;
+      case 3:
+	myAlien=&myGolem;
+	break;
+      case 4:
+	myAlien=&myDragon;
 	break;
       default:
 	cout << "Not coded, come back later!" << endl;
       }
-      enc=myEncounter.start( myAlien, &captain);
-      switch (enc) {
-      case 0:
-	losses++;
-	break;
-      case 1:
-	wins++;
-	break;
-      case 2:
-	hasQuit=1;
-	break;
+      if (myEncounter.start( myAlien, &captain) == 2) {
+	hasQuit = 1;
       }
     }
   }
-  cout<<"GAME OVER"<<endl;
-  cout<<"Total number of encounter wins: "<<wins<<endl;
-  cout<<"Total number of encounter losses: "<<losses<<endl;
-  if(losses==0)
-    cout<<"Perfect game! You get a cookie!"<<endl;
+  if (Message::checkVictory()) {
+    cout << "CONGRATULATIONS! You have reached Stellarim and impressed all the natives!" << endl;
+  } else {
+    cout<<"GAME OVER"<<endl;
+  }
+  cout<<"Total number of encounter wins: "<<Encounter::getWonTotal()<<endl;
+  cout<<"Total number of encounter losses: "<<Encounter::getLostTotal()<<endl;
+  myEncounter.printAll(); //rough debugging
+  if(Encounter::getLostTotal()==0)
+    cout<<"Perfect game! You get a pie!"<<endl;
   else
-    cout<<"Win/Loss Ratio: "<<(wins*1.)/losses<<endl;
+    cout<<"Win/Loss Ratio: "<<(Encounter::getWonTotal()*1.)/Encounter::getLostTotal()<<endl;
 }

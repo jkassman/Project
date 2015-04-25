@@ -10,6 +10,8 @@
 
 using namespace std;
 
+bool Message::myVictory = false;
+
 void Message::intro(Player * captain)
 {
   int width = (log10(captain->highestTrait())) + 1; 
@@ -35,7 +37,7 @@ cout<<"Your goal is to reach Stellarim, a section of the galaxy so far away from
        << setw(width) << captain->getTrait(7) + captain->getAttribute(3) <<"|"
        << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
        <<"| Caution"<<endl;
-  cout<< "You are currently in zone "<<Encounter::getZone()<<"."<<endl;
+  cout<< "You are currently in zone "<<Encounter::getZone()+1<<"."<<endl;
 
   cout << endl;
 }
@@ -46,6 +48,7 @@ void Message::resetScreen(Player * captain)
   //width of the traits; how much space padding to add.
                  //for example, 3 does: |  1|, | 42|, and |123| 
   system("clear");
+
   cout << "POWER            Lasers |"
        << setw(width) << captain->getTrait(1)+captain->getAttribute(0) << "|"
        << setw(width) << captain->getTrait(2)+captain->getAttribute(0)
@@ -62,8 +65,13 @@ void Message::resetScreen(Player * captain)
        << setw(width) << captain->getTrait(7) + captain->getAttribute(3) <<"|"
        << setw(width) << captain->getTrait(8) + captain->getAttribute(3) 
        <<"| Caution"<<endl;
-  cout<< "You are currently in zone "<<Encounter::getZone()<<"."<<endl;
+  cout<< "You are currently in zone "<<Encounter::getZone()+1 <<"."<<endl;
 
+  if (Encounter::getZone() == Encounter::maxZones)  {
+    finalUnlockMessage();
+  } else {
+    unlockMessage();
+  }
   cout << endl;
 }
 
@@ -248,3 +256,57 @@ string Message::encounter2str(int encounter)
 			return "ERROR: Unkown encounter";
 	}
 }
+
+void Message::unlockMessage() {
+  //Encounter stats;
+  int requiredStories = 2;
+  int requiredTrades = 2;
+  int story = Encounter::getWonInZone(3);
+  int trade = Encounter::getWonInZone(4);
+  int storiesLeft = requiredStories - story;
+  int tradesLeft = requiredTrades -trade;
+  if (storiesLeft < 0) storiesLeft = 0;
+  if (tradesLeft < 0) tradesLeft = 0;
+  if (!Encounter::checkNextUnlock()) { //if next zone is not unlocked.
+    cout << "Unlock next zone: ";
+    if (tradesLeft > 0 || storiesLeft > 0) {
+      cout << "\t Stor" << ((storiesLeft > 1) ? "ies":"y") << ": " << storiesLeft;
+      cout << "\t Trade" << ((tradesLeft > 1) ? "s":"") << ": " << tradesLeft;
+    } else {
+      int prev[3];
+      Encounter::getLastEncounter(prev);
+      if (!(prev[0] == 5 && prev[1] && prev[2] == 6)) { //if NOT (race and win and navigation
+	cout << "Win a Race with Navigation to test your new equipment!";
+      } else {
+	if (Encounter::unlockNext()) {
+	  cout << "Congratulations! Next Zone unlocked!";
+	}
+      }
+    }
+    cout << endl;
+  }
+}
+
+void Message::finalUnlockMessage() 
+{
+  bool wonGame = true;
+  //you must win one of every type of encounter except fight.
+  cout << "Encounters left:\t";
+  for (int i = 1; i <= 5; i++) {
+    if (!Encounter::getWonInZone(i)) {
+      cout << encounter2str(i) << "\t";
+      wonGame = false;
+    }
+  }
+  if (wonGame) {
+    myVictory = true;
+  }
+  cout << endl;
+}
+
+//return true if the game is won, false otherwise.
+bool Message::checkVictory() 
+{
+  return myVictory;
+}
+

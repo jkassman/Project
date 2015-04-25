@@ -6,7 +6,6 @@
 #include <algorithm>
 #include <unistd.h>
 #include <iomanip>
-#include <math.h> //consider removing after move to Message
 #include "Player.h"
 #include "Alien.h"
 #include "Encounter.h"
@@ -14,6 +13,11 @@
 using namespace std;
 
 int Encounter::myZone = 0;
+int Encounter::previousEncounter[3] = {0};
+int Encounter::encountersInZone[2][6] = {{0}};
+int Encounter::encountersTotal[2][6] = {{0}};
+bool Encounter::unlockedZones[6] = {0};
+
 //Displays a message and gets input. Only cares about the first character entered.
 int Encounter::getTraitInput()
 {
@@ -166,6 +170,7 @@ bool Encounter::decideGood(int input, int encounter) {
 }
 //main encounter logic. Displays text, get's the user's response, determines the
 //outcome, and updates player and alien stats based on that outcome.
+//updates encounter type with which type of encounter was used.
 int Encounter::start(Alien* myAlien, Player* captain) {
   int encounter, input;
   int win;
@@ -194,32 +199,48 @@ int Encounter::start(Alien* myAlien, Player* captain) {
   } else {
     win = 0;
   }
+  updateMemory(encounter, win, input);
   captain->updateStats(input, win);
-  msgs.resetScreen(captain);
+  msgs.resetScreen(captain); //this must be called after updateMemory
   myAlien->updateStats(encounter, input, win);
   msgs.encResults(encounter, input, win, myAlien->getName());
   return win;
 }
 
-
 int Encounter::getZone()
 {
   return myZone;
 }
+
 //increments zone if select is positive, decrements if negative
 //does nothing if zero.
-void Encounter::changeZone(int select)
+int Encounter::changeZone(int select)
 {
-  myZone = select;
-  /*
-    if (select > 0) {
-    myZone++;
-    } else if (select <0) {
-    myZone--;
+  //myZone = select;
+  if (select > 0) {
+    if (myZone < maxZones && unlockedZones [myZone + 1]) {
+      myZone++;
     } else {
-    //do nothing
+      cout << "You haven't unlocked zone " << myZone+2 <<" yet!" << endl;
+      return 1;
     }
-  */
+  } else if (select <0) {
+    if (myZone > 0) {
+      myZone--;
+    } else {
+      cout << "There is no zone before Zone 1!" << endl;
+      return 1;
+    }
+  } else {
+    //do nothing
+  }
+  //clear encountersInZone
+  for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 6; j++) {
+      encountersInZone[i][j] = 0;
+    }
+  }
+  return 0;
 }
 int Encounter::getMultiplier()
 {
@@ -229,4 +250,136 @@ int Encounter::getMultiplier()
     multiplier *= 2;
   }
   return multiplier;
+}
+
+void Encounter::updateMemory(int encounter, int win, int trait) {
+  if (win) {
+    win = 1;
+  } else {
+    win = 0;
+  } //truncate win to 0 and 1. Probably not necessary, but if for whatever
+  //reason we want win to be 5, this code won't break.
+  if (encounter >= 0 && encounter <=5) {
+    encountersInZone[win][encounter]++;
+    encountersTotal[win][encounter]++;
+    if (trait >= 1 && trait <= 8) {
+       previousEncounter[0] = encounter;
+       previousEncounter[1] = win;
+       previousEncounter[2] = trait;
+    } else {
+      cout << "An invalid trait was passed to updateMemory!" << endl;
+    }
+  } else {
+    cout << "An invalid encounter was passed to updateMemory!" << endl;
+  }
+}
+
+int Encounter::getNumTotal() {
+  int sum = 0;
+  for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 6; j++) {
+      sum += encountersTotal[i][j];
+    }
+  }
+  return sum;
+}
+
+int Encounter::getWonTotal() {
+  int sum = 0;
+  for (int j = 0; j < 6; j++) {
+    sum += encountersTotal[1][j];
+  }
+  return sum;
+}
+
+int Encounter::getLostTotal() {
+  int sum = 0;
+  for (int j = 0; j < 6; j++) {
+    sum += encountersTotal[0][j];
+  }
+  return sum;
+}
+
+int Encounter::getNumInZone() {
+  int sum = 0;
+  for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 6; j++) {
+      sum += encountersInZone[i][j];
+    }
+  }
+  return sum;
+}
+
+int Encounter::getLostInZone() {
+  int sum = 0;
+  for (int j = 0; j < 6; j++) {
+    sum += encountersInZone[0][j];
+  }
+  return sum;
+}
+
+int Encounter::getWonInZone() {
+  int sum = 0;
+  for (int j = 0; j < 6; j++) {
+    sum += encountersInZone[1][j];
+  }
+  return sum;
+}
+
+//the number of encounters of the specified type completed successfully in the zone
+int Encounter::getWonInZone(int encounter) {
+  if (encounter >=0 && encounter <= 5) {
+    return encountersInZone[1][encounter];
+  } else {
+    cout << "Error: incorrect value passed to getWonInZone(int encounter)" << endl;
+    return 0;
+  }
+}
+
+void Encounter::printAll() {
+  for (int j = 0; j < 6; j++) {
+    for (int i = 0; i < 2; i++) {
+      cout << encountersTotal[i][j] << " ";
+    }
+    cout << endl;
+  }
+}
+
+void Encounter::printInZone() {
+  for (int j = 0; j < 6; j++) {
+    for (int i = 0; i < 2; i++) {
+      cout << encountersInZone[i][j] << " ";
+    }
+    cout << endl;
+  }
+}
+
+//returns whether or not the next zone is locked
+bool Encounter::checkNextUnlock()
+{
+  if (myZone < maxZones) {
+    return unlockedZones[myZone+1];
+  } else {
+    return false;
+  }
+}
+
+//returns an array of the last encounter.
+//encounter type, won-lost, trait used.
+void Encounter::getLastEncounter(int toReturn[3])
+{
+  toReturn[0] = previousEncounter[0];
+  toReturn[1] = previousEncounter[1];
+  toReturn[2] = previousEncounter[2];
+}
+
+bool Encounter::unlockNext()
+{
+  if (myZone < maxZones) {
+    unlockedZones[myZone+1] = true;
+    return 1;
+  } else {
+    cout << "There is no zone beyond zone " << maxZones + 1;
+    return 0;
+  }
 }

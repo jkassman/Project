@@ -10,8 +10,21 @@ Traits:				Attributes:		Encounters:
 7: Bravery			3: Sanity
 8: Caution
 
-Zones: Difficulty and reward DOUBLES each zone
-Currently Zones 0-5 ONLY.
+Aliens:			Unlock Zone:
+StarRunners		1
+Scribes			1
+Smugglers		2
+Golem			3
+Dragon			4
+//Mercenary		varies
+//make locked characters increase stats faster because they don't increase stats
+//when they lose
+
+Zones: Difficulty and reward DOUBLES each zone.
+myZone (internal Zones): 0-4.
+displayed Zones: 1-5
+Unlock with 2 trades and 2 stories, THEN win a race with navigation.
+Currently Zones 1-5 ONLY.
 Player starts with:
        0 in trait 0 (dummy value)
        6 in each attribute, each trait is +/- 3.
@@ -35,7 +48,7 @@ Alien updateStats(): Aliens get +33% if they lose a regular encounter, +66% if t
 	-forces you to switch your tactics, try out trickery every few times.
 	-consider a max. 4 * (10-15)?
 Hostility:
-	Aliens start with 3 hostility.
+	Aliens start with 1-5 hostility.
 	If hostility is greater than or equal to 5, there is a hostility * 10
 	chance the aliens will fight you. (For example, hostility 6 * 10 = 60%)
 
@@ -51,11 +64,9 @@ To make a new alien:
 
 TO-DO:
 
-Only go forwards and backwards one zone, unlock zones somehow?
-     -x stories, y trades, z navigation. Working on: z navigation
-Unlock a new Alien each zone
-Track how many encounters overall and how many in each zone
-Win condition
+Balancing: 33% may be too fast as the game progresses.
+Also, later aliens may be too weak (dragon hasn't increased as much by the time
+we unlock it)
 Verify that you can't just laser everything
 Finish Graphics
 Add detailed encounter option text

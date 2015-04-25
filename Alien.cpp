@@ -2,6 +2,8 @@
 #include <iomanip>
 #include <time.h>
 #include <cstdlib>
+
+#include "Encounter.h"
 #include "Alien.h"
 #include "Player.h"
 #include "Message.h"
@@ -238,22 +240,26 @@ int Alien::getTrait(int select) {
 void Alien::displayTraits() {
   int width = 3; //width of the traits; how much space padding to add.
   //for example, 3 does: | 1|, | 42|, and |123|
+  int displayTrait[9];
+  for (int i = 1; i <= 8; i++) {
+    displayTrait[i] = Encounter::getMultiplier() * trait[i];
+  }
   cout<<"DEBUGGING "<<name<<" Traits"<<endl;
   cout << "POWER            Lasers |"
-       << setw(width) << trait[1] << "|"
-       << setw(width) << trait[2]
+       << setw(width) << displayTrait[1] << "|"
+       << setw(width) << displayTrait[2]
        << "| Shields"<< endl;
   cout << "INTELLIGENCE   Trickery |"
-       << setw(width) << trait[3] <<"|"
-       << setw(width) << trait[4]
+       << setw(width) << displayTrait[3] <<"|"
+       << setw(width) << displayTrait[4]
        <<"| Diplomacy"<<endl;
   cout << "ENGINES           Speed |"
-       << setw(width) << trait[5] <<"|"
-       << setw(width) << trait[6]
+       << setw(width) << displayTrait[5] <<"|"
+       << setw(width) << displayTrait[6]
        <<"| Navigation"<<endl;
   cout << "SANITY          Bravery |"
-       << setw(width) << trait[7] <<"|"
-       << setw(width) << trait[8]
+       << setw(width) << displayTrait[7] <<"|"
+       << setw(width) << displayTrait[8]
        <<"| Caution"<<endl;
   cout <<"Hostility: " << trait[0] << endl;
   cout << endl;

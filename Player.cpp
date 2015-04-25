@@ -66,7 +66,7 @@ int Player::upgradeAtt() {
     cout << "Which of your stats would you like to upgrade?" << endl;
     cout << "Press S for Sanity, Press E for Engines, I for Intelligence, P for Power, or Q to quit." << endl;
     if (i == max) {
-      cout << "To warp to a new zone, type the number of the zone you would like to warp to." << endl;
+      cout << "Type 1 to warp to a new zone, type 0 to warp back." << endl;
     }
     cin >> choice;
     switch (toupper(choice)) {
@@ -99,21 +99,27 @@ int Player::upgradeAtt() {
       return 2;		// User quit
       break;
     case '0':
-    case '1':
-    case '2':
-    case '3':
-    case '4':
-    case '5':
-      if(i==max){
-        Encounter::changeZone(choice-'0');
-        say.resetScreen(this); 
-        return 1;
-      }else{
-        say.resetScreen(this); 
+      if (i != max) {
 	cout<<"You should try to encounter something in this zone before warping."<<endl<<endl;
 	i++;
-	break;
+      } else if (Encounter::changeZone(-1)) { //if changeZone fails
+	i++;
+      } else {
+	say.resetScreen(this);
+	return 1;
       }
+      break;
+    case '1':
+      if (i != max) {
+	cout<<"You should try to encounter something in this zone before warping."<<endl<<endl;
+	i++;
+      } else if (Encounter::changeZone(1)) {//if changeZone fails
+	i++;
+      } else {
+	say.resetScreen(this);
+	return 1;
+      }
+      break;
     case '?':
       debug();
       i++;
@@ -184,6 +190,5 @@ int Player::highestTrait()
       max = value;
     }
   }
-  cout << max << endl;
   return max;
 }

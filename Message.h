@@ -19,6 +19,11 @@ class Message
 	  void getHappy(string);
           string trait2str(int);
           string encounter2str(int);
+	  void unlockMessage();
+	  void finalUnlockMessage();
+	  static bool checkVictory();
+ private:
+	  static bool myVictory;
 };
 
 
