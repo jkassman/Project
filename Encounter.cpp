@@ -218,7 +218,7 @@ int Encounter::changeZone(int select)
 {
   //myZone = select;
   if (select > 0) {
-    if (myZone < maxZones && unlockedZones [myZone + 1]) {
+    if (myZone < MAX_ZONES && unlockedZones [myZone + 1]) {
       myZone++;
     } else {
       cout << "You haven't unlocked zone " << myZone+2 <<" yet!" << endl;
@@ -357,7 +357,7 @@ void Encounter::printInZone() {
 //returns whether or not the next zone is locked
 bool Encounter::checkNextUnlock()
 {
-  if (myZone < maxZones) {
+  if (myZone < MAX_ZONES) {
     return unlockedZones[myZone+1];
   } else {
     return false;
@@ -375,11 +375,11 @@ void Encounter::getLastEncounter(int toReturn[3])
 
 bool Encounter::unlockNext()
 {
-  if (myZone < maxZones) {
+  if (myZone < MAX_ZONES) {
     unlockedZones[myZone+1] = true;
     return 1;
   } else {
-    cout << "There is no zone beyond zone " << maxZones + 1;
+    cout << "There is no zone beyond zone " << MAX_ZONES + 1;
     return 0;
   }
 }
