@@ -18,78 +18,6 @@ int Encounter::encountersInZone[2][6] = {{0}};
 int Encounter::encountersTotal[2][6] = {{0}};
 bool Encounter::unlockedZones[6] = {0};
 
-//Displays a message and gets input. Only cares about the first character entered.
-int Encounter::getTraitInput()
-{
-  char checkChar;
-  char second;
-  int print = 0;
-  cout << "Do you want to use Lasers, Shields, Diplomacy, Trickery, " <<endl;
-  cout << "Speed, Navigation, Bravery, or Caution? ";
-  while (1)
-    {
-      checkChar = toupper(firstCharEntered(&second));
-      second = toupper(second);
-      switch (checkChar)
-	{
-	case 'L':
-	  if (print) cout << "Lasers!" << endl;
-	  return 1;
-	case 'S':
-	  if (second == 'H')
-	    {
-	      if (print) cout << "Shields!" << endl;
-	      return 2;
-	    }
-	  else if (second == 'P')
-	    {
-	      if (print) cout << "Speed!" << endl;
-	      return 5;
-	    }
-	  else break;
-	case 'T':
-	  if (print) cout << "Trickery!" << endl;
-	  return 3;
-	case 'D':
-	  if (print) cout << "Diplomacy!" << endl;
-	  return 4;
-	case 'N':
-	  if (print) cout << "Navigation!" << endl;
-	  return 6;
-	case 'B':
-	  if (print) cout << "Bravery!" << endl;
-	  return 7;
-	case 'C':
-	  if (print) cout << "Caution!" << endl;
-	  return 8;
-	case '?':
-	  if (print) cout << "Debugging!" << endl;
-	  return 9;
-	case 'Q':
-	  return 10;
-	}
-      cout << "Invalid input. Please try again: ";
-    }
-}
-//gets input from the user and returns the first character they typed
-//whitespace characters don't count.
-char Encounter::firstCharEntered(char* second)
-{
-  string input;
-  int i = 0;
-  int whiteSpace = 0;
-  cin >> input;
-  while (input[i] != '\0')
-    {
-      i++;
-      if (isspace(input[i]) && i == whiteSpace)
-	{
-	  whiteSpace++;
-	}
-    }
-  *second = input[whiteSpace+1];
-  return input[whiteSpace];
-}
 //Decides the outcome of the encounter.
 //TRUE means player won, false means player lost
 //TAKES INTO ACCOUNT WHICH ZONE YOU ARE IN
@@ -175,16 +103,18 @@ int Encounter::start(Alien* myAlien, Player* captain) {
   int encounter, input;
   int win;
   Message msgs;
+ 
   encounter = myAlien->getEncounter(rand()%2);
   if (myAlien->hostilityRole()) {
     encounter = 0; //fight
   }
   msgs.newEncounter(encounter,myAlien->getName());
-  input = getTraitInput();
+  msgs.resetScreen(captain, 2);
+  input = msgs.getTraitChoice();
   ////////// Debugging
   while(input==9) {
     myAlien->displayTraits();
-    input = getTraitInput();
+    input = msgs.getTraitChoice();
   }
   //////////
   if(input==10)
@@ -201,9 +131,9 @@ int Encounter::start(Alien* myAlien, Player* captain) {
   }
   updateMemory(encounter, win, input);
   captain->updateStats(input, win);
-  msgs.resetScreen(captain); //this must be called after updateMemory
-  myAlien->updateStats(encounter, input, win);
+  msgs.resetScreen(captain, 2); //this must be called after updateMemory
   msgs.encResults(encounter, input, win, myAlien->getName());
+  myAlien->updateStats(encounter, input, win);
   return win;
 }
 
@@ -216,19 +146,20 @@ int Encounter::getZone()
 //does nothing if zero.
 int Encounter::changeZone(int select)
 {
+  Message say;
   //myZone = select;
   if (select > 0) {
     if (myZone < MAX_ZONES && unlockedZones [myZone + 1]) {
       myZone++;
     } else {
-      cout << "You haven't unlocked zone " << myZone+2 <<" yet!" << endl;
+      say.setTopBox("You haven't unlocked zone " + say.int2str(myZone+2) +" yet!");
       return 1;
     }
   } else if (select <0) {
     if (myZone > 0) {
       myZone--;
     } else {
-      cout << "There is no zone before Zone 1!" << endl;
+      say.setTopBox("There is no zone before Zone 1!");
       return 1;
     }
   } else {
@@ -375,11 +306,12 @@ void Encounter::getLastEncounter(int toReturn[3])
 
 bool Encounter::unlockNext()
 {
+  Message say;
   if (myZone < MAX_ZONES) {
     unlockedZones[myZone+1] = true;
     return 1;
   } else {
-    cout << "There is no zone beyond zone " << MAX_ZONES + 1;
+    say.setTopBox("There is no zone beyond zone " + say.int2str(MAX_ZONES + 1));
     return 0;
   }
 }

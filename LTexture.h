@@ -1,11 +1,14 @@
+#ifndef LTEXTURE_H
+#define LTEXTURE_H
 class LTexture
 {
 	public:
 
-		void updateRenderer(SDL_Renderer*);
-		
+		//void initRenderer(SDL_Renderer*);
+		//void initFont(TTF_Font*);		
+
 		//Initializes variables
-		LTexture(SDL_Window*, SDL_Renderer*, TTF_Font *font = NULL);
+		LTexture();
 
 		//Deallocates memory
 		~LTexture();
@@ -15,7 +18,11 @@ class LTexture
 		
 		#ifdef _SDL_TTF_H
 		//Creates image from font string
-		bool loadFromRenderedText( std::string textureText, SDL_Color textColor );
+		bool loadFromRenderedText( std::string textureText, SDL_Color textColor, int width );
+
+		//h_original and w_original are the size of the screen x, y, and width were originally from.
+		void displayText(std::string toDisplay, SDL_Color textColor, int x, int y, int width);
+		//void displayText2(std::string toDisplay, SDL_Color textColor, int x, int y, int width, int h_original, int w_original);
 		#endif
 		
 		//Deallocates texture
@@ -55,3 +62,5 @@ class LTexture
 		int mWidth;
 		int mHeight;
 };
+
+#endif

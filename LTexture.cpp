@@ -5,15 +5,16 @@
 #include <string>
 
 #include "LTexture.h"
+#include "Message.h"
 
 
-LTexture::LTexture(SDL_Window* window, SDL_Renderer* renderer, TTF_Font *font)
+LTexture::LTexture()
 {
 	//Initialize
 	mTexture = NULL;
-	mWindow = window;
-	mRenderer = renderer;
-	mFont = font;
+	mWindow = Message::gWindow;
+	mRenderer = Message::gRenderer;
+	mFont = Message::gFont;
 
 	mWidth = 0;
 	mHeight = 0;
@@ -27,6 +28,9 @@ LTexture::~LTexture()
 
 bool LTexture::loadFromFile( std::string path )
 {
+	mWindow = Message::gWindow;
+	mRenderer = Message::gRenderer;
+	mFont = Message::gFont;
 	//Get rid of preexisting texture
 	free();
 
@@ -67,13 +71,16 @@ bool LTexture::loadFromFile( std::string path )
 }
 
 #ifdef _SDL_TTF_H
-bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColor )
+bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColor, int width )
 {
+	mWindow = Message::gWindow;
+	mRenderer = Message::gRenderer;
+	mFont = Message::gFont;
 	//Get rid of preexisting texture
 	free();
 
 	//Render text surface
-	SDL_Surface* textSurface = TTF_RenderText_Solid( mFont, textureText.c_str(), textColor );
+	SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped( mFont, textureText.c_str(), textColor, width );
 	if( textSurface != NULL )
 	{
 		//Create texture from surface pixels
@@ -101,6 +108,58 @@ bool LTexture::loadFromRenderedText( std::string textureText, SDL_Color textColo
 	//Return success
 	return mTexture != NULL;
 }
+
+//load, display to square
+//int x, y specifies top left corner
+//obsolete backup
+/*void LTexture::displayText2(std::string toDisplay, SDL_Color textColor, int x, int y, int width, int h_original, int w_original)
+{
+	Message msg;
+	mWindow = Message::gWindow;
+	mRenderer = Message::gRenderer;
+	mFont = Message::gFont;
+	int scaled[3]; //the scaled x, y, and width
+	msg.convertToScreen(scaled, x, y, width, h_original, w_original);
+	x = scaled[0];
+	y = scaled[1];
+	width = scaled[2];
+	printf("x: %i", x);
+
+	if (!loadFromRenderedText( toDisplay.c_str(), textColor, width )) //probably takes time.
+	{
+		printf( "Failed to render text texture!\n" );
+	}
+	SDL_Rect viewport;
+	viewport.x = x;
+	viewport.y = y;
+	viewport.w = mWidth;
+	viewport.h = mHeight;
+	SDL_RenderSetViewport( mRenderer, &viewport );
+	
+	SDL_RenderCopy( mRenderer, mTexture, NULL, NULL);
+}*/
+
+//load, display to square
+//int x, y specifies top left corner
+void LTexture::displayText(std::string toDisplay, SDL_Color textColor, int x, int y, int width)
+{
+	mWindow = Message::gWindow;
+	mRenderer = Message::gRenderer;
+
+	if (!loadFromRenderedText( toDisplay, textColor, width )) //probably takes time.
+	{
+		printf( "Failed to render text texture!\n" );
+	}
+	SDL_Rect viewport;
+	viewport.x = x;
+	viewport.y = y;
+	viewport.w = mWidth;
+	viewport.h = mHeight;
+	SDL_RenderSetViewport( mRenderer, &viewport );
+	
+	SDL_RenderCopy( mRenderer, mTexture, NULL, NULL);
+}
+
 #endif
 
 void LTexture::free()
@@ -135,6 +194,9 @@ void LTexture::setAlpha( Uint8 alpha )
 
 void LTexture::render( int x, int y, SDL_Rect* clip, double angle, SDL_Point* center, SDL_RendererFlip flip )
 {
+	mWindow = Message::gWindow;
+	mRenderer = Message::gRenderer;
+	mFont = Message::gFont;
 	//Set rendering space and render to screen
 	SDL_Rect renderQuad = { x, y, mWidth, mHeight };
 
@@ -159,13 +221,22 @@ int LTexture::getHeight()
 	return mHeight;
 }
 
-void LTexture::updateRenderer(SDL_Renderer* renderer)
+/*
+void LTexture::initRenderer(SDL_Renderer* renderer)
 {
 	mRenderer = renderer;
 }
 
+void LTexture::initFont(TTF_Font* font)
+{
+	mFont = font;
+} */
+
 void LTexture::renderScaled(SDL_Rect* stretch)
 {
+	mWindow = Message::gWindow;
+	mRenderer = Message::gRenderer;
+	mFont = Message::gFont;
 	SDL_RenderSetViewport( mRenderer, stretch );
 	
 	//Render texture to screen

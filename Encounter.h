@@ -7,11 +7,11 @@
 class Encounter {
  public:
   const static int MAX_ZONES = 4; //min zone is 0.
-  int getTraitInput();
+  //int getTraitInput();
   bool challenge(int alienTrait, int playerTrait);
   bool decideGood(int input, int encounter);
   int start(Alien*, Player*);
-  char firstCharEntered(char* second);
+  //char firstCharEntered(char* second);
   static int getZone();
   static int changeZone(int);
   static int getMultiplier();

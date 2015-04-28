@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <ctime>
 #include <cstdlib>
+
 #include "Player.h"
 #include "Encounter.h"
 #include "Message.h"
@@ -62,36 +63,28 @@ int Player::upgradeAtt() {
   Message say;
   int points = (rand() % 6 + 10) * multiplier; //(10-15) * multiplier
   int max = rand () % 3 + 3;
+  say.resetScreen(this, 1);
   for (int i = max; i > 0; i--) {
-    cout << "Which of your stats would you like to upgrade?" << endl;
-    cout << "Press S for Sanity, Press E for Engines, I for Intelligence, P for Power, or Q to quit." << endl;
-    if (i == max) {
-      cout << "Type 1 to warp to a new zone, type 0 to warp back." << endl;
-    }
-    cin >> choice;
+    choice = say.getAttrChoice();
     switch (toupper(choice)) {
     case 'P':
       Attributes[0] += points/i; //assign 25% of points to power
       points -= points/i;
-      say.resetScreen(this); 
       say.trainAttr('P');
       break;
     case 'I':
       Attributes[1] += points/i;
       points -= points/i;
-      say.resetScreen(this); 
       say.trainAttr('I');
       break;
     case 'E':
       Attributes[2] += points/i;
       points -= points/i;
-      say.resetScreen(this); 
       say.trainAttr('E');
       break;
     case 'S':
       Attributes[3] += points/i;
       points -= points/i;
-      say.resetScreen(this); 
       say.trainAttr('S');
       break;
     case 'Q':
@@ -100,23 +93,21 @@ int Player::upgradeAtt() {
       break;
     case '0':
       if (i != max) {
-	cout<<"You should try to encounter something in this zone before warping."<<endl<<endl;
+	say.notEnoughTime();
 	i++;
       } else if (Encounter::changeZone(-1)) { //if changeZone fails
 	i++;
       } else {
-	say.resetScreen(this);
 	return 1;
       }
       break;
     case '1':
       if (i != max) {
-	cout<<"You should try to encounter something in this zone before warping."<<endl<<endl;
+	say.notEnoughTime();
 	i++;
       } else if (Encounter::changeZone(1)) {//if changeZone fails
 	i++;
       } else {
-	say.resetScreen(this);
 	return 1;
       }
       break;
@@ -129,6 +120,7 @@ int Player::upgradeAtt() {
       i++;
       break;
     }
+    say.resetScreen(this, 1);
   }
   return 1;		// Go to encounter
 }
