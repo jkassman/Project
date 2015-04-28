@@ -12,11 +12,11 @@
 #include "LTexture.h"
 #include "Player.h"
 #include "Encounter.h"
-#include "Dragon.h"
-#include "Golem.h"
-#include "StarRunner.h"
-#include "Scribe.h"
-#include "Smuggler.h"
+#include "species/Dragon.h"
+#include "species/Golem.h"
+#include "species/StarRunner.h"
+#include "species/Scribe.h"
+#include "species/Smuggler.h"
 #include "Message.h"
 
 

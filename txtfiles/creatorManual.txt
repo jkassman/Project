@@ -1,0 +1,116 @@
+Traits:				Attributes:		Encounters:
+0: Hostility (Alien)
+0: Nothing (Player)					0: Fight
+1: Lasers			0: Power		1: Threaten
+2: Shields						2: Rob
+3: Trickery			1: Intelligence		3: Story
+4: Diplomacy						4: Trade
+5: Speed			2: Engines		5: Race
+6: Navigation			
+7: Bravery			3: Sanity
+8: Caution
+
+Aliens:			Unlock Zone:
+StarRunners		1
+Scribes			1
+Smugglers		2
+Dragon			3
+Golem			4
+//Mercenary		varies
+//make locked characters increase stats faster because they don't increase stats
+//when they lose
+
+Zones: Difficulty and reward DOUBLES each zone.
+myZone (internal Zones): 0-4.
+displayed Zones: 1-5
+Unlock with 2 trades and 2 stories, THEN win a race with navigation.
+Currently Zones 1-5 ONLY.
+Player starts with:
+       0 in trait 0 (dummy value)
+       6 in each attribute, each trait is +/- 3.
+Aliens start with:
+       3 Hostility
+       Total of 50 traits, distributed based on lore (dragons are strong and
+       fast, golems are strong and stupid, etc.)
+Player's upgradeAtt() and updateStats() are affected. So you gain more during
+	the upgrade phase and lose more if you fail an encounter.
+You gain a base stat of 10-15 points in upgradeAtt() in 3-5 stages.
+	-can be split across multiple attributes
+You lose a base stat of 13-16 points in updateStats() if you fail an encounter.
+	-the attribute corresponding to the trait you chose.
+You gain + 2^zone in the trait you chose and -2^zone in the corresponding trait
+	if you win
+Encounter's challenge: Alien trait is multiplied by 2^zone without actually
+	changing the alien's stored trait.
+Alien incrTrait(): Aliens get 6-10 traits (like 3-5 player attributes).
+	-about a third how fast the player naturally progresses.
+Alien updateStats(): Aliens get +5 if they lose a regular encounter, +10 if they lose a fight.
+	-forces you to switch your tactics, try out trickery every few times.
+	-consider a max. 4 * (10-15)?
+Hostility:
+	Aliens start with 1-5 hostility.
+	If hostility is greater than 5, there is a hostility * 10%
+	chance the aliens will fight you. (For example, hostility 6 * 10 = 60%)
+
+To make a new alien:
+1. Copy and rename Dragon.cpp and Dragon.h
+2. Replace dragon in each with new alien name (Don't forget ifndef)
+3. Change starting traits. Sum = 50. Remember higher number means stronger against the trait. So golem has high laser because it is tough to kill, and low trickery because it is easy to trick.
+4. Change encounters in constructor (value of array spot and comment)
+5. Include .h and instantiate class in main
+6. Increase random number, add case with pointer
+7. Add to objects list in makefile
+
+
+TO-DO:
+
+Also, later aliens may be too weak (dragon hasn't increased as much by the time
+we unlock it)
+Verify that you can't just laser everything
+Disallow laser/speed winds counting for unlocking next zone
+Finish Graphics
+Add detailed encounter option text
+Have a minimum/maximum hostility,traits
+Instruction manual/help
+Save game
+
+Health
+	High shields reduces damage
+	Navigation increases rate of zone change
+Money
+Alliances
+Alien-Alien Encounters, hostility levels
+Random events: Meteor, computer malfunction, sickness
+Multiplayer
+
+Mercenaries:
+	Appear in a zone after 10-20 encounters there
+	Rarer than other races
+	Can only have fight encounters
+	Winning encounter against them: they leave for several encounters
+
+Final Boss:
+	Evil alien that was sending mercenaries after you (past employer?)
+	4-5 encounters in a row of different types
+	Trait chosen determines next type of encounter (story)
+	Ex: Fight encounter. You win with speed. Now that you are away from them, enter Prep encounter: Can use caution to lay traps, shields to charge shields, trickery to hide, etc. Then you get a bonus in the fight encounter that comes after, or something like that.
+
+
+
+Proposal: Logbook.
+Jacob: I looked at this again, and I still think it could work in the future,
+but for now I agree the better option is rollover text or something that
+describes what each trait will do. like in a fight, bravery is "Fearlessly
+stare down the laser bolts as they stream towards your ship"
+
+You have an entry for each encounter. A rob would say something like
+"You get invaded by tiny craft built to duck through shields. As usual, blasting
+the mothership away will force them to retreat. Also, speeding away should work,
+provided your engines are good enough. However, there's no time to cleverly
+navigate away. You can't bargain with or trick them once they've boarded, and
+they will laugh in your face no matter how bold you appear. You can cautiously 
+lay traps for the invaders to discourage them and send them back."
+
+In the future, we could even have it so you unlock the logbook a little bit at a
+time. Like if you lose with trick or diplomacy that line is unlocked. Also maybe
+if you hear a story, a random line in the logbook is unlocked. Stuff like that.
