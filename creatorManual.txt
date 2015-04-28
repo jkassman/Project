@@ -14,8 +14,8 @@ Aliens:			Unlock Zone:
 StarRunners		1
 Scribes			1
 Smugglers		2
-Golem			3
-Dragon			4
+Dragon			3
+Golem			4
 //Mercenary		varies
 //make locked characters increase stats faster because they don't increase stats
 //when they lose
@@ -44,12 +44,12 @@ Encounter's challenge: Alien trait is multiplied by 2^zone without actually
 	changing the alien's stored trait.
 Alien incrTrait(): Aliens get 6-10 traits (like 3-5 player attributes).
 	-about a third how fast the player naturally progresses.
-Alien updateStats(): Aliens get +33% if they lose a regular encounter, +66% if they lose a fight.
+Alien updateStats(): Aliens get +5 if they lose a regular encounter, +10 if they lose a fight.
 	-forces you to switch your tactics, try out trickery every few times.
 	-consider a max. 4 * (10-15)?
 Hostility:
 	Aliens start with 1-5 hostility.
-	If hostility is greater than or equal to 5, there is a hostility * 10
+	If hostility is greater than 5, there is a hostility * 10%
 	chance the aliens will fight you. (For example, hostility 6 * 10 = 60%)
 
 To make a new alien:
@@ -64,10 +64,10 @@ To make a new alien:
 
 TO-DO:
 
-Balancing: 33% may be too fast as the game progresses.
 Also, later aliens may be too weak (dragon hasn't increased as much by the time
 we unlock it)
 Verify that you can't just laser everything
+Disallow laser/speed winds counting for unlocking next zone
 Finish Graphics
 Add detailed encounter option text
 Have a minimum/maximum hostility,traits

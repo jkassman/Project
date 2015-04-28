@@ -12,18 +12,20 @@ using namespace std;
 Alien::Alien() {
 }
 //updates the alien's stats based on the result of the encounter.
-//if the alien lost (win is true), alien gains a point in the corresponding trait.
-//Also, hostility is changed (NOTE: Should this be separate function?)
+//if the alien lost (win is true), alien gains points in the corresponding trait.
+//Also, hostility is changed
 void Alien::updateStats(int encounterType, int whichTrait, bool win) {
-  int incr=5;
+  int incr=5;	// Value to increase trait by per loss. Note is later multiplied by zone multiplier
   Message say;
 
   if(!whichTrait) cout<<"Why are you fighting with hostility? A wild bug appeared!"<<endl;
   if(win) trait[whichTrait]+=incr; // Make alien stronger if it lost
   // Do the same thing again if the encounter was a fight:
   if(win && !encounterType) trait[whichTrait]+=incr;
-  
-  switch (encounterType){ //Hostility cases
+
+  // Hostility cases: Increase hostility(getMad) or decrease(getHappy) depending on what 
+  // type of encounter it was and what trait was used in the encounter
+  switch (encounterType){ 
   case 0: //Fight
     switch (whichTrait){ 
     case 5: //Speed
@@ -209,23 +211,21 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
     break;
   }
 }
-//virtual function; each alien class will override it with their own fancy
-//encounter text.
-//void Alien::displayEncounter(int encounter) {
-//nothing ever.
-//}
+
 //Decides if the alien will attack. True = attack.
 bool Alien::hostilityRole() {
-  int hostPercent; //how likely the alien is to attack you
   if (trait[0] >5) { //if the alien is mad enough
-    hostPercent = trait[0] * 10; //if 6 hostility, 60%
-    if ((rand() % 100) < hostPercent) { //hostPercent chance that it will be a fight
+    //Decide if it will fight
+    // Probability=hostility*10%
+    if ((rand() % 100) < trait[0] * 10) { 
       return true;
     }
   }
   return false;
 }
-//select shouldb be between 0 and 1. Returns one of two encounters.
+
+// Returns the encounter that the alien will have
+//select should be between 0 and 1. Returns one of two encounters.
 int Alien::getEncounter(int select) {
   if (select >= 0 && select <= 1) {
     return encounter[select];
@@ -234,9 +234,13 @@ int Alien::getEncounter(int select) {
     return -1;
   }
 }
+
+// Returns the value of given trait
 int Alien::getTrait(int select) {
   return trait[select]; //Add input (select) checking!
 }
+
+// Display's aliens traits for debugging purposes
 void Alien::displayTraits() {
   int width = 3; //width of the traits; how much space padding to add.
   //for example, 3 does: | 1|, | 42|, and |123|
@@ -264,6 +268,8 @@ void Alien::displayTraits() {
   cout <<"Hostility: " << trait[0] << endl;
   cout << endl;
 }
+
+// Increase the alien's various traits
 void Alien::incrTrait() {
   int sel;
   int sum;
