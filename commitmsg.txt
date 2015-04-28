@@ -1,5 +1,3 @@
-Chris Maheu April 28, 2015 4:20 AM
-Changed hostility role check to greater than 5
-Change alien stat increase on player win to add 5
-Unlock golem in zone 3, dragon in zone 2
+Chris Maheu April 28, 2015 4:25 AM
+Changed starting zone back to 0
 

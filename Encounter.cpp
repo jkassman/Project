@@ -12,7 +12,7 @@
 #include "Message.h"
 using namespace std;
 
-int Encounter::myZone = 3;	//TEMPORARY: REMOVE THIS BEFORE PUSH
+int Encounter::myZone = 0;	//TEMPORARY: REMOVE THIS BEFORE PUSH
 int Encounter::previousEncounter[3] = {0};
 int Encounter::encountersInZone[2][6] = {{0}};
 int Encounter::encountersTotal[2][6] = {{0}};
