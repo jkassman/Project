@@ -328,10 +328,10 @@ void Message::resetScreen(Player * captain, int whichScreen)
 
 	displayTrait(1, captain,  50, 865, 220, h_original, w_original, textColor); //Lasers
 	displayTrait(2, captain,  50, 990, 220, h_original, w_original, textColor); //Shields
-	displayTrait(3, captain, 630, 865, 220, h_original, w_original, textColor); //Trickery
-	displayTrait(4, captain, 630, 990, 220, h_original, w_original, textColor); //Diplomacy
-	displayTrait(5, captain, 325, 865, 220, h_original, w_original, textColor); //Speed
-	displayTrait(6, captain, 325, 990, 220, h_original, w_original, textColor); //Navigation
+	displayTrait(3, captain, 325, 865, 220, h_original, w_original, textColor); //Trickery
+	displayTrait(4, captain, 325, 990, 220, h_original, w_original, textColor); //Diplomacy
+	displayTrait(5, captain, 630, 865, 220, h_original, w_original, textColor); //Speed
+	displayTrait(6, captain, 630, 990, 220, h_original, w_original, textColor); //Navigation
 	displayTrait(7, captain, 910, 865, 220, h_original, w_original, textColor); //Bravery
 	displayTrait(8, captain, 910, 990, 220, h_original, w_original, textColor); //Caution
 	
