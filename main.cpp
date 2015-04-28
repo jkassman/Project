@@ -69,12 +69,6 @@ int main() {
 					case 2: //quit case
 						hasQuit=1;
 						break; 0 
-0 0 
-0 0 
-0 0 
-0 0 
-0 0 
-
 					}
 					if(!hasQuit) {
 						// Encounter Phase
