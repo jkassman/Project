@@ -2,7 +2,7 @@
 #define SMUGGLER_H
 
 #include <vector>
-#include "Alien.h"
+#include "../Alien.h"
 using namespace std;
 
 class Smuggler : public Alien

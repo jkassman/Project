@@ -12,7 +12,7 @@
 #include "Message.h"
 using namespace std;
 
-int Encounter::myZone = 0;	//TEMPORARY: REMOVE THIS BEFORE PUSH
+int Encounter::myZone = 0;
 int Encounter::previousEncounter[3] = {0};
 int Encounter::encountersInZone[2][6] = {{0}};
 int Encounter::encountersTotal[2][6] = {{0}};
@@ -41,6 +41,7 @@ bool Encounter::challenge(int alienTrait, int playerTrait) {
     return false;
   }
 }
+
 //Decides if the chosen trait works in the given encounter.
 //For example: Using diplomacy when a golem tries to rob you isn't going to help
 bool Encounter::decideGood(int input, int encounter) {
@@ -96,6 +97,8 @@ bool Encounter::decideGood(int input, int encounter) {
   //it only gets here if it doesn't return true, so the person chose wrong.
   return false;
 }
+
+
 //main encounter logic. Displays text, get's the user's response, determines the
 //outcome, and updates player and alien stats based on that outcome.
 //updates encounter type with which type of encounter was used.

@@ -7,13 +7,11 @@
 class Encounter {
  public:
   const static int MAX_ZONES = 4; //min zone is 0.
-  //int getTraitInput();
-  bool challenge(int alienTrait, int playerTrait);
-  bool decideGood(int input, int encounter);
-  int start(Alien*, Player*);
-  //char firstCharEntered(char* second);
+  bool challenge(int alienTrait, int playerTrait);	//Decides the outcome of the encounter.
+  bool decideGood(int input, int encounter);		//Decides if the chosen trait works in the given encounter.
+  int start(Alien*, Player*);				//main encounter logic.
   static int getZone();
-  static int changeZone(int);
+  static int changeZone(int);			//increments zone if select is positive, decrements if negative
   static int getMultiplier();
   static void updateMemory(int encounter, int win, int trait);
   static int getNumTotal();
@@ -22,12 +20,12 @@ class Encounter {
   static int getNumInZone();
   static int getLostInZone();
   static int getWonInZone();
-  static int getWonInZone(int encounter);
-  static bool checkNextUnlock();
+  static int getWonInZone(int encounter);	//the number of encounters of the specified type completed successfully in the zone
+  static bool checkNextUnlock();		//returns whether or not the next zone is locked
   static bool unlockNext();
-  static void getLastEncounter(int[3]); //Modifies the given array to be what previousEncunter is.
-  static void printAll(); //debugging
-  static void printInZone(); //debugging
+  static void getLastEncounter(int[3]); 	//Modifies the given array to be what previousEncunter is.
+  static void printAll(); 			//for debugging
+  static void printInZone();			//for debugging
  private:
   static int myZone;
   static int previousEncounter[3]; //type, won-lost, trait used

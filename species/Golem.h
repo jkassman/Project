@@ -2,7 +2,7 @@
 #define GOLEM_H
 
 #include <vector>
-#include "Alien.h"
+#include "../Alien.h"
 using namespace std;
 
 class Golem : public Alien

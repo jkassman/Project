@@ -13,20 +13,20 @@ using namespace std;
 
 class Player {
   public:
-    Player();
-    void printAttributes();	//For testing purposes only
-    void printTraits(); 	//For testing purposes only--as of right now
+    Player();				// Initialize Traits and Attributes
+    void printAttributes();
+    void printTraits(); 	
     int getTrait(int);
     int getAttribute(int);
     void setTrait(int, int);
     void setAttribute(int, int);
-    int upgradeAtt(); //between encounters, based on user input
-    void updateStats(int, bool); //after an encounter
-    void debug();		// Used for coder to see stat values. Remove from final version
+    int upgradeAtt(); 			//asks the user to upgrade attributes 3-5 times.
+    void updateStats(int, bool); 	// Change player stats after encounter
+    void debug();			// Prints player info for debugging
     int highestTrait();
 
   private:
-    vector <int> Traits;
+    vector <int> Traits;	
     vector <int> Attributes;
 };
 

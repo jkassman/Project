@@ -2,7 +2,7 @@
 #define SCRIBE_H
 
 #include <vector>
-#include "Alien.h"
+#include "../Alien.h"
 using namespace std;
 
 class Scribe : public Alien
