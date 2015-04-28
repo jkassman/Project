@@ -1,3 +1,9 @@
+/* Message.cpp
+
+The class is a display class, the only place SDL is dealt with.
+
+*/
+
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -26,6 +32,8 @@ TTF_Font* Message::gFont = NULL;
 LTexture Message::gTrainingScreen;
 LTexture Message::gEncounterScreen;
 LTexture Message::gTitleScreen;
+LTexture Message::gAlien[5];
+
 LTexture Message::gMessage;
 
 string Message::topBox = " ";
@@ -118,6 +126,32 @@ bool Message::loadMedia()
 		success = false;
 	}
 
+	if (!gAlien[0].loadFromFile( "alien_imgs/skyrunnerscrn.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+	if (!gAlien[1].loadFromFile( "alien_imgs/scribescrn.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+	if (!gAlien[2].loadFromFile( "alien_imgs/smugglerscrn.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+	if (!gAlien[3].loadFromFile( "alien_imgs/dragonscrn.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+	if (!gAlien[4].loadFromFile( "alien_imgs/golemscrn.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
 	//Open the font
 	gFont = TTF_OpenFont( "OCRAEXT.TTF", 20 );
 	//gMessage.initFont(gFont);
@@ -135,6 +169,11 @@ void Message::close()
 	//Free loaded images
 	gTrainingScreen.free();
 	gTitleScreen.free();
+	gEncounterScreen.free();
+	for (int i = 0; i < 5; i++)
+	{
+		gAlien[i].free();		
+	}
 	gMessage.free();
 
 	//Destroy window	
@@ -277,15 +316,11 @@ void Message::showScreen(LTexture* toDisplay)
 
 void Message::intro(Player * captain)
 {
-  //int width = (log10(captain->highestTrait())) + 1; 
-  //width of the traits; how much space padding to add.
-                 //for example, 3 does: |  1|, | 42|, and |123| 
-  system("clear");
-cout << endl<<"Stellarim is the story of your quest to find freedom from the oppression of your past. You have stolen a starship and are fleeing through the galaxy. Your enemies are hunting you, but you might be able to get help from some of alien species in the universe. However, these species might become additional enemies just as easily, depending on how you deal with them."<<endl; 
-cout<<"Your goal is to reach Stellarim, a section of the galaxy so far away from civilization that you will easily be able to avoid all those who seek to destroy you. In this galaxy, you must grow as strong as possible without making too many others afraid of you. You must move quickly through the zones while gathering resources and power. You must reach Stellarim alive."<< endl<<endl<<endl;
+topBox = "Stellarim is the story of your quest to find freedom from the oppression of your past. You have stolen a starship and are fleeing through the galaxy. Your enemies are hunting you, but you might be able to get help from some of alien species in the universe. However, these species might become additional enemies just as easily, depending on how you deal with them.\n\nYour goal is to reach Stellarim, a section of the galaxy so far away from civilization that you will easily be able to avoid all those who seek to destroy you. In this galaxy, you must grow as strong as possible without making too many others afraid of you. You must move quickly through the zones while gathering resources and power. You must reach Stellarim alive.";
 }
 
-void Message::resetScreen(Player * captain, int whichScreen)
+//whichAlien doesn't matter if whichScreen is 1, because the aliens are not displayed during that screen.
+void Message::resetScreen(Player * captain, int whichScreen, string alienName)
 {
 	int x, y, width, height;
 	int h_original = 1050, w_original = 1200; //the size of the original file. We scale it down to SCREEN_WIDTH/HEIGHT
@@ -301,6 +336,8 @@ void Message::resetScreen(Player * captain, int whichScreen)
 		gMessage.displayText(topBox, textColor, x, y, width);
 	} else if (whichScreen == 2) {
 		showScreen(&gEncounterScreen);
+		renderAlien(alienName);
+
 		//top box
 		convertToScreen(scaled, 600, 30, 550, 555, h_original, w_original); 
 		x = scaled[0]; y = scaled[1]; width = scaled[2];
@@ -610,12 +647,11 @@ void Message::unlockMessage() {
       if (!(prev[0] == 5 && prev[1] && prev[2] == 6)) { //if NOT (race and win and navigation
 				unlockBox =  "Win a Race with Navigation to test your new equipment!";
       } else {
-	if (Encounter::unlockNext()) {
-	  unlockBox = "Congratulations! Next Zone unlocked!";
-	}
+				if (Encounter::unlockNext()) {
+					unlockBox = "Congratulations! Next Zone unlocked!";
+				}
       }
     }
-    cout << endl;
   }
 }
 
@@ -664,4 +700,26 @@ void Message::displayTrait(int trait, Player* captain, int x, int y, int width, 
 	x = scaled[0]; y = scaled[1]; width = scaled[2];
 	toDisplay = int2str(captain->getTrait(trait) + captain-> getAttribute((trait-1)/2));
 	gMessage.displayText(toDisplay, textColor, x + (width/2), y, width);
+}
+
+void Message::renderAlien(string name)
+{
+		//Stretch to fit screen
+		SDL_Rect stretchRect;
+		stretchRect.x = 0;
+		stretchRect.y = 0;
+		stretchRect.w = SCREEN_WIDTH;
+		stretchRect.h = SCREEN_HEIGHT;
+		if (name == "Sky Runner")
+			gAlien[0].renderScaled( &stretchRect );
+		else if (name == "Scribe")
+			gAlien[1].renderScaled( &stretchRect );		
+		else if (name == "Smuggler")
+			gAlien[2].renderScaled( &stretchRect );
+		else if (name == "Dragon")
+			gAlien[3].renderScaled( &stretchRect );
+		else if (name == "Golem")
+			gAlien[4].renderScaled( &stretchRect );		
+		else
+			cout << "ERROR: Could not read alien name properly. Load aborted." << endl;
 }

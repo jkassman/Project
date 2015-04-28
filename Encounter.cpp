@@ -109,7 +109,7 @@ int Encounter::start(Alien* myAlien, Player* captain) {
     encounter = 0; //fight
   }
   msgs.newEncounter(encounter,myAlien->getName());
-  msgs.resetScreen(captain, 2);
+  msgs.resetScreen(captain, 2, myAlien->getName());
   input = msgs.getTraitChoice();
   ////////// Debugging
   while(input==9) {
@@ -131,7 +131,7 @@ int Encounter::start(Alien* myAlien, Player* captain) {
   }
   updateMemory(encounter, win, input);
   captain->updateStats(input, win);
-  msgs.resetScreen(captain, 2); //this must be called after updateMemory
+  msgs.resetScreen(captain, 2, myAlien->getName()); //this must be called after updateMemory
   msgs.encResults(encounter, input, win, myAlien->getName());
   myAlien->updateStats(encounter, input, win);
   return win;

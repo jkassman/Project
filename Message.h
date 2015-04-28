@@ -42,7 +42,7 @@ class Message
 		void showScreen(LTexture*);
 		char getAttrChoice();
 	  void intro(Player *);
-	  void resetScreen(Player *, int whichScreen);
+	  void resetScreen(Player *, int whichScreen, string whichAlien = "");
 	  void trainAttr(char);
 	  void newEncounter(int, string);
 	  int getTraitChoice();
@@ -57,7 +57,8 @@ class Message
 	  void unlockMessage();
 	  void finalUnlockMessage();
 	  static bool checkVictory();
-		void convertToScreen(int* array, int x, int y, int width, int height, int h_original, int w_original);
+          void renderAlien(string name);
+		void convertToScreen(int* array, int x, int y, int wiRenderdth, int height, int h_original, int w_original);
 		string int2str(int);
 		void displayTrait(int trait, Player* captain, int x, int y, int width, int h_original, int w_original, SDL_Color textColor);
  private:
@@ -67,6 +68,7 @@ class Message
 		static LTexture gTrainingScreen;
 		static LTexture gEncounterScreen;
 		static LTexture gTitleScreen;
+		static LTexture gAlien[5];
 		static LTexture gMessage;
 		static string topBox;
 		static string bottomBox;
