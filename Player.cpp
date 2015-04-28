@@ -146,7 +146,7 @@ void Player::updateStats(int TraitUsed, bool win) { //True if Player wins
     toReduce = modifier*(rand()%4 + 13); //13-16
     AttrUsed = (TraitUsed-1)/2;
     Attributes[AttrUsed] -= toReduce;	// Reduce attribute
-    cout << "Reduced " << AttrUsed << " by " << toReduce << "." << endl;
+    //cout << "Reduced " << AttrUsed << " by " << toReduce << "." << endl;
     Traits[8] += modifier; //Increase caution
     Traits[7] -= modifier; //Decrease bravery
   }
