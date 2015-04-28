@@ -114,7 +114,7 @@ bool Message::loadMedia()
 		success = false;
 	}
 
-	if( !gTitleScreen.loadFromFile( "Title_Screen.png" ) )
+	if( !gTitleScreen.loadFromFile( "BGs/SplashScrn.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
 		success = false;
@@ -236,7 +236,7 @@ bool Message::showTitleScreen()
 				}
 				else if ( currentKeyStates[ SDL_SCANCODE_2 ] )
 				{
-					system("cat instructions.txt");
+					system("cat txtfiles/instructions.txt");
 				}
 				else if ( currentKeyStates[ SDL_SCANCODE_3 ] )
 				{

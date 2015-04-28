@@ -68,7 +68,13 @@ int main() {
 						break;
 					case 2: //quit case
 						hasQuit=1;
-						break;
+						break; 0 
+0 0 
+0 0 
+0 0 
+0 0 
+0 0 
+
 					}
 					if(!hasQuit) {
 						// Encounter Phase
@@ -104,7 +110,7 @@ int main() {
 			}
 			cout<<"Total number of encounter wins: "<<Encounter::getWonTotal()<<endl;
 			cout<<"Total number of encounter losses: "<<Encounter::getLostTotal()<<endl;
-			myEncounter.printAll(); //rough debugging
+			//myEncounter.printAll(); //rough debugging
 			if(Encounter::getLostTotal()==0)
 				cout<<"Perfect game! You get a pie!"<<endl;
 			else
