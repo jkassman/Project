@@ -24,6 +24,6 @@ StarRunner::StarRunner()
 	  trait.push_back(baseTrait[i]+rand()%5-2); 	// Adjust starting traits
 	encounter[0] = 3; //Story
 	encounter[1] = 5; //Race
-	name="Star Runner";
+	name="Sky Runner";
 }
 
