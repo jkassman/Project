@@ -80,8 +80,8 @@ int main() {
 					if(!hasQuit) {
 						// Encounter Phase
 
-						if(Encounter::getZone()==0) alienMax=1;
-						else alienMax=Encounter::getZone()+2;
+						alienMax=Encounter::getZone()+2;
+						if(Encounter::getZone()) alienMax++;
 						
 						switch (rand()% alienMax) { //random number between 0 and myZone+1. 
 						case 0:
