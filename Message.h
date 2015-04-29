@@ -38,9 +38,10 @@ class Message
 
 		//Frees media and shuts down SDL
 		void close();
-		bool showTitleScreen();
+		int showTitleScreen();
 		void showScreen(LTexture*);
 		char getAttrChoice();
+		int showInstructions();
 	  void intro(Player *);
 	  void resetScreen(Player *, int whichScreen, string whichAlien = "");
 	  void trainAttr(char);
@@ -69,6 +70,7 @@ class Message
 		static LTexture mTrainingScreen;
 		static LTexture mEncounterScreen;
 		static LTexture mTitleScreen;
+		static LTexture mInstructionScreen;
 		static LTexture mAlien[5];
 		static LTexture mMessage;
 

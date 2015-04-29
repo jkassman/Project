@@ -107,9 +107,10 @@ int Encounter::start(Alien* myAlien, Player* captain) {
   int win;
   Message msgs;
  
+  // Figure out which encounter to do
   encounter = myAlien->getEncounter(rand()%2);
   if (myAlien->hostilityRole()) {
-    encounter = 0; //fight
+    encounter = 0; //fight if alien is hostile enough
   }
   msgs.newEncounter(encounter,myAlien->getName());
   msgs.resetScreen(captain, 2, myAlien->getName());
@@ -122,9 +123,9 @@ int Encounter::start(Alien* myAlien, Player* captain) {
   //////////
   if(input==10)
     return 2;
-  if (decideGood(input, encounter)) {
+  if (decideGood(input, encounter)) {	// Make sure input valid
     int playersum=captain->getTrait(input) + captain->getAttribute((input-1)/2);
-    if (challenge(myAlien->getTrait(input), playersum)) {
+    if (challenge(myAlien->getTrait(input), playersum)) {	// Do encounter
       win = 1;
     } else {
       win = 0;

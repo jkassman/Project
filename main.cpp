@@ -22,6 +22,7 @@
 
 int main() {
   bool hasQuit = false;
+  int alienMax;
   Message msgs;
   srand(time(NULL));
   Dragon myDragon;
@@ -46,17 +47,23 @@ int main() {
 	 	else 
 		{
 			msgs.intro(&captain);
-			bool firstTime = true;
+			bool hasContinued = false;
+			//Start up SDL and create window`
+			while(!hasQuit && !hasContinued)
+			{
+				switch(msgs.showTitleScreen()){
+				case 0:
+					hasContinued=true;
+					break;
+				case 1:
+					hasQuit=msgs.showInstructions();
+					break;
+				case 2:
+					hasQuit=true;
+					break;
+				}
+			}
 			while (!hasQuit && !Message::checkVictory()) {
-					//Start up SDL and create window
-					if (firstTime)
-					{
-						if (msgs.showTitleScreen()) //if title screen was quit
-						{
-							break;
-						}
-					}
-					firstTime = false;
 					// Training Phase
 					myDragon.incrTrait(); //NOTE: These are only called once now. They used to
 					myGolem.incrTrait(); //be called 2-5 times. The player gets +10-15 atts.
@@ -72,7 +79,11 @@ int main() {
 					}
 					if(!hasQuit) {
 						// Encounter Phase
-						switch (rand()% (min(5,Encounter::getZone() +2))) { //random number between 0 and myZone+1. 
+
+						if(Encounter::getZone()==0) alienMax=1;
+						else alienMax=Encounter::getZone()+2;
+						
+						switch (rand()% alienMax) { //random number between 0 and myZone+1. 
 						case 0:
 							myAlien=&myStarRunner;
 							break;

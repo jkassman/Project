@@ -24,4 +24,4 @@ LTexture.o: LTexture.cpp LTexture.h
 
 .PHONY: clean
 clean:
-	-rm *.o $(EXEC) *~ rm species/*~ txtfiles/*~
+	-rm *.o $(EXEC) *~ species/*~ txtfiles/*~
