@@ -1,0 +1,10 @@
+
+Traits and Attributes:
+
+There are eight traits that describe the status of your ship and yourself. Each trait has a corresponding trait, and each of these pairs is tied to an attribute. Raising one trait lowers the corresponding trait, but raising an attribute raises both of its traits. For example, Trickery and Diplomacy are corresponding traits, and their attribute is Intelligence. So whenever your Trickery skills increase, your Diplomacy skills decrease, and vice versa. However, if you increase your Intelligence, both Trickery and Diplomacy are increased as well. The chart below shows all traits and attributes:
+
+ATTRIBUTES: [P] POWER   [I] INTELLIGENCE [E] ENGINES    [S] SANITY
+TRAITS:     [1] Lasers  [3] Trickery     [5] Speed      [7] Bravery
+            [2] Shields [4] Diplomacy    [6] Navigation	[8] Trickery
+
+During your journey, you will spend most of your time alone in your ship. You can use this valuable time to train your attributes by pressing the letter keys listed by each attribute. Use this time carefully, because before long you will run into other aliens, and the way you spend your training time will affect what happens.

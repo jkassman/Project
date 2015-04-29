@@ -12,6 +12,7 @@ The class is a display class, the only place SDL is dealt with.
 #include <cstdlib>
 #include <math.h>
 #include <sstream>
+#include <fstream>
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -35,6 +36,7 @@ TTF_Font* Message::gFont = NULL;
 LTexture Message::mTrainingScreen;
 LTexture Message::mEncounterScreen;
 LTexture Message::mTitleScreen;
+LTexture Message::mInstructionScreen;
 LTexture Message::mAlien[5];
 
 LTexture Message::mMessage;
@@ -133,6 +135,12 @@ bool Message::loadMedia()
 		success = false;
 	}
 
+	if( !mInstructionScreen.loadFromFile( "BGs/instrMain.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+
 	if (!mAlien[0].loadFromFile( "alien_imgs/skyrunnerscrn.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
@@ -190,6 +198,7 @@ void Message::close()
 	mTrainingScreen.free();
 	mTitleScreen.free();
 	mEncounterScreen.free();
+	mInstructionScreen.free();
 	for (int i = 0; i < 5; i++)
 	{
 		mAlien[i].free();		
@@ -207,23 +216,19 @@ void Message::close()
 	SDL_Quit();
 }
 
-//returns true if quit
-bool Message::showTitleScreen()
+//returns 0: play game. 1: Instructions. 2:exi
+int Message::showTitleScreen()
 {
-	bool quit = false;
 	//Current rendered texture
 	LTexture* currentTexture = NULL;
 
 	currentTexture = &mTitleScreen;
-	bool showTitle = true;
 
 	//Event handler
 	SDL_Event e;
 
 		//BEGIN SDL STUFF
 		//Handle events on queue
-		if (showTitle)
-		{
 			SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
 			SDL_RenderClear( gRenderer );
 
@@ -237,36 +242,103 @@ bool Message::showTitleScreen()
 
 			//Update screen
 			SDL_RenderPresent( gRenderer );
-		}
 
-		while (showTitle) 
-		{
+		while (1) 
 			while( SDL_PollEvent( &e ) != 0 )
 			{
 				//User requests quit
 				if( e.type == SDL_QUIT )
-				{
-					showTitle = false;
-					quit = true;
-				}
+				  return 2;
 				const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
 				if( currentKeyStates[ SDL_SCANCODE_1 ] )
-				{
-					showTitle = false;
-				}
+				  return 0;
 				else if ( currentKeyStates[ SDL_SCANCODE_2 ] )
-				{
-					system("cat txtfiles/instructions.txt");
-				}
+				  return 1;
 				else if ( currentKeyStates[ SDL_SCANCODE_3 ] )
+				  return 2;
+			}
+}
+
+
+int Message::showInstructions()
+{
+	SDL_Color textColor = { 0, 0, 0}; //black
+	//Current rendered texture
+	LTexture* currentTexture = NULL;
+
+	int x, y, width;
+	int h_original = 1050, w_original = 1200; //the size of the original file. We scale it down to SCREEN_WIDTH/HEIGHT
+	int scaled[4]; //scaled x, y, width, height.
+
+	int page=1, changepage=0;
+	bool pagechanged=false;
+	string line,instructions[5];
+	for(int i=1;i<5;i++)
+	{
+		instructions[i]=" ";
+		string filename = "txtfiles/instrP" + int2str(i) + ".txt";
+		ifstream instrfile (filename.c_str());
+		if (instrfile.is_open())
+		{
+			while (getline (instrfile,line))
+			{
+			  instructions[i] = instructions[i] + line + "\n";
+			}
+			instrfile.close();
+		}else cout<<"Unable to find instruction file "<<i<<"!"<<endl;
+	}
+	currentTexture = &mInstructionScreen;
+
+	//Event handler
+	SDL_Event e;
+
+	while(1)
+	{
+		//BEGIN SDL STUFF
+		//Handle events on queue
+			SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
+			SDL_RenderClear( gRenderer );
+
+			//Top left corner viewport
+			SDL_Rect stretchRect;
+			stretchRect.x = 0;
+			stretchRect.y = 0;
+			stretchRect.w = SCREEN_WIDTH;
+			stretchRect.h = SCREEN_HEIGHT;
+			currentTexture->renderScaled( &stretchRect );
+
+		convertToScreen(scaled, 50, 40, 1090, 875, h_original, w_original); 
+		x = scaled[0]; y = scaled[1]; width = scaled[2];
+		mMessage.displayText(instructions[page], textColor, x, y, width);
+
+			//Update screen
+			SDL_RenderPresent( gRenderer );
+		changepage=0;
+		pagechanged=false;
+		while (!pagechanged)
+		{
+			while( SDL_PollEvent( &e ) != 0 )
+			{
+				//User requests quit
+				if( e.type == SDL_QUIT ) return true;
+				const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
+				if( currentKeyStates[ SDL_SCANCODE_0 ] ) return false;
+				if( currentKeyStates[ SDL_SCANCODE_MINUS ] && page>1) 
 				{
-					showTitle = false;
-					quit = true;
+					changepage = -1;
+					pagechanged=true;
+				}
+				if( currentKeyStates[ SDL_SCANCODE_EQUALS ] && page<4)  
+				{
+					changepage = 1;
+					pagechanged=true;
 				}
 			}
 		}
-	return quit;
+		page+=changepage;
+	}
 }
+
 
 char Message::getAttrChoice()
 {
@@ -336,7 +408,7 @@ void Message::showScreen(LTexture* toDisplay)
 
 void Message::intro(Player * captain)
 {
-topBox = "Stellarim is the story of your quest to find freedom from the oppression of your past. You have stolen a starship and are fleeing through the galaxy. Your enemies are hunting you, but you might be able to get help from some of alien species in the universe. However, these species might become additional enemies just as easily, depending on how you deal with them.\n\nYour goal is to reach Stellarim, a section of the galaxy so far away from civilization that you will easily be able to avoid all those who seek to destroy you. In this galaxy, you must grow as strong as possible without making too many others afraid of you. You must move quickly through the zones while gathering resources and power. You must reach Stellarim alive.";
+topBox = "Stellarim is the story of your quest to find freedom from the oppression of your past. You have stolen a starship and are fleeing through the galaxy. Your enemies are hunting you, but you might be able to get help from some of the alien species in the universe. However, these species might become additional enemies just as easily, depending on how you deal with them.\n\nYour goal is to reach Stellarim, a section of the galaxy so far away from civilization that you will easily be able to avoid all those who seek to destroy you. In this galaxy, you must grow as strong as possible without making too many others afraid of you. You must move quickly through the zones while gathering resources and power. You must reach Stellarim alive.";
 }
 
 //whichAlien doesn't matter if whichScreen is 1, because the aliens are not displayed during that screen.

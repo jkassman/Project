@@ -1,0 +1,7 @@
+During your journey, you will spend most of your time alone in your ship. You can use this valuable time to train your attributes by pressing the number keys listed by each attribute. Use this time carefully, because before long you will run into other aliens, and the way you spend your training time will affect what happens.
+
+Encounters:
+
+Your interactions with other alien species are defined by events called encounters. There are many different types of encounters, and many different types of aliens you can have these encounters with. During each encounter, you have the option of responding with any of the eight traits. However, only certain traits are effective in a given type of encounter. For example, diplomacy is useless when you are in a fight. Different aliens respond differently to your choice of trait in different encounters. A Scribe is much harder to trick than a Smuggler when you are trying to trade with one of them. Careful planning and thinking are necessary to make encounters go your way.
+
+

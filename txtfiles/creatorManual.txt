@@ -14,8 +14,8 @@ Aliens:			Unlock Zone:
 StarRunners		1
 Scribes			1
 Smugglers		2
-Dragon			3
-Golem			4
+Dragon			2
+Golem			3
 //Mercenary		varies
 //make locked characters increase stats faster because they don't increase stats
 //when they lose

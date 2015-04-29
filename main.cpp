@@ -22,6 +22,7 @@
 
 int main() {
   bool hasQuit = false;
+  int alienMax;
   Message msgs;
   srand(time(NULL));
   Dragon myDragon;
@@ -46,17 +47,23 @@ int main() {
 	 	else 
 		{
 			msgs.intro(&captain);
-			bool firstTime = true;
+			bool hasContinued = false;
+			//Start up SDL and create window`
+			while(!hasQuit && !hasContinued)
+			{
+				switch(msgs.showTitleScreen()){
+				case 0:
+					hasContinued=true;
+					break;
+				case 1:
+					hasQuit=msgs.showInstructions();
+					break;
+				case 2:
+					hasQuit=true;
+					break;
+				}
+			}
 			while (!hasQuit && !Message::checkVictory()) {
-					//Start up SDL and create window
-					if (firstTime)
-					{
-						if (msgs.showTitleScreen()) //if title screen was quit
-						{
-							break;
-						}
-					}
-					firstTime = false;
 					// Training Phase
 					myDragon.incrTrait(); //NOTE: These are only called once now. They used to
 					myGolem.incrTrait(); //be called 2-5 times. The player gets +10-15 atts.
@@ -72,7 +79,15 @@ int main() {
 					}
 					if(!hasQuit) {
 						// Encounter Phase
-						switch (rand()% (min(5,Encounter::getZone() +2))) { //random number between 0 and myZone+1. 
+
+						alienMax=Encounter::getZone()+2;
+						if(Encounter::getZone()) alienMax++;
+						// Zone:	alienMax:
+						//  0		  2
+						//  1		  4
+						//  2		  5
+						
+						switch (rand()% alienMax) { //random number between 0 and myZone+1. 
 						case 0:
 							myAlien=&myStarRunner;
 							break;
@@ -97,20 +112,21 @@ int main() {
 					}
 				}
 			}
-			if (Message::checkVictory()) {
-				cout << "CONGRATULATIONS! You have reached Stellarim and impressed all the natives!" << endl;
-			} else {
-				cout<<"GAME OVER"<<endl;
+			if(Encounter::getLostTotal() != 0 || Encounter::getWonTotal() != 0){ 
+				if (Message::checkVictory()) {
+					cout << "CONGRATULATIONS! You have reached Stellarim and impressed all the natives!" << endl;
+				} else {
+					cout<<"GAME OVER"<<endl;
+				}
+				cout<<"Total number of encounter wins: "<<Encounter::getWonTotal()<<endl;
+				cout<<"Total number of encounter losses: "<<Encounter::getLostTotal()<<endl;
+				//myEncounter.printAll(); //rough debugging
+				if(Encounter::getLostTotal()==0)
+					cout<<"Perfect game! You get a pie!"<<endl;
+				else
+					cout<<"Win/Loss Ratio: "<<(Encounter::getWonTotal()*1.)/Encounter::getLostTotal()<<endl;
+				}
 			}
-			cout<<"Total number of encounter wins: "<<Encounter::getWonTotal()<<endl;
-			cout<<"Total number of encounter losses: "<<Encounter::getLostTotal()<<endl;
-			//myEncounter.printAll(); //rough debugging
-			if(Encounter::getLostTotal()==0)
-				cout<<"Perfect game! You get a pie!"<<endl;
-			else
-				cout<<"Win/Loss Ratio: "<<(Encounter::getWonTotal()*1.)/Encounter::getLostTotal()<<endl;
-			}
-
 	msgs.close();
 	return 0;
 }
