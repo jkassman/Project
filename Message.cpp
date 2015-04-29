@@ -181,7 +181,6 @@ bool Message::loadMedia()
 		printf( "Failed to load press texture!\n" );
 		success = false;
 	}
-	cout << "HERE1" << endl;
 	//Global Font initialization
 	gFont = TTF_OpenFont( "OCRAEXT.TTF", 20 );
 	if( gFont == NULL )
@@ -431,7 +430,7 @@ void Message::resetScreen(Player * captain, int whichScreen, string alienName)
 		mMessage.displayText(topBox, textColor, x, y, width);
 		//Warp buttons:
 		//Default texture reloaded every resetScreen has no warp buttons.
-		if (Encounter::getZone() != Encounter::MAX_ZONES) //if they are equal, display no next button at all
+		if (Encounter::getZone() != Encounter::MAX_ZONES) //if we are in the max zone, display no next button
 		{
 			if (Encounter::checkNextUnlock())
 			{
@@ -443,6 +442,11 @@ void Message::resetScreen(Player * captain, int whichScreen, string alienName)
 				//show empty text box
 				renderButton(3);
 			}
+		}
+		else //in max zone
+		{
+			//show empty text box
+			renderButton(3);
 		}
 		if (Encounter::getZone() == 0)
 		{
