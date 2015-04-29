@@ -58,6 +58,7 @@ class Message
 	  void finalUnlockMessage();
 	  static bool checkVictory();
           void renderAlien(string name);
+	  void renderButton(int whichButton);
 		void convertToScreen(int* array, int x, int y, int wiRenderdth, int height, int h_original, int w_original);
 		string int2str(int);
 		void displayTrait(int trait, Player* captain, int x, int y, int width, int h_original, int w_original, SDL_Color textColor);
@@ -65,11 +66,15 @@ class Message
 		
 	  static bool myVictory;
 		//TEXTURE:
-		static LTexture gTrainingScreen;
-		static LTexture gEncounterScreen;
-		static LTexture gTitleScreen;
-		static LTexture gAlien[5];
-		static LTexture gMessage;
+		static LTexture mTrainingScreen;
+		static LTexture mEncounterScreen;
+		static LTexture mTitleScreen;
+		static LTexture mAlien[5];
+		static LTexture mMessage;
+
+		static LTexture mWarpNextButton;
+		static LTexture mWarpPrevButton;
+		static LTexture mWarpTextButton;
 		static string topBox;
 		static string bottomBox;
 		static string unlockBox;

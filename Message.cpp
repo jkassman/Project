@@ -29,12 +29,16 @@ SDL_Renderer* Message::gRenderer = NULL;
 TTF_Font* Message::gFont = NULL;
 
 //TEXTURE:
-LTexture Message::gTrainingScreen;
-LTexture Message::gEncounterScreen;
-LTexture Message::gTitleScreen;
-LTexture Message::gAlien[5];
+LTexture Message::mTrainingScreen;
+LTexture Message::mEncounterScreen;
+LTexture Message::mTitleScreen;
+LTexture Message::mAlien[5];
 
-LTexture Message::gMessage;
+LTexture Message::mMessage;
+
+LTexture Message::mWarpNextButton;
+LTexture Message::mWarpPrevButton;
+LTexture Message::mWarpTextButton;
 
 string Message::topBox = " ";
 string Message::bottomBox = " ";
@@ -108,45 +112,60 @@ bool Message::loadMedia()
 	//Loading success flag
 	bool success = true;
 	//Load main screen
-	if( !gTrainingScreen.loadFromFile( "BGs/Training.png" ) )
+	if( !mTrainingScreen.loadFromFile( "BGs/Training.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
 		success = false;
 	}
 
-	if( !gTitleScreen.loadFromFile( "BGs/SplashScrn.png" ) )
+	if( !mTitleScreen.loadFromFile( "BGs/SplashScrn.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
 		success = false;
 	}
 
-	if ( !gEncounterScreen.loadFromFile( "BGs/Encounter.png" ) )
+	if ( !mEncounterScreen.loadFromFile( "BGs/Encounter.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
 		success = false;
 	}
 
-	if (!gAlien[0].loadFromFile( "alien_imgs/skyrunnerscrn.png" ) )
+	if (!mAlien[0].loadFromFile( "alien_imgs/skyrunnerscrn.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
 		success = false;
 	}
-	if (!gAlien[1].loadFromFile( "alien_imgs/scribescrn.png" ) )
+	if (!mAlien[1].loadFromFile( "alien_imgs/scribescrn.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
 		success = false;
 	}
-	if (!gAlien[2].loadFromFile( "alien_imgs/smugglerscrn.png" ) )
+	if (!mAlien[2].loadFromFile( "alien_imgs/smugglerscrn.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
 		success = false;
 	}
-	if (!gAlien[3].loadFromFile( "alien_imgs/dragonscrn.png" ) )
+	if (!mAlien[3].loadFromFile( "alien_imgs/dragonscrn.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
 		success = false;
 	}
-	if (!gAlien[4].loadFromFile( "alien_imgs/golemscrn.png" ) )
+	if (!mAlien[4].loadFromFile( "alien_imgs/golemscrn.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+	if (!mWarpNextButton.loadFromFile( "BGs/warpnext.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+	if (!mWarpPrevButton.loadFromFile( "BGs/warpprev.png" ) )
+	{
+		printf( "Failed to load press texture!\n" );
+		success = false;
+	}
+	if (!mWarpTextButton.loadFromFile( "BGs/unlockbox.png" ) )
 	{
 		printf( "Failed to load press texture!\n" );
 		success = false;
@@ -154,7 +173,7 @@ bool Message::loadMedia()
 
 	//Open the font
 	gFont = TTF_OpenFont( "OCRAEXT.TTF", 20 );
-	//gMessage.initFont(gFont);
+	//mMessage.initFont(gFont);
 	if( gFont == NULL )
 	{
 		printf( "Failed to OCR Extended font! SDL_ttf Error: %s\n", TTF_GetError() );
@@ -167,14 +186,14 @@ bool Message::loadMedia()
 void Message::close()
 {
 	//Free loaded images
-	gTrainingScreen.free();
-	gTitleScreen.free();
-	gEncounterScreen.free();
+	mTrainingScreen.free();
+	mTitleScreen.free();
+	mEncounterScreen.free();
 	for (int i = 0; i < 5; i++)
 	{
-		gAlien[i].free();		
+		mAlien[i].free();		
 	}
-	gMessage.free();
+	mMessage.free();
 
 	//Destroy window	
 	SDL_DestroyRenderer( gRenderer );
@@ -194,7 +213,7 @@ bool Message::showTitleScreen()
 	//Current rendered texture
 	LTexture* currentTexture = NULL;
 
-	currentTexture = &gTitleScreen;
+	currentTexture = &mTitleScreen;
 	bool showTitle = true;
 
 	//Event handler
@@ -264,22 +283,22 @@ char Message::getAttrChoice()
 				toReturn = 'Q';
 			}
 			const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
-			if( currentKeyStates[ SDL_SCANCODE_1 ] )
+			if( currentKeyStates[ SDL_SCANCODE_P ] )
 			{
 				chosen = true;
 				toReturn = 'P';
 			}
-			else if ( currentKeyStates[ SDL_SCANCODE_2 ] )
+			else if ( currentKeyStates[ SDL_SCANCODE_I ] )
 			{
 				chosen = true;
 				toReturn = 'I';
 			}
-			else if ( currentKeyStates[ SDL_SCANCODE_3 ] )
+			else if ( currentKeyStates[ SDL_SCANCODE_E ] )
 			{
 				chosen = true;
 				toReturn = 'E';
 			}
-			else if ( currentKeyStates[ SDL_SCANCODE_4 ] )
+			else if ( currentKeyStates[ SDL_SCANCODE_S ] )
 			{
 				chosen = true;
 				toReturn = 'S';
@@ -328,40 +347,73 @@ void Message::resetScreen(Player * captain, int whichScreen, string alienName)
 	SDL_Color textColor = { 0, 0, 0}; //black
 	string toDisplay;
 
-	if (whichScreen == 1) {
-		showScreen(&gTrainingScreen);
+	if (whichScreen == 1) //Training mode
+	{ 
+		showScreen(&mTrainingScreen);
+		topBox += "\n\nChoose which Attibute you want to train: \n";
 		//top box
 		convertToScreen(scaled, 45, 25, 1105, 560, h_original, w_original); 
 		x = scaled[0]; y = scaled[1]; width = scaled[2];
-		gMessage.displayText(topBox, textColor, x, y, width);
-	} else if (whichScreen == 2) {
-		showScreen(&gEncounterScreen);
-		renderAlien(alienName);
+		mMessage.displayText(topBox, textColor, x, y, width);
+		//Warp buttons:
+		//Default texture reloaded every resetScreen has no warp buttons.
+		if (Encounter::getZone() != Encounter::MAX_ZONES) //if they are equal, display no next button at all
+		{
+			if (Encounter::checkNextUnlock())
+			{
+				//show next button
+				renderButton(2);
+			}
+			else
+			{
+				//show empty text box
+				renderButton(3);
+			}
+		}
+		if (Encounter::getZone() == 0)
+		{
+			//don't show previous button
+		}
+		else
+		{
+			//show previous button
+			renderButton(1);
+		}
 
+	} 
+	else if (whichScreen == 2) //Encounter Mode
+	{ 
+		showScreen(&mEncounterScreen);
+		renderAlien(alienName);
+		//topBox += "\nWhich trait do you want to use in this encounter?\n";
+
+		//Unlock Zone box
+		if (Encounter::getZone() == Encounter::MAX_ZONES)
+		{
+			finalUnlockMessage();
+		}
+		else
+		{
+			unlockMessage();
+		}
+
+		
 		//top box
 		convertToScreen(scaled, 600, 30, 550, 555, h_original, w_original); 
 		x = scaled[0]; y = scaled[1]; width = scaled[2];
-		gMessage.displayText(topBox, textColor, x, y, width);
+		mMessage.displayText(topBox, textColor, x, y, width);
 	}
 	
-	//Unlock Zone box
-	if (Encounter::getZone() == Encounter::MAX_ZONES)
-	{
-		finalUnlockMessage();
-	}
-	else
-	{
-		unlockMessage();
-	}
+	
 	convertToScreen(scaled, 860, 630, 305, 75, h_original, w_original); 
 	x = scaled[0]; y = scaled[1]; width = scaled[2];
-	gMessage.displayText(unlockBox, textColor, x, y, width);
+	mMessage.displayText(unlockBox, textColor, x, y, width);
 
 	//current Zone box
 	convertToScreen(scaled, 420, 655, 80, 40, 1050, 1200); 
 	x = scaled[0]; y = scaled[1]; width = scaled[2]; height = scaled[3];
 	toDisplay = int2str(Encounter::getZone() + 1);
-	gMessage.displayText(toDisplay, textColor, x + (width/2) , y + height/4, width);
+	mMessage.displayText(toDisplay, textColor, x + (width/2) , y + height/4, width);
 
 	displayTrait(1, captain,  50, 865, 220, h_original, w_original, textColor); //Lasers
 	displayTrait(2, captain,  50, 990, 220, h_original, w_original, textColor); //Shields
@@ -404,22 +456,22 @@ void Message::newEncounter(int encType, string alienName)
   topBox = "A " + alienName;
   switch (encType){
       case 0: //Attack
-        topBox += " attacks you!";
+        topBox += " attacks you!\n";
         break;
       case 1: //Threaten
-        topBox += " threatens you!";
+        topBox += " threatens you!\n";
         break;
       case 2: //Rob
-        topBox += " is trying to rob you!";
+        topBox += " is trying to rob you!\n";
         break;
       case 3: //Story
-        topBox += " wants to tell you a story!";
+        topBox += " wants to tell you a story!\n";
         break;
       case 4: //Trade
-        topBox += " wants to trade with you!";
+        topBox += " wants to trade with you!\n";
         break;
       case 5: //Race
-        topBox += " wants to race you!";
+        topBox += " wants to race you!\n";
         break;
     }
 }
@@ -551,7 +603,6 @@ bool Message::decideGood(int input, int encounter) {
 
 void Message::encResults(int encType, int trait, int win, string alienName)
 {
-	topBox = "";
 	if (!decideGood(trait, encType)) {
 		topBox += "You shouldn't use " + trait2str(trait) + " during a " + encounter2str(encType) + ".\n";
 	}
@@ -626,16 +677,16 @@ string Message::encounter2str(int encounter)
 	}
 }
 
+//displays What you need to unlock the next zone
 void Message::unlockMessage() {
-  //Encounter stats;
   int requiredStories = 2;
-  int requiredTrades = 2;
+  int requiredTrades = 2; //how many stories and trades you need to unlock the next zone
   int story = Encounter::getWonInZone(3);
-  int trade = Encounter::getWonInZone(4);
+  int trade = Encounter::getWonInZone(4); //how many trades and stories you have won
   int storiesLeft = requiredStories - story;
   int tradesLeft = requiredTrades -trade;
   if (storiesLeft < 0) storiesLeft = 0;
-  if (tradesLeft < 0) tradesLeft = 0;
+  if (tradesLeft < 0) tradesLeft = 0; //don't let negative numbers happen
   if (!Encounter::checkNextUnlock()) { //if next zone is not unlocked.
     unlockBox = "Unlock next zone: ";
     if (tradesLeft > 0 || storiesLeft > 0) {
@@ -645,14 +696,19 @@ void Message::unlockMessage() {
       int prev[3];
       Encounter::getLastEncounter(prev);
       if (!(prev[0] == 5 && prev[1] && prev[2] == 6)) { //if NOT (race and win and navigation
-				unlockBox =  "Win a Race with Navigation to test your new equipment!";
+				unlockBox =  "Win a Race with Navigation!";// to test your new equipment!";
       } else {
 				if (Encounter::unlockNext()) {
-					unlockBox = "Congratulations! Next Zone unlocked!";
+					topBox += "\nCongratulations! Next Zone unlocked!\n";
+					unlockBox = " ";
 				}
       }
     }
   }
+	else 
+	{
+		unlockBox = " "; //clear unlock message
+	}
 }
 
 void Message::finalUnlockMessage() 
@@ -699,7 +755,7 @@ void Message::displayTrait(int trait, Player* captain, int x, int y, int width, 
 	convertToScreen(scaled, x, y, width, 0, h_original, w_original); //we won't be using height, set it as zero 
 	x = scaled[0]; y = scaled[1]; width = scaled[2];
 	toDisplay = int2str(captain->getTrait(trait) + captain-> getAttribute((trait-1)/2));
-	gMessage.displayText(toDisplay, textColor, x + (width/2), y, width);
+	mMessage.displayText(toDisplay, textColor, x + (width/2), y, width);
 }
 
 void Message::renderAlien(string name)
@@ -711,15 +767,40 @@ void Message::renderAlien(string name)
 		stretchRect.w = SCREEN_WIDTH;
 		stretchRect.h = SCREEN_HEIGHT;
 		if (name == "Sky Runner")
-			gAlien[0].renderScaled( &stretchRect );
+			mAlien[0].renderScaled( &stretchRect );
 		else if (name == "Scribe")
-			gAlien[1].renderScaled( &stretchRect );		
+			mAlien[1].renderScaled( &stretchRect );		
 		else if (name == "Smuggler")
-			gAlien[2].renderScaled( &stretchRect );
+			mAlien[2].renderScaled( &stretchRect );
 		else if (name == "Dragon")
-			gAlien[3].renderScaled( &stretchRect );
+			mAlien[3].renderScaled( &stretchRect );
 		else if (name == "Golem")
-			gAlien[4].renderScaled( &stretchRect );		
+			mAlien[4].renderScaled( &stretchRect );		
 		else
 			cout << "ERROR: Could not read alien name properly. Load aborted." << endl;
+}
+
+//1 is previous, 2 is next, 3 is text.
+void Message::renderButton(int whichButton)
+{
+	SDL_Rect stretchRect;
+	stretchRect.x = 0;
+	stretchRect.y = 0;
+	stretchRect.w = SCREEN_WIDTH;
+	stretchRect.h = SCREEN_HEIGHT;
+	switch (whichButton)
+	{
+	case 1:
+	  mWarpPrevButton.renderScaled(&stretchRect);
+	  break;
+	case 2:
+	  mWarpNextButton.renderScaled(&stretchRect);
+	  break;
+	case 3:
+	  mWarpTextButton.renderScaled(&stretchRect);
+	  break;
+	default:
+	  cout << "ERROR: Could not load button. Invalid select provided." << endl;
+	  break;
+	}
 }
