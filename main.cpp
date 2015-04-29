@@ -97,20 +97,21 @@ int main() {
 					}
 				}
 			}
-			if (Message::checkVictory()) {
-				cout << "CONGRATULATIONS! You have reached Stellarim and impressed all the natives!" << endl;
-			} else {
-				cout<<"GAME OVER"<<endl;
+			if(Encounter::getLostTotal() != 0 || Encounter::getWonTotal() != 0){ 
+				if (Message::checkVictory()) {
+					cout << "CONGRATULATIONS! You have reached Stellarim and impressed all the natives!" << endl;
+				} else {
+					cout<<"GAME OVER"<<endl;
+				}
+				cout<<"Total number of encounter wins: "<<Encounter::getWonTotal()<<endl;
+				cout<<"Total number of encounter losses: "<<Encounter::getLostTotal()<<endl;
+				//myEncounter.printAll(); //rough debugging
+				if(Encounter::getLostTotal()==0)
+					cout<<"Perfect game! You get a pie!"<<endl;
+				else
+					cout<<"Win/Loss Ratio: "<<(Encounter::getWonTotal()*1.)/Encounter::getLostTotal()<<endl;
+				}
 			}
-			cout<<"Total number of encounter wins: "<<Encounter::getWonTotal()<<endl;
-			cout<<"Total number of encounter losses: "<<Encounter::getLostTotal()<<endl;
-			//myEncounter.printAll(); //rough debugging
-			if(Encounter::getLostTotal()==0)
-				cout<<"Perfect game! You get a pie!"<<endl;
-			else
-				cout<<"Win/Loss Ratio: "<<(Encounter::getWonTotal()*1.)/Encounter::getLostTotal()<<endl;
-			}
-
 	msgs.close();
 	return 0;
 }
