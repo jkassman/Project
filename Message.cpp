@@ -790,7 +790,7 @@ void Message::finalUnlockMessage()
   unlockBox = "Encounters left:\t";
   for (int i = 1; i <= 5; i++) {
     if (!Encounter::getWonInZone(i)) {
-      unlockBox += encounter2str(i) + "\t";
+      unlockBox += encounter2str(i) + " ";
       wonGame = false;
     }
   }
