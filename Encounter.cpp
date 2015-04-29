@@ -307,6 +307,7 @@ void Encounter::getLastEncounter(int toReturn[3])
   toReturn[2] = previousEncounter[2];
 }
 
+//Unlocks the next zone unless you are in the maximum zone
 bool Encounter::unlockNext()
 {
   Message say;

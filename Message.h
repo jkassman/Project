@@ -29,6 +29,9 @@ class Message
 		static SDL_Window* gWindow;
 		static SDL_Renderer* gRenderer;
 		static TTF_Font *gFont;
+		//static TTF_Font* gLargeFont;
+		//static TTF_Font* gRegFont;
+		//static TTF_Font* gSmallFont;
 
 		//Starts up SDL and creates window
 		static bool init_SDL();

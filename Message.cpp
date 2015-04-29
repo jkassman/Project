@@ -26,7 +26,10 @@ using namespace std;
 
 SDL_Window* Message::gWindow = NULL;
 SDL_Renderer* Message::gRenderer = NULL;
+//TTF_Font* Message::gLargeFont = NULL;
 TTF_Font* Message::gFont = NULL;
+//TTF_Font* Message::gRegFont = NULL;
+//TTF_Font* Message::gSmallFont = NULL;
 
 //TEXTURE:
 LTexture Message::mTrainingScreen;
@@ -170,16 +173,14 @@ bool Message::loadMedia()
 		printf( "Failed to load press texture!\n" );
 		success = false;
 	}
-
-	//Open the font
+	cout << "HERE1" << endl;
+	//Global Font initialization
 	gFont = TTF_OpenFont( "OCRAEXT.TTF", 20 );
-	//mMessage.initFont(gFont);
 	if( gFont == NULL )
 	{
-		printf( "Failed to OCR Extended font! SDL_ttf Error: %s\n", TTF_GetError() );
+		printf( "Failed to load small OCR Extended font! SDL_ttf Error: %s\n", TTF_GetError() );
 		success = false;
 	}
-
 	return success;
 }
 
@@ -354,6 +355,7 @@ void Message::resetScreen(Player * captain, int whichScreen, string alienName)
 		//top box
 		convertToScreen(scaled, 45, 25, 1105, 560, h_original, w_original); 
 		x = scaled[0]; y = scaled[1]; width = scaled[2];
+		//gFont = gLargeFont;
 		mMessage.displayText(topBox, textColor, x, y, width);
 		//Warp buttons:
 		//Default texture reloaded every resetScreen has no warp buttons.
@@ -386,7 +388,7 @@ void Message::resetScreen(Player * captain, int whichScreen, string alienName)
 		showScreen(&mEncounterScreen);
 		renderAlien(alienName);
 		//topBox += "\nWhich trait do you want to use in this encounter?\n";
-
+		//gFont = gRegFont;
 		//Unlock Zone box
 		if (Encounter::getZone() == Encounter::MAX_ZONES)
 		{
@@ -397,24 +399,26 @@ void Message::resetScreen(Player * captain, int whichScreen, string alienName)
 			unlockMessage();
 		}
 
-		
 		//top box
 		convertToScreen(scaled, 600, 30, 550, 555, h_original, w_original); 
 		x = scaled[0]; y = scaled[1]; width = scaled[2];
 		mMessage.displayText(topBox, textColor, x, y, width);
 	}
 	
-	
+	//unlock next Zone box
+	//gFont = gSmallFont;
 	convertToScreen(scaled, 860, 630, 305, 75, h_original, w_original); 
 	x = scaled[0]; y = scaled[1]; width = scaled[2];
 	mMessage.displayText(unlockBox, textColor, x, y, width);
 
 	//current Zone box
+	//gFont = gLargeFont;
 	convertToScreen(scaled, 420, 655, 80, 40, 1050, 1200); 
 	x = scaled[0]; y = scaled[1]; width = scaled[2]; height = scaled[3];
 	toDisplay = int2str(Encounter::getZone() + 1);
 	mMessage.displayText(toDisplay, textColor, x + (width/2) , y + height/4, width);
 
+	//gFont = gRegFont;
 	displayTrait(1, captain,  50, 865, 220, h_original, w_original, textColor); //Lasers
 	displayTrait(2, captain,  50, 990, 220, h_original, w_original, textColor); //Shields
 	displayTrait(3, captain, 325, 865, 220, h_original, w_original, textColor); //Trickery
