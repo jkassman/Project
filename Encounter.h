@@ -24,8 +24,6 @@ class Encounter {
   static bool checkNextUnlock();		//returns whether or not the next zone is locked
   static bool unlockNext();
   static void getLastEncounter(int[3]); 	//Modifies the given array to be what previousEncunter is.
-  static void printAll(); 			//for debugging
-  static void printInZone();			//for debugging
  private:
   static int myZone;
   static int previousEncounter[3]; //type, won-lost, trait used

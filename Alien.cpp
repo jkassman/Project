@@ -210,6 +210,8 @@ void Alien::updateStats(int encounterType, int whichTrait, bool win) {
     cout<<"A wild bug appeared! That's not an encounter!"<<endl;
     break;
   }
+  if(trait[0]<-5) trait[0]=-5;
+  if(trait[0]>15) trait[0]=15;
 }
 
 //Decides if the alien will attack. True = attack.

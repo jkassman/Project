@@ -1,3 +1,3 @@
-Chris Maheu April 29, 2015  1:22AM
-Fixed alien appearances
+Chris Maheu April 29, 2015  1:55 AM
+Added maximum and minimum hostility
 

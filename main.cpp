@@ -82,6 +82,10 @@ int main() {
 
 						alienMax=Encounter::getZone()+2;
 						if(Encounter::getZone()) alienMax++;
+						// Zone:	alienMax:
+						//  0		  2
+						//  1		  4
+						//  2		  5
 						
 						switch (rand()% alienMax) { //random number between 0 and myZone+1. 
 						case 0:

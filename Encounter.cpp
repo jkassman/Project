@@ -271,24 +271,6 @@ int Encounter::getWonInZone(int encounter) {
   }
 }
 
-void Encounter::printAll() {
-  for (int j = 0; j < 6; j++) {
-    for (int i = 0; i < 2; i++) {
-      cout << encountersTotal[i][j] << " ";
-    }
-    cout << endl;
-  }
-}
-
-void Encounter::printInZone() {
-  for (int j = 0; j < 6; j++) {
-    for (int i = 0; i < 2; i++) {
-      cout << encountersInZone[i][j] << " ";
-    }
-    cout << endl;
-  }
-}
-
 //returns whether or not the next zone is locked
 bool Encounter::checkNextUnlock()
 {
