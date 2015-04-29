@@ -21,10 +21,10 @@ Golem			3
 //when they lose
 
 Zones: Difficulty and reward DOUBLES each zone.
-myZone (internal Zones): 0-4.
-displayed Zones: 1-5
+myZone (internal Zones): 0-2.
+displayed Zones: 1-3
 Unlock with 2 trades and 2 stories, THEN win a race with navigation.
-Currently Zones 1-5 ONLY.
+Currently Zones 1-3 ONLY.
 Player starts with:
        0 in trait 0 (dummy value)
        6 in each attribute, each trait is +/- 3.
@@ -66,12 +66,8 @@ TO-DO:
 
 Also, later aliens may be too weak (dragon hasn't increased as much by the time
 we unlock it)
-Verify that you can't just laser everything
 Disallow laser/speed winds counting for unlocking next zone
-Finish Graphics
 Add detailed encounter option text
-Have a minimum/maximum hostility,traits
-Instruction manual/help
 Save game
 
 Health
