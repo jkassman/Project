@@ -5,6 +5,6 @@ There are eight traits that describe the status of your ship and yourself. Each 
 
 ATTRIBUTES: [P] POWER   [I] INTELLIGENCE [E] ENGINES    [S] SANITY
 TRAITS:     [1] Lasers  [3] Trickery     [5] Speed      [7] Bravery
-            [2] Shields [4] Diplomacy    [6] Navigation	[8] Trickery
+            [2] Shields [4] Diplomacy    [6] Navigation [8] Trickery
 
 During your journey, you will spend most of your time alone in your ship. You can use this valuable time to train your attributes by pressing the letter keys listed by each attribute. Use this time carefully, because before long you will run into other aliens, and the way you spend your training time will affect what happens.
