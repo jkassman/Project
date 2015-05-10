@@ -431,7 +431,7 @@ void Message::resetScreen(Player * captain, int whichScreen, string alienName)
   if (whichScreen == 1) //Training mode
     { 
       showScreen(&mTrainingScreen);
-      topBox += "\n\nChoose which Attibute you want to train: \n";
+      topBox += "\n\nChoose which Attribute you want to train: \n";
       //top box
       convertToScreen(scaled, 45, 25, 1105, 560, h_original, w_original); 
       x = scaled[0]; y = scaled[1]; width = scaled[2];
@@ -853,7 +853,7 @@ string Message::int2str(int toConvert)
 //displays the specified trait in the correct position on the screen
 void Message::displayTrait(int trait, Player* captain, int x, int y, int width, int h_original, int w_original, SDL_Color textColor)
 {
-  int scaled[3];
+  int scaled[4];
   string toDisplay;
   convertToScreen(scaled, x, y, width, 0, h_original, w_original); //we won't be using height, set it as zero 
   x = scaled[0]; y = scaled[1]; width = scaled[2];
